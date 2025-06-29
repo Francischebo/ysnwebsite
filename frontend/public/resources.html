@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Chapters | Youth Synergy Network</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <!-- <link rel="stylesheet" href="css/styles.css"> -->
+    <style>
+        /* Base Styles */
+        
+         :root {
+            --primary: #ff7700;
+            --secondary: #1e3a8a;
+            --accent: #10b981;
+            --light: #f8fafc;
+            --dark: #0f172a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Utility Classes */
+        
+        .container {
+            width: 100%;
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e05f00;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #15296b;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        /* University Chapter Grid */
+        
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .chapter-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .chapter-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .chapter-image {
+            height: 200px;
+            background-color: var(--secondary);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .chapter-content {
+            padding: 1.5rem;
+        }
+        
+        .chapter-content h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .chapter-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        
+        .chapter-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .chapter-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .chapter-initiatives {
+            background-color: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chapter-initiatives h4 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+        }
+        
+        .initiative-list {
+            list-style: none;
+        }
+        
+        .initiative-list li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        
+        .initiative-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .legend {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 1.5rem;
+        }
+        
+        .legend h3 {
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            color: #0f172a;
+        }
+        
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+        
+        .legend-label {
+            font-size: 0.9rem;
+        }
+        .university-info h2 {
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+        
+        .university-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        
+        .university-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .university-initiatives {
+            margin-top: 0.75rem;
+        }
+        
+        .university-initiatives h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+        
+        .initiative-list {
+            list-style: none;
+        }
+        
+        .initiative-list li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.3rem;
+        }
+        
+        .initiative-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #ff7700;
+            font-weight: bold;
+        }
+        /* Join Chapter Section */
+        
+        .join-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .step-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+        
+        .step-card h3 {
+            margin: 1rem 0;
+            color: var(--dark);
+        }
+        
+        .step-card p {
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+        /* Resources Grid */
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .resource-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .resource-icon {
+            height: 120px;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .resource-content {
+            padding: 1.5rem;
+        }
+        
+        .resource-content h3 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+        }
+        
+        .resource-content p {
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+        
+        .download-link {
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        /* Stats Section */
+        
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            min-width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        /* CTA Section */
+        
+        .cta-section {
+            text-align: center;
+            padding: 5rem 0;
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-content p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        /* Footer */
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo img {
+            height: 40px;
+        }
+        
+        .footer-logo h2 {
+            font-size: 1.25rem;
+        }
+        
+        .footer-about p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: block;
+            gap: 1rem;
+        }
+        
+        .social-icon {
+            display: block;
+            align-items: center;
+            justify-content: left;
+            padding: 5px;
+            width: 55%;
+            height: 5%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+        
+        .footer-subscribe h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-subscribe p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 300px;
+        }
+        
+        .subscribe-input {
+            flex-grow: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 0.375rem 0 0 0.375rem;
+            outline: none;
+            font-size: 0.875rem;
+        }
+        
+        .subscribe-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 0.375rem 0.375rem 0;
+            padding: 0 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .subscribe-btn:hover {
+            background-color: #e05f00;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.875rem;
+        }
+        
+        /* Header and Navigation */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 1rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #0066cc;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline {
+            border: 2px solid #0066cc;
+            color: #0066cc;
+        }
+        
+        .btn-outline:hover {
+            background-color: #0066cc;
+            color: #fff;
+        }
+        
+        .btn-primary {
+            background-color: #0066cc;
+            color: #fff;
+            border: 2px solid #0066cc;
+        }
+        
+        .btn-primary:hover {
+            background-color: #004d99;
+            border-color: #004d99;
+        }
+        
+        /* Mobile Navigation */
+        .hamburger {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        nav {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            z-index: 1001;
+        }
+        nav.active {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        nav ul li {
+            margin: 0;
+            width: 100%;
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        /* Media Queries */
+        @media screen and (max-width: 1024px) {
+            nav ul li {
+                margin-left: 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #fff;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
+            }
+            
+            nav.active {
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                padding: 0.75rem 2rem;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-buttons {
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: center;
+                border-bottom: none;
+            }
+            
+            .logo h1 {
+                font-size: 1rem;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo h1 {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="assets/images/ysn-logo.jpg" alt="YSN Logo">
+                <h1>Youth Synergy Network</h1>
+            </div>
+            <button class="hamburger" aria-label="Toggle navigation">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="programs.html">Programs</a></li>
+                    <li><a href="program-details.html">Impacts</a></li>
+                    <li><a href="chapters.html">Chapters</a></li>
+                    <li><a href="leadership.html">Leadership</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="media.html">Media</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="nav-buttons"><a href="donate.html" class="btn btn-outline">Donate</a></li>
+                    <li class="nav-buttons"><a href="join-us.html" class="btn btn-primary">Join Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>University Chapters</h1>
+                <p>Building a network of youth-led change across Kenya's universities through leadership, mentorship, and community action.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our University Network</h2>
+                <p>Empowering student leaders across Kenya's higher education institutions</p>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number">18</div>
+                    <div class="stat-label">Active Chapters</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">750+</div>
+                    <div class="stat-label">Student Leaders</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">42</div>
+                    <div class="stat-label">Faculty Advisors</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">22,000+</div>
+                    <div class="stat-label">Students Reached</div>
+                </div>
+            </div>
+
+            <div class="map-header">
+                <h1>Youth Synergy Network University Chapters</h1>
+                <p>Explore our network of chapters across Kenya's universities <a href="chapters-map.html" class="btn btn-primary ">Click here to view</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Chapters Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured University Chapters</h2>
+                <p>Explore our most active and impactful student-led initiatives</p>
+            </div>
+
+            <div class="chapter-grid">
+                <!-- Chapter 1 -->
+                <div class="chapter-card">
+                    <div class="chapter-image">
+                        University of Nairobi
+                    </div>
+                    <div class="chapter-content">
+                        <h3>UoN Synergy Chapter</h3>
+                        <div class="chapter-meta">
+                            <div class="chapter-meta-item">
+                                <span>Est. 2021</span>
+                            </div>
+                            <div class="chapter-meta-item">
+                                <span>150+ Members</span>
+                            </div>
+                        </div>
+                        <p>The flagship chapter with a strong focus on constitutional literacy and environmental law advocacy. Their "Law in Simple Language" program has reached over 5,000 students across faculties.</p>
+
+                        <div class="chapter-initiatives">
+                            <h4>Key Initiatives:</h4>
+                            <ul class="initiative-list">
+                                <li>Weekly legal literacy clinics</li>
+                                <li>Campus tree planting campaign</li>
+                                <li>Mental health peer counseling</li>
+                                <li>High school mentorship program</li>
+                            </ul>
+                        </div>
+                        <a href="chapters.html" class="btn btn-outline">Visit Chapter Page</a>
+                    </div>
+                </div>
+
+                <!-- Chapter 2 -->
+                <div class="chapter-card">
+                    <div class="chapter-image">
+                        Kenyatta University
+                    </div>
+                    <div class="chapter-content">
+                        <h3>KU Synergy Leaders</h3>
+                        <div class="chapter-meta">
+                            <div class="chapter-meta-item">
+                                <span>Est. 2022</span>
+                            </div>
+                            <div class="chapter-meta-item">
+                                <span>120+ Members</span>
+                            </div>
+                        </div>
+                        <p>Known for their innovative approach to period dignity and menstrual health education, this chapter has distributed over 10,000 sanitary pads to universities and neighboring schools.</p>
+
+                        <div class="chapter-initiatives">
+                            <h4>Key Initiatives:</h4>
+                            <ul class="initiative-list">
+                                <li>Monthly sanitary pad drives</li>
+                                <li>Gender rights awareness forums</li>
+                                <li>Environmental justice campaigns</li>
+                                <li>Community legal aid outreach</li>
+                            </ul>
+                        </div>
+                        <a href="chapters.html" class="btn btn-outline">Visit Chapter Page</a>
+                    </div>
+                </div>
+
+                <!-- Chapter 3 -->
+                <div class="chapter-card">
+                    <div class="chapter-image">
+                        Strathmore University
+                    </div>
+                    <div class="chapter-content">
+                        <h3>Strathmore Synergy Hub</h3>
+                        <div class="chapter-meta">
+                            <div class="chapter-meta-item">
+                                <span>Est. 2022</span>
+                            </div>
+                            <div class="chapter-meta-item">
+                                <span>85+ Members</span>
+                            </div>
+                        </div>
+                        <p>Leveraging the university's strength in business and law, this chapter focuses on legal entrepreneurship and climate justice advocacy with innovative approaches to sustainability.</p>
+
+                        <div class="chapter-initiatives">
+                            <h4>Key Initiatives:</h4>
+                            <ul class="initiative-list">
+                                <li>Legal innovation hackathons</li>
+                                <li>Climate leadership academy</li>
+                                <li>Corporate sustainability partnerships</li>
+                                <li>Mental wellness workshops</li>
+                            </ul>
+                        </div>
+                        <a href="chapters.html" class="btn btn-outline">Visit Chapter Page</a>
+                    </div>
+                </div>
+
+                <!-- Chapter 4 -->
+                <div class="chapter-card">
+                    <div class="chapter-image">
+                        Moi University
+                    </div>
+                    <div class="chapter-content">
+                        <h3>Moi YSN Chapter</h3>
+                        <div class="chapter-meta">
+                            <div class="chapter-meta-item">
+                                <span>Est. 2023</span>
+                            </div>
+                            <div class="chapter-meta-item">
+                                <span>95+ Members</span>
+                            </div>
+                        </div>
+                        <p>Spearheading rural outreach initiatives with strong connections to schools in Eldoret and surrounding regions. Their mental health initiatives have created campus-wide impact.</p>
+
+                        <div class="chapter-initiatives">
+                            <h4>Key Initiatives:</h4>
+                            <ul class="initiative-list">
+                                <li>Rural school adoption program</li>
+                                <li>Mental health healing circles</li>
+                                <li>Indigenous environmental knowledge preservation</li>
+                                <li>Constitutional literacy in mother tongues</li>
+                            </ul>
+                        </div>
+                        <a href="chapters.html" class="btn btn-outline">Visit Chapter Page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Starting a Chapter Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Start a Chapter at Your University</h2>
+                <p>Bringing the Youth Synergy Network to your campus in four simple steps</p>
+            </div>
+
+            <div class="join-steps">
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Form a Core Team</h3>
+                    <p>Gather 5-10 passionate students from diverse faculties with interest in legal literacy, climate action, period dignity, or mental wellness.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Secure Faculty Advisor</h3>
+                    <p>Identify and engage a supportive faculty member, preferably from law, environmental studies, psychology, or gender studies.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Apply Online</h3>
+                    <p>Complete our chapter application form, submit your action plan, and schedule an orientation call with the national team.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Launch Your Chapter</h3>
+                    <p>Receive your starter kit, training resources, and official certification to begin your campus impact journey.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <a href="chapters.html" class="btn btn-primary">Apply to Start a Chapter</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter Resources Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Chapter Resources</h2>
+                <p>Tools and materials to support university chapter activities</p>
+            </div>
+
+            <div class="resources-grid">
+                <!-- Resource 1 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📚</div>
+                    <div class="resource-content">
+                        <h3>YSN Legal Literacy Toolkit</h3>
+                        <p>Simplified guide to constitutional rights, land, criminal, gender, and children's law explained, ideal for university legal aid groups.</p>
+                        <!-- <a href="#" class="download-link" id="pdfList">Download PDF →</a>-->
+                    </div>
+                </div>
+
+                <!-- Resource 2 -->
+                <div class="resource-card">
+                    <div class="resource-icon">🧠</div>
+                    <div class="resource-content">
+                        <h3>Mental Health Peer Support Handbook</h3>
+                        <p>Guidelines for forming and facilitating healing circles, psychological first aid basics, and referral protocols for university counselors.</p>
+                        <!-- <a href="#" class="download-link">Download PDF →</a> -->
+                    </div>
+                </div>
+
+                <!-- Resource 3 -->
+                <div class="resource-card">
+                    <div class="resource-icon">🌱</div>
+                    <div class="resource-content">
+                        <h3>Environmental Action Guidebook</h3>
+                        <p>Tree planting steps, environmental laws, clean-up mobilization, and data collection templates for youth-led environmental audits.</p>
+                        <!-- <a href="#" class="download-link" id="pdfList">Download PDF →</a>-->
+                    </div>
+                </div>
+
+                <!-- Resource 4 -->
+                <div class="resource-card">
+                    <div class="resource-icon">🩸</div>
+                    <div class="resource-content">
+                        <h3>Sanitary Dignity Field Manual</h3>
+                        <p>How to conduct pad drives, menstrual health education session guides, and community mapping and advocacy templates.</p>
+                        <!-- <a href="#" class="download-link" id="pdfList">Download PDF →</a>-->
+                    </div>
+                </div>
+
+                <!--div class="resource-card">
+                    <div class="resource-icon">📄</div>
+                    <div class="resource-content">
+                        <div class="resources-grid" id="toolkit">
+                            <!-- JS will populate this -->
+                        <!-- JS will populate this -->
+                        </div>
+                    </div>
+                </!--div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reports & Publications Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Reports & Publications</h2>
+                <p>Research, impact reports, and policy briefs from our network</p>
+            </div>
+
+            <div class="resources-grid">
+                <!-- Report 1 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📊</div>
+                    <div class="resource-content">
+                        <h3>Annual Impact Reports</h3>
+                        <p>Yearly activity, financial, and reach summaries with stories of impact from youth beneficiaries. Includes performance charts and region-by-region breakdowns.</p>
+                        <a href="#report" class="download-link">View Reports →</a>
+                    </div>
+                </div>
+
+                <!-- Report 2 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📝</div>
+                    <div class="resource-content">
+                        <h3>YSN Research Papers & Policy Briefs</h3>
+                        <p>Thematic focus on youth and the Constitution, period poverty and education, climate justice and legal reform. Submitted to policymakers and university think tanks.</p>
+                        <!-- <a href="#" class="download-link">Browse Collection →</a>-->
+                    </div>
+                </div>
+
+                <!-- Report 3 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📋</div>
+                    <div class="resource-content">
+                        <h3>University Chapter Reports</h3>
+                        <p>Each chapter submits a semesterly activity report profiling their unique challenges, innovations, and wins. Available to other chapters for benchmarking.</p>
+                        <!-- <a href="#" class="download-link" id="pdfList">Access Reports →</a>-->
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon"></div>
+                    <div class="resource-content">
+                        <div class="resources-grid" id="report">
+                            <!-- JS will populate this -->
+                        <!-- JS will populate this -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training Materials Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Training & Presentation Materials</h2>
+                <p>Educational resources for chapter events and workshops</p>
+            </div>
+
+            <div class="resources-grid">
+                <!-- Training 1 -->
+                <div class="resource-card">
+                    <div class="resource-icon">🖥️</div>
+                    <div class="resource-content">
+                        <h3>Workshop Slides</h3>
+                        <p>Presentation materials for legal forums, climate leadership training, mental health awareness workshops, and sanitary dignity campaigns.</p>
+                        
+                    </div>
+                </div>
+
+                <!-- Training 2 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📒</div>
+                    <div class="resource-content">
+                        <h3>Facilitator Manuals</h3>
+                        <p>Detailed instructions for delivering impactful sessions, including icebreakers, breakout group instructions, and sample roleplays.</p>
+                        
+                    </div>
+                </div>
+
+                <!-- Training 3 -->
+                <div class="resource-card">
+                    <div class="resource-icon">🎬</div>
+                    <div class="resource-content">
+                        <h3>Video & Audio Resources</h3>
+                        <p>Downloadable short videos explaining key legal and climate concepts, plus podcast episodes in MP3 format for offline school listening.</p>
+                        <a href="https://youtube.com/@synergynetwork-x3b?feature=shared" class="download-link">Access Media →</a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">📄</div>
+                    <div class="resource-content">
+                        <div class="resources-grid" id="training">
+                            <a href="#" class="download-link" id="pdfList">Download Manuals →</a>
+                            <a href="#" class="download-link" id="pdfList">Download Slides →</a>
+                            <a href="#" class="download-link" id="pdfList">Download Manuals →</a>
+                            <!-- JS will populate this -->
+                        <!-- JS will populate this -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- YSN Publications Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>YSN Publications</h2>
+                <p>Regular publications to keep our network informed and inspired</p>
+            </div>
+
+            <div class="resources-grid">
+                <!-- Publication 1 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📰</div>
+                    <div class="resource-content">
+                        <h3>"Voices of Synergy" Youth Magazine</h3>
+                        <p>Quarterly publication showcasing youth stories, creative writing, photo essays, and legal reflections. Features guest articles from activists, lawyers, and students.</p>
+                        <!-- <a href="news.html" class="download-link">Read Latest Issue →</a> -->
+                    </div>
+                </div>
+
+                <!-- Publication 2 -->
+                <div class="resource-card">
+                    <div class="resource-icon">⚖️</div>
+                    <div class="resource-content">
+                        <h3>"Youth Policy & Action Digest"</h3>
+                        <p>Summarizes the latest youth-relevant laws, policies, and court rulings. Translates legal jargon into youth-friendly summaries with links to official gazettes and statutes.</p>
+                        <!--  <a href="#" class="download-link">Browse Digest →</a> -->
+                    </div>
+                </div>
+
+                <!--div class="resource-card">
+                    <div class="resource-icon">📄</div>
+                    <div class="resource-content">
+                        <div class="resources-grid" id="publication">
+                            <!-- JS will populate this -->
+                        <!-- JS will populate this -->
+                        </div>
+                    </div>
+                </!--div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Branding & Promotional Assets Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Branding & Promotional Assets</h2>
+                <p>Materials to help chapters maintain consistent branding</p>
+            </div>
+
+            <div class="resources-grid">
+                <!-- Branding 1 -->
+                <div class="resource-card">
+                    <div class="resource-icon">🎨</div>
+                    <div class="resource-content">
+                        <h3>YSN Logo Files</h3>
+                        <p>Available in PNG, JPEG, and vector formats with guidelines on logo placement, color usage, and font pairing.</p>
+                        <!-- <a href="#" class="download-link">Download Assets →</a> -->
+                    </div>
+                </div>
+
+                <!-- Branding 2 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📱</div>
+                    <div class="resource-content">
+                        <h3>Social Media Templates</h3>
+                        <p>Editable Canva and PowerPoint files for event flyers, quote cards, chapter announcements, and impact stats and testimonials.</p>
+                        <!-- <a href="#" class="download-link">Access Templates →</a> -->
+                    </div>
+                </div>
+
+                <!-- Branding 3 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📊</div>
+                    <div class="resource-content">
+                        <h3>YSN Slide Deck Template</h3>
+                        <p>Branded PowerPoint for use in university presentations and training sessions.</p>
+                        <!-- <a href="#" class="download-link">Download Template →</a>-->
+                    </div>
+                </div>
+
+                <!-- Branding 4 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📄</div>
+                    <div class="resource-content">
+                        <h3>Official Letterheads & Report Covers</h3>
+                        <p>For use by recognized university chapters only. Includes standardized chapter report formats.</p>
+                        <!-- <a href="#" class="download-link">Download Templates →</a> -->
+                    </div>
+                </div>
+                <!--div class="resource-card">
+                    <div class="resource-icon">📄</div>
+                    <div class="resource-content">
+                        <div class="resources-grid" id="branding">
+                            <!-- JS will populate this -->
+                        <!-- JS will populate this -->
+                        </div>
+                    </div>
+                </!--div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Submission Portals Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Submission Portals</h2>
+                <p>Systems for uploading reports and requesting resources</p>
+            </div>
+
+            <div class="resources-grid">
+                <!-- Portal 1 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📤</div>
+                    <div class="resource-content">
+                        <h3>Chapter Report Submissions</h3>
+                        <p>Upload your chapter's semesterly reports and activity documentation.</p>
+                        <a href="chapters.html" class="btn btn-outline">Access Portal</a>
+                    </div>
+                </div>
+
+                <!-- Portal 2 -->
+                <div class="resource-card">
+                    <div class="resource-icon">✍️</div>
+                    <div class="resource-content">
+                        <h3>Article Submissions</h3>
+                        <p>Submit youth-authored articles for consideration in YSN publications.</p>
+                        <a href="news.html" class="btn btn-outline">Submit Articles</a>
+                    </div>
+                </div>
+
+                <!-- Portal 3 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📦</div>
+                    <div class="resource-content">
+                        <h3>Training Kit Requests</h3>
+                        <p>Request customized training kits for your chapter's specific needs.</p>
+                        <a href="mailto:programs@youthsynergy.or.ke" class="btn btn-outline">Request Resources</a>
+                    </div>
+                </div>
+
+                <!-- Portal 4 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📬</div>
+                    <div class="resource-content">
+                        <h3>Hard Copy Requests</h3>
+                        <p>Submit a form for courier dispatch if your region lacks digital access.</p>
+                        <a href="mailto:programs@youthsynergy.or.ke" class="btn btn-outline">Request Hard Copies</a>
+                    </div>
+                </div>
+                <div class="resources-grid" id="reportsGrid">
+                    <!-- JS will populate this -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Access Options Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Access Options</h2>
+                <p>Multiple ways to access our resources based on your connectivity needs</p>
+            </div>
+
+            <div class="join-steps">
+                <!-- Option 1 -->
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Online Viewing</h3>
+                    <p>PDF flipbooks and image galleries for in-browser reading with low data usage.</p>
+                </div>
+
+                <!-- Option 2 -->
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Direct Downloads</h3>
+                    <p>PDFs, DOCX, and ZIP folders for offline use and local file storage.</p>
+                </div>
+
+                <!-- Option 3 -->
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Print-Friendly Versions</h3>
+                    <p>Special low-ink versions for printing in schools and field offices with limited resources.</p>
+                </div>
+
+                <!-- Option 4 -->
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Hard Copy Requests</h3>
+                    <p>Submit a form for courier dispatch if your region lacks digital access or reliable connectivity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Join Our University Network</h2>
+                <p>Connect with other student leaders across Kenya to share resources, experiences, and best practices for creating meaningful impact.</p>
+                <div class="cta-buttons">
+                    <a href="chapters.html" class="btn btn-primary">Start a Chapter</a>
+                    <!--<a href="events.html" class="btn btn-outline">Join Upcoming Webinar</a> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container ">
+            <div class="footer-content ">
+                <div class="footer-about ">
+                    <div class="footer-logo ">
+                        <img src="assets/images/ysn-logo.jpg " alt="YSN Logo ">
+                        <h2>Youth Synergy Network</h2>
+                    </div>
+                    <p>Empowering youth to become leaders in legal literacy, climate action, mental health awareness, and community service.</p>
+                    <h3>Social Media Links</h3>
+                    <div class="social-links ">
+                        <a href="https://www.facebook.com/profile.php?id=61575320623640" class="social-icon ">Facebook</a>
+                        <a href="https://x.com/YouthN49907?t=LglVEql7hVOFXLyZCiQuYA&s=09" class="social-icon ">X Platform</a>
+                        <a href="https://www.linkedin.com/in/youth-synergy-network-51b538362?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon ">LinkedIn</a>
+                        <a href="https://www.tiktok.com/@youth.synergy.net" class="social-icon ">Tiktok</a>
+                        <a href="https://www.instagram.com/youth_synergynework?igsh=Mmx1eHM4NGdycjFu" class="social-icon ">Instagram</a>
+                    </div>
+                </div>
+
+                <div class="footer-links ">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html ">Home</a></li>
+                        <li><a href="about.html ">About Us</a></li>
+                        <li><a href="programs.html ">Programs</a></li>
+                        <li>
+                            <a href="program-details.html ">Impacts</a>
+                        </li>
+                        <li><a href="leadership.html ">Leadership</a></li>
+                        <li><a href="chapters.html ">University Chapters</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links ">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="events.html ">Events</a></li>
+                        <li><a href="resources.html ">Resources</a></li>
+                        <li><a href="media.html ">Media Center</a></li>
+                        <li><a href="blog.html ">Blog</a></li>
+                        <li><a href="contact.html ">Contact Us</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="footer-subscribe ">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for updates on our programs and impact stories.</p>
+                    <form id="subscribeForm" class="subscribe-form">
+                        <input type="email" id="email" name="email" class="subscribe-input" placeholder="Your email address" required><br><br>
+                        <button type="submit" class="subscribe-btn">Subscribe</button>
+                    </form>
+                    <p id="subscribeMessage"></p>
+                </div>
+            </div>
+
+            <div class="footer-bottom ">
+                <p>&copy; 2025 Youth Synergy Network. All Rights Reserved.</p>
+                <p>Developer: Francis(<i><a href="mailto:mtechspacesolutions@gmail.com">Mobet Tech Space Solutions. Click to email them.</a></i>)</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        async function loadResourcesByCategory() {
+            // Fetch all resources from the backend
+            const res = await fetch('/api/resources');
+            const resources = await res.json();
+
+            // Helper: Map category to section ID
+            const categoryToId = {
+                branding: 'branding',
+                report: 'report',
+                toolkit: 'toolkit',
+                training: 'training',
+                publication: 'publication'
+            };
+
+            // Clear all resource grids
+            Object.values(categoryToId).forEach(id => {
+                const grid = document.getElementById(id);
+                if (grid) grid.innerHTML = '';
+            });
+
+            // Group and display resources by category
+            resources.forEach(resource => {
+                const sectionId = categoryToId[resource.category];
+                if (!sectionId) return; // Skip unknown categories
+                const grid = document.getElementById(sectionId);
+                if (!grid) return;
+
+                // Choose an icon for each category
+                let icon = '📄';
+                switch(resource.category) {
+                    case 'branding': icon = '🎨'; break;
+                    case 'report': icon = '📊'; break;
+                    case 'toolkit': icon = '🧰'; break;
+                    case 'training': icon = '🖥️'; break;
+                    case 'publication': icon = '📰'; break;
+                }
+
+                // Create the resource card
+                const card = document.createElement('div');
+                card.className = 'resource-card';
+                card.innerHTML = `
+                    <div class="resource-icon">${icon}</div>
+                    <div class="resource-content">
+                        <h3>${resource.title}</h3>
+                        <p>${resource.description || ''}</p>
+                        <a href="/api/resources/download/${resource._id}" class="download-link" target="_blank">Download</a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+
+            // Optionally, show a message if a section is empty
+            Object.entries(categoryToId).forEach(([cat, id]) => {
+                const grid = document.getElementById(id);
+                if (grid && grid.children.length === 0) {
+                    grid.innerHTML = '<p>No resources available in this category yet.</p>';
+                }
+            });
+        }
+
+        // Load resources when the page loads
+        document.addEventListener('DOMContentLoaded', loadResourcesByCategory);
+    </script>
+
+    <script>
+        // Toggle mobile navigation
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.textContent = nav.classList.contains('active') ? '✕' : '☰';
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !hamburger.contains(e.target) && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                hamburger.textContent = '☰';
+            }
+        });
+        
+        // Close mobile menu when window is resized above mobile breakpoint
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                hamburger.textContent = '☰';
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById('subscribeForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+
+            // Basic email validation
+            if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email }),
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    // Subscription was successful
+                    alert(result.message || "Subscribed successfully!");
+                    document.getElementById('subscribeForm').reset();
+                } else {
+                    // Application-level error (including "already subscribed")
+                    alert(result.error || "User already subscribed.");
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again.');
+                document.getElementById('subscribeMessage').textContent = "";
+            }
+        });
+    </script>
+    <script>
+        document.getElementById('articleForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+    
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+    
+            try {
+                const response = await fetch('/dashboard', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+    
+                if (response.ok) {
+                    alert('Article added successfully!');
+                    e.target.reset();
+                } else {
+                    alert('Failed to add article.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while adding the article.');
+            }
+        });
+    </script>
+    <script>
+        // ...existing code...
+        async function loadReports() {
+            const res = await fetch('/api/reports');
+            const reports = await res.json();
+            const grid = document.getElementById('reportsGrid');
+            grid.innerHTML = '';
+            if (!reports.length) {
+                grid.innerHTML = '<p>No reports available yet.</p>';
+                return;
+            }
+            reports.forEach(r => {
+                grid.innerHTML += `
+                    <div class="resource-card">
+                        <div class="resource-icon">📊</div>
+                        <div class="resource-content">
+                            <h3>${r.title}</h3>
+                            <p>${r.description || ''}</p>
+                            <a href="/api/reports/download/${r._id}" class="download-link" target="_blank">Download</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+        document.addEventListener('DOMContentLoaded', loadReports);
+    </script>
+    
+    <script>
+        async function loadPdfs() {
+            const res = await fetch('/api/pdfs');
+            const pdfs = await res.json();
+            const container = document.getElementById('pdfList');
+            container.innerHTML = '';
+
+            if (pdfs.length === 0) {
+                container.innerHTML = '<p>No PDFs available.</p>';
+                return;
+            }
+
+            pdfs.forEach(pdf => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <p>${pdf.originalName}</p>
+                    <button onclick="downloadPdf('${pdf._id}')">Download</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        async function downloadPdf(id) {
+            window.location.href = `/api/download/${id}`;
+        }
+
+        loadPdfs();
+    </script>
+</body>
+
+</html>

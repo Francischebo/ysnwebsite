@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Programs | Youth Synergy Network</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Base Styles */
+        
+         :root {
+            --primary: #ff7700;
+            --secondary: #1e3a8a;
+            --accent: #10b981;
+            --light: #f8fafc;
+            --dark: #0f172a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Utility Classes */
+        
+        .container {
+            width: 100%;
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e05f00;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #15296b;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        /* Header Styles */
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            font-weight: 500;
+            color: var(--dark);
+            transition: color 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        /* Programs Hero Section */
+        
+        .programs-hero {
+            margin-top: 86px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://picsum.photos/1600/800') center/cover no-repeat;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+        
+        .programs-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .programs-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .programs-hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        /* Section Styles */
+        
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-alt {
+            background-color: #f1f5f9;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        /* Programs Overview */
+        
+        .programs-overview {
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+        /* Program Cards */
+        
+        .program-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .program-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+        }
+        
+        .program-image {
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100%;
+        }
+        
+        .program-image .icon {
+            font-size: 4rem;
+            color: white;
+        }
+        
+        .program-content {
+            padding: 2rem;
+        }
+        
+        .program-content h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .program-overview {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            color: #64748b;
+        }
+        /* Program Components */
+        
+        .program-components h4 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .components-list {
+            margin-bottom: 1.5rem;
+        }
+        
+        .components-list li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .components-list li::before {
+            content: "•";
+            color: var(--primary);
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        /* Program Impact */
+        
+        .program-impact h4 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .impact-stats {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .impact-stat {
+            flex: 1;
+            min-width: 120px;
+            background-color: #f8fafc;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.25rem;
+        }
+        /* CTA Section */
+        
+        .cta-section {
+            text-align: center;
+            padding: 5rem 0;
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-content p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        /* Partners Section */
+        
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            margin: 3rem auto;
+            max-width: 900px;
+        }
+        
+        .partner-card {
+            background-color: white;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .partner-card:hover {
+            transform: translateY(-5px);
+        }
+        /* Footer */
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo img {
+            height: 40px;
+        }
+        
+        .footer-logo h2 {
+            font-size: 1.25rem;
+        }
+        
+        .footer-about p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: block;
+            gap: 1rem;
+        }
+        
+        .social-icon {
+            display: block;
+            align-items: center;
+            justify-content: left;
+            padding: 5px;
+            width: 55%;
+            height: 5%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+        
+        .footer-subscribe h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-subscribe p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 300px;
+        }
+        
+        .subscribe-input {
+            flex-grow: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 0.375rem 0 0 0.375rem;
+            outline: none;
+            font-size: 0.875rem;
+        }
+        
+        .subscribe-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 0.375rem 0.375rem 0;
+            padding: 0 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .subscribe-btn:hover {
+            background-color: #e05f00;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.875rem;
+        }
+        /* Header and Navigation */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 1rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #0066cc;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline {
+            border: 2px solid #0066cc;
+            color: #0066cc;
+        }
+        
+        .btn-outline:hover {
+            background-color: #0066cc;
+            color: #fff;
+        }
+        
+        .btn-primary {
+            background-color: #0066cc;
+            color: #fff;
+            border: 2px solid #0066cc;
+        }
+        
+        .btn-primary:hover {
+            background-color: #004d99;
+            border-color: #004d99;
+        }
+        
+        /* Mobile Navigation */
+        .hamburger {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        nav {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            z-index: 1001;
+        }
+        nav.active {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        nav ul li {
+            margin: 0;
+            width: 100%;
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        /* Media Queries */
+        @media screen and (max-width: 1024px) {
+            nav ul li {
+                margin-left: 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #fff;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
+            }
+            
+            nav.active {
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                padding: 0.75rem 2rem;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-buttons {
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: center;
+                border-bottom: none;
+            }
+            
+            .logo h1 {
+                font-size: 1rem;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo h1 {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="assets/images/ysn-logo.jpg" alt="YSN Logo">
+                <h1>Youth Synergy Network</h1>
+            </div>
+            <button class="hamburger" aria-label="Toggle navigation">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="programs.html">Programs</a></li>
+                    <li><a href="program-details.html">Impacts</a></li>
+                    <li><a href="chapters.html">Chapters</a></li>
+                    <li><a href="leadership.html">Leadership</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="media.html">Media</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="nav-buttons"><a href="donate.html" class="btn btn-outline">Donate</a></li>
+                    <li class="nav-buttons"><a href="join-us.html" class="btn btn-primary">Join Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Programs Hero Section -->
+    <section class="programs-hero">
+        <div class="container">
+            <div class="programs-hero-content">
+                <h1>Our Transformative Programs</h1>
+                <p>Discover how Youth Synergy Network is empowering young people through action-oriented initiatives across Kenya.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Overview Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Approach</h2>
+            </div>
+            <div class="programs-overview">
+                <p>The Youth Synergy Network (YSN) runs transformative programs built on five interconnected pillars of action: Legal Empowerment, Mental Health, Climate Justice, Gender Dignity, and Youth Mentorship. Each program is strategically developed
+                    to address real challenges affecting young people across Kenya, using a grassroots-led, rights-based, and solution-oriented approach.</p>
+            </div>
+
+            <div class="program-grid">
+                <!-- Program 1 -->
+                <div class="program-card">
+                    <div class="program-image">
+                        <div class="icon">⚖️</div>
+                    </div>
+                    <div class="program-content">
+                        <h3>Youth Empowerment & Legal Awareness</h3>
+                        <p class="program-overview">This flagship initiative seeks to equip young people — especially university and high school students — with practical knowledge of the law, civic rights, leadership ethics, and policy-making processes.</p>
+
+                        <div class="program-components">
+                            <h4>Key Components:</h4>
+                            <ul class="components-list">
+                                <li>Youth Legal Literacy Caravan: A mobile program that tours counties holding interactive forums, mock trials, and legal mentorships</li>
+                                <li>Know Your Rights Campaigns: Workshops on constitutional rights, sexual & reproductive health rights, labor law, and access to justice</li>
+                                <li>Youth & the Constitution Forums: Legal literacy discussions based on the 2010 Constitution of Kenya with law experts and civic educators</li>
+                            </ul>
+                        </div>
+
+                        <div class="program-impact">
+                            <h4>Outcomes So Far:</h4>
+                            <div class="impact-stats">
+                                <div class="impact-stat">
+                                    <div class="stat-number">30+</div>
+                                    <p>Legal awareness forums held</p>
+                                </div>
+                                <div class="impact-stat">
+                                    <div class="stat-number">2,000+</div>
+                                    <p>Youth trained on civic literacy</p>
+                                </div>
+                                <div class="impact-stat">
+                                    <div class="stat-number">14</div>
+                                    <p>Legal clinics hosted</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program 2 -->
+                <div class="program-card">
+                    <div class="program-image">
+                        <div class="icon">🌱</div>
+                    </div>
+                    <div class="program-content">
+                        <h3>Climate Change & Environmental Justice</h3>
+                        <p class="program-overview">Recognizing that the climate crisis is a youth crisis, this campaign empowers young people to be front-line defenders of their environments. Activities combine climate education, sustainability training, and grassroots eco-action.</p>
+
+                        <div class="program-components">
+                            <h4>Key Components:</h4>
+                            <ul class="components-list">
+                                <li>Tree Planting Drives: In collaboration with schools and county governments</li>
+                                <li>Green Clubs in Schools: Youth-led clubs focused on environmental preservation</li>
+                                <li>Climate Justice Dialogues: Campus-based conversations linking climate change to inequality, land rights, and policy gaps</li>
+                                <li>Sustainable Living Trainings: On clean energy, waste management, water conservation</li>
+                            </ul>
+                        </div>
+
+                        <div class="program-impact">
+                            <h4>Impact Highlights:</h4>
+                            <div class="impact-stats">
+                                <div class="impact-stat">
+                                    <div class="stat-number">400+</div>
+                                    <p>Trees planted across five counties</p>
+                                </div>
+                                <div class="impact-stat">
+                                    <div class="stat-number">15</div>
+                                    <p>Schools established green clubs</p>
+                                </div>
+                                <div class="impact-stat">
+                                    <div class="stat-number">8</div>
+                                    <p>Public climate forums hosted</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program 3 -->
+                <div class="program-card">
+                    <div class="program-image">
+                        <div class="icon">🧠</div>
+                    </div>
+                    <div class="program-content">
+                        <h3>Mental Health Advocacy</h3>
+                        <p class="program-overview">Addressing Kenya's mental health crisis — especially among youth — this program creates safe spaces for peer support, trauma healing, and mental wellness conversations.</p>
+
+                        <div class="program-components">
+                            <h4>Key Components:</h4>
+                            <ul class="components-list">
+                                <li>Mental Health Dialogues: Interactive sessions facilitated by trained psychologists and peer counselors</li>
+                                <li>Campus Wellness Clubs: Run by trained peer leaders, offering counseling referrals and support networks</li>
+                                <li>Art for Healing Events: Using spoken word, visual art, and music to express emotion and share healing journeys</li>
+                                <li>Mental Health Policy Advocacy: Campaigning for better mental health infrastructure in schools</li>
+                            </ul>
+                        </div>
+
+                        <div class="program-impact">
+                            <h4>Achievements:</h4>
+                            <div class="impact-stats">
+                                <div class="impact-stat">
+                                    <div class="stat-number">10+</div>
+                                    <p>Mental health clubs launched</p>
+                                </div>
+                                <div class="impact-stat">
+                                    <div class="stat-number">30+</div>
+                                    <p>Forums facilitated</p>
+                                </div>
+                                <div class="impact-stat">
+                                    <div class="stat-number">100+</div>
+                                    <p>Youth referred to professional care</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program 4 -->
+                <div class="program-card">
+                    <div class="program-image">
+                        <div class="icon">👧</div>
+                    </div>
+                    <div class="program-content">
+                        <h3>Provision of Sanitary Pads: The Dignity Drive</h3>
+                        <p class="program-overview">YSN champions menstrual dignity as a human right. Through the Sanitary Pads for Dignity Initiative, the Network donates sanitary products to girls in marginalized schools while conducting menstrual hygiene education.</p>
+
+                        <div class="program-components">
+                            <h4>Key Components:</h4>
+                            <ul class="components-list">
+                                <li>Pad Drives in Rural Schools</li>
+                                <li>Menstrual Health Workshops (run by nurses and trained educators)</li>
+                                <li>Boys for Dignity Sessions (engaging male students in empathy-based conversations)</li>
+                                <li>Policy Dialogue with Counties to integrate menstrual products into budgets</li>
+                            </ul>
+                        </div>
+
+                        <div class="program-impact">
+                            <h4>Results to Date:</h4>
+                            <div class="impact-stats">
+                                <div class="impact-stat">
+                                    <div class="stat-number">8,000+</div>
+                                    <p>Pads distributed</p>
+                                </div>
+                                <div class="impact-stat">
+                                    <div class="stat-number">25</div>
+                                    <p>Schools reached</p>
+                                </div>
+                                <div class="impact-stat">
+                                    <div class="stat-number">100+</div>
+                                    <p>Boys trained as "Dignity Ambassadors"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program 5 -->
+                <div class="program-card">
+                    <div class="program-image">
+                        <div class="icon">🎓</div>
+                    </div>
+                    <div class="program-content">
+                        <h3>Mentorship & High School Motivation Tours</h3>
+                        <p class="program-overview">This program bridges the inspiration gap by connecting university student leaders and professionals with high school students across Kenya. It promotes academic discipline, goal-setting, leadership, and career direction.</p>
+
+                        <div class="program-components">
+                            <h4>Key Components:</h4>
+                            <ul class="components-list">
+                                <li>Campus-to-Classroom Tours: Law students and alumni visit schools to mentor</li>
+                                <li>Vision Boards & Life Skills Sessions</li>
+                                <li>Law as a Career Workshops: With law students and advocates</li>
+                                <li>Girls in Law Campaign: Encouraging high-performing girls to pursue law and leadership roles</li>
+                            </ul>
+                        </div>
+
+                        <div class="program-impact">
+                            <h4>Achievements:</h4>
+                            <div class="impact-stats">
+                                <div class="impact-stat">
+                                    <div class="stat-number">50+</div>
+                                    <p>Mentorship visits across counties</p>
+                                </div>
+                                <div class="impact-stat">
+                                    <div class="stat-number">1,500+</div>
+                                    <p>Students mentored</p>
+                                </div>
+                                <div class="impact-stat">
+                                    <div class="stat-number">↑</div>
+                                    <p>Increase in law school applicants</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program 6 (NEW) -->
+                <div class="program-card">
+                    <div class="program-image">
+                        <div class="icon">👥</div>
+                    </div>
+                    <div class="program-content">
+                        <h3>Women & Youth in Governance Forums (NEW in 2025)</h3>
+                        <p class="program-overview">A program dedicated to equipping young women and youth from marginalized communities with leadership skills, public speaking ability, and civic confidence to engage in decision-making.</p>
+
+                        <div class="program-components">
+                            <h4>Focus Areas:</h4>
+                            <ul class="components-list">
+                                <li>Leadership training for young women</li>
+                                <li>Public speaking and civic engagement workshops</li>
+                                <li>Decision-making skills for youth from marginalized communities</li>
+                                <li>Engagement with county and national governance structures</li>
+                            </ul>
+                        </div>
+
+                        <div class="program-impact">
+                            <h4>Program Status:</h4>
+                            <p style="font-style: italic; color: var(--primary);">This exciting new initiative is launching in 2025. Join us as we empower the next generation of women and youth leaders in governance!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partnerships Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Partnerships & Collaborators</h2>
+                <p>We work with committed organizations and individuals who share our vision for youth empowerment.</p>
+            </div>
+
+            <div class="partners-grid">
+                <div class="partner-card">Law Societies in Universities</div>
+                <div class="partner-card">Mental Health Kenya (NGO)</div>
+                <div class="partner-card">Afrez TV</div>
+                <div class="partner-card">County Governments</div>
+                <div class="partner-card">School Boards & PTAs</div>
+                <div class="partner-card">Faith-based Organizations</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Get Involved</h2>
+                <p>You can become a program facilitator, peer counselor, eco-champion, or legal educator with YSN. Every skill matters — and every action counts.</p>
+                <div class="cta-buttons">
+                    <a href="mailto:volunteers@youthsynergy.or.ke" class="btn btn-primary">Volunteer With Us</a>
+                    <a href="donate.html" class="btn btn-outline">Support Our Work</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container ">
+            <div class="footer-content ">
+                <div class="footer-about ">
+                    <div class="footer-logo ">
+                        <img src="assets/images/ysn-logo.jpg " alt="YSN Logo ">
+                        <h2>Youth Synergy Network</h2>
+                    </div>
+                    <p>Empowering youth to become leaders in legal literacy, climate action, mental health awareness, and community service.</p>
+                    <h3>Social Media Links</h3>
+                    <div class="social-links ">
+                        <a href="https://www.facebook.com/profile.php?id=61575320623640" class="social-icon ">Facebook</a>
+                        <a href="https://x.com/YouthN49907?t=LglVEql7hVOFXLyZCiQuYA&s=09" class="social-icon ">X Platform</a>
+                        <a href="https://www.linkedin.com/in/youth-synergy-network-51b538362?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon ">LinkedIn</a>
+                        <a href="https://www.tiktok.com/@youth.synergy.net" class="social-icon ">Tiktok</a>
+                        <a href="https://www.instagram.com/youth_synergynework?igsh=Mmx1eHM4NGdycjFu" class="social-icon ">Instagram</a>
+                    </div>
+                </div>
+
+                <div class="footer-links ">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html ">Home</a></li>
+                        <li><a href="about.html ">About Us</a></li>
+                        <li><a href="programs.html ">Programs</a></li>
+                        <li>
+                            <a href="program-details.html ">Impacts</a>
+                        </li>
+                        <li><a href="leadership.html ">Leadership</a></li>
+                        <li><a href="chapters.html ">University Chapters</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links ">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="events.html ">Events</a></li>
+                        <li><a href="resources.html ">Resources</a></li>
+                        <li><a href="media.html ">Media Center</a></li>
+                        <li><a href="blog.html ">Blog</a></li>
+                        <li><a href="contact.html ">Contact Us</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="footer-subscribe ">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for updates on our programs and impact stories.</p>
+                    <form id="subscribeForm" class="subscribe-form">
+                        <input type="email" id="email" name="email" class="subscribe-input" placeholder="Your email address" required><br><br>
+                        <button type="submit" class="subscribe-btn">Subscribe</button>
+                    </form>
+                    <p id="subscribeMessage"></p>
+                </div>
+            </div>
+
+            <div class="footer-bottom ">
+                <p>&copy; 2025 Youth Synergy Network. All Rights Reserved.</p>
+                <p>Developer: Francis(<i><a href="mailto:mtechspacesolutions@gmail.com">Mobet Tech Space Solutions. Click to email them.</a></i>)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle mobile navigation
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.textContent = nav.classList.contains('active') ? '✕' : '☰';
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !hamburger.contains(e.target) && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                hamburger.textContent = '☰';
+            }
+        });
+        
+        // Close mobile menu when window is resized above mobile breakpoint
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                hamburger.textContent = '☰';
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById('subscribeForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+
+            // Basic email validation
+            if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email }),
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    // Subscription was successful
+                    alert(result.message || "Subscribed successfully!");
+                    document.getElementById('subscribeForm').reset();
+                } else {
+                    // Application-level error (including "already subscribed")
+                    alert(result.error || "User already subscribed.");
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again.');
+                document.getElementById('subscribeMessage').textContent = "";
+            }
+        });
+    </script>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

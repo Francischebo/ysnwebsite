@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events Calendar & Highlights | Youth Synergy Network</title>
+    <!--<link rel="stylesheet" href="css/styles.css">-->
+    <style>
+        /* Base Styles */
+        
+         :root {
+            --primary: #ff7700;
+            --secondary: #1e3a8a;
+            --accent: #10b981;
+            --light: #f8fafc;
+            --dark: #0f172a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Utility Classes */
+        
+        .container {
+            width: 95%;
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e05f00;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #15296b;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        /* Hero Section */
+        
+        .events-hero {
+            margin-top: 86px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://picsum.photos/1600/800') center/cover no-repeat;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+        
+        .events-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .events-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .events-hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        /* Section Styles */
+        
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-alt {
+            background-color: #f1f5f9;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        /* Events Overview */
+        
+        .events-overview {
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+        /* Calendar Section */
+        
+        .calendar-container {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .calendar-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .calendar-views {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .calendar-view-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            background-color: #f1f5f9;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .calendar-view-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .calendar-search {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .calendar-search input {
+            padding: 0.75rem 1rem;
+            border-radius: 0.25rem;
+            border: 1px solid #e2e8f0;
+            width: 220px;
+        }
+        
+        .calendar-search button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0 1rem;
+            cursor: pointer;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .calendar-day-header {
+            padding: 0.5rem 0;
+            text-align: center;
+            font-weight: 600;
+            background-color: #f8fafc;
+            border-radius: 0.25rem;
+        }
+        
+        .calendar-day {
+            min-height: 100px;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.25rem;
+            padding: 0.5rem;
+            position: relative;
+        }
+        
+        .calendar-day-number {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .calendar-event {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            margin-bottom: 0.25rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .calendar-event.legal {
+            background-color: #ffe4e4;
+            color: #b91c1c;
+        }
+        
+        .calendar-event.mental-health {
+            background-color: #e0f2fe;
+            color: #0369a1;
+        }
+        
+        .calendar-event.environment {
+            background-color: #dcfce7;
+            color: #15803d;
+        }
+        
+        .calendar-event.sanitary {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        
+        .calendar-event.chapter {
+            background-color: #f3e8ff;
+            color: #7e22ce;
+        }
+        
+        .calendar-event.policy {
+            background-color: #e0e7ff;
+            color: #4338ca;
+        }
+        
+        .calendar-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+        
+        .filter-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+        
+        .filter-tag.legal {
+            background-color: #ffe4e4;
+            color: #b91c1c;
+        }
+        
+        .filter-tag.mental-health {
+            background-color: #e0f2fe;
+            color: #0369a1;
+        }
+        
+        .filter-tag.environment {
+            background-color: #dcfce7;
+            color: #15803d;
+        }
+        
+        .filter-tag.sanitary {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        
+        .filter-tag.chapter {
+            background-color: #f3e8ff;
+            color: #7e22ce;
+        }
+        
+        .filter-tag.policy {
+            background-color: #e0e7ff;
+            color: #4338ca;
+        }
+        
+        .filter-tag input {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .calendar-integration {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        
+        .integration-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #f1f5f9;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .integration-option:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        /* Upcoming Events Preview */
+        .events-container {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .event-card {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ddd;
+            padding: 0;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .event-card h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .event-card p {
+            margin: 0.5rem 0;
+        }
+        
+        .upcoming-events {
+            margin-bottom: 4rem;
+        }
+        
+        .event-cards {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .event-image {
+            height: 180px;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            overflow: hidden;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .event-countdown {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .event-content {
+            padding: 1.5rem;
+        }
+        
+        .event-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .event-category.legal {
+            background-color: #ffe4e4;
+            color: #b91c1c;
+        }
+        
+        .event-category.mental-health {
+            background-color: #e0f2fe;
+            color: #0369a1;
+        }
+        
+        .event-category.sanitary {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        
+        .event-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+        }
+        
+        .event-details {
+            margin-bottom: 1.5rem;
+        }
+        
+        .event-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .event-icon {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        /* Annual Events */
+        
+        .annual-events {
+            margin-bottom: 4rem;
+        }
+        
+        .annual-event {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+        
+        .annual-event h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+        }
+        
+        .annual-event-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .annual-event-month {
+            color: var(--primary);
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        
+        .annual-event ul {
+            list-style-position: inside;
+            margin-top: 0.75rem;
+            margin-left: 1rem;
+        }
+        
+        .annual-event li {
+            margin-bottom: 0.5rem;
+        }
+        /* Event Gallery */
+        
+        .event-gallery {
+            margin-bottom: 4rem;
+            width: 100%;
+        }
+        
+        .gallery-tabs {
+            display: flex;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .gallery-tab {
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+        }
+        
+        .gallery-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .gallery-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .gallery-item {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+        .gallery-image {
+            height: 180px;
+            background-color: var(--secondary, #6c757d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .gallery-item-content {
+            padding: 1.5rem;
+        }
+        .gallery-item-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark, #343a40);
+        }
+        .gallery-item-description {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        /* Host Event Section */
+        
+        .host-event {
+            margin-bottom: 4rem;
+        }
+        
+        .host-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .host-step {
+            flex: 1;
+            min-width: 200px;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .host-step h4 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        /* Volunteer Section */
+        
+        .volunteer-section {
+            margin-bottom: 4rem;
+        }
+        
+        .volunteer-roles {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .volunteer-role {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid var(--primary);
+        }
+        
+        .volunteer-role h4 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .speaker-portal {
+            background-color: var(--secondary);
+            color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+        
+        .speaker-portal h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .speaker-portal p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        /* Impact Dashboard */
+        
+        .impact-dashboard {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .impact-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .metric-card {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            border-radius: 0.5rem;
+            background-color: #f8fafc;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-label {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+        /* University Law Schools */
+        
+        .law-schools-section {
+            margin-bottom: 4rem;
+        }
+        
+        .law-schools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .law-school-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .law-school-card h4 {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+        }
+        
+        .law-school-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        
+        .location-icon {
+            color: var(--primary);
+        }
+        /* CTA Section */
+        
+        .cta-section {
+            text-align: center;
+            padding: 5rem 0;
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-content p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        /* Footer */
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo img {
+            height: 40px;
+        }
+        
+        .footer-logo h2 {
+            font-size: 1.25rem;
+        }
+        
+        .footer-about p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: block;
+            gap: 1rem;
+        }
+        
+        .social-icon {
+            display: block;
+            align-items: center;
+            justify-content: left;
+            padding: 5px;
+            width: 55%;
+            height: 5%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+        
+        .footer-subscribe h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-subscribe p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 300px;
+        }
+        
+        .subscribe-input {
+            flex-grow: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 0.375rem 0 0 0.375rem;
+            outline: none;
+            font-size: 0.875rem;
+        }
+        
+        .subscribe-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 0.375rem 0.375rem 0;
+            padding: 0 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .subscribe-btn:hover {
+            background-color: #e05f00;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.875rem;
+        }
+        /* Header and Navigation */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 1rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #0066cc;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline {
+            border: 2px solid #0066cc;
+            color: #0066cc;
+        }
+        
+        .btn-outline:hover {
+            background-color: #0066cc;
+            color: #fff;
+        }
+        
+        .btn-primary {
+            background-color: #0066cc;
+            color: #fff;
+            border: 2px solid #0066cc;
+        }
+        
+        .btn-primary:hover {
+            background-color: #004d99;
+            border-color: #004d99;
+        }
+        
+        /* Mobile Navigation */
+        .hamburger {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        nav {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            z-index: 1001;
+        }
+        nav.active {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        nav ul li {
+            margin: 0;
+            width: 100%;
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        /* Media Queries */
+        @media screen and (max-width: 1024px) {
+            nav ul li {
+                margin-left: 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #fff;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
+            }
+            
+            nav.active {
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                padding: 0.75rem 2rem;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-buttons {
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: center;
+                border-bottom: none;
+            }
+            
+            .logo h1 {
+                font-size: 1rem;
+            }
+            .event-card {
+                width: 100%;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo h1 {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="assets/images/ysn-logo.jpg" alt="YSN Logo">
+                <h1>Youth Synergy Network</h1>
+            </div>
+            <button class="hamburger" aria-label="Toggle navigation">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="programs.html">Programs</a></li>
+                    <li><a href="program-details.html">Impacts</a></li>
+                    <li><a href="chapters.html">Chapters</a></li>
+                    <li><a href="leadership.html">Leadership</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="media.html">Media</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="nav-buttons"><a href="donate.html" class="btn btn-outline">Donate</a></li>
+                    <li class="nav-buttons"><a href="join-us.html" class="btn btn-primary">Join Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="events-hero">
+        <div class="container">
+            <div class="events-hero-content">
+                <h1>Events Calendar & Highlights</h1>
+                <p>Track, engage with, and celebrate all major activities organized or attended by Youth Synergy Network</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Overview</h2>
+            </div>
+            <div class="events-overview">
+                <p>The YSN Events Calendar & Highlights section offers a centralized platform for tracking, engaging with, and celebrating all major activities organized or attended by Youth Synergy Network. This includes upcoming forums, school outreach
+                    programs, university chapter summits, policy dialogues, legal awareness days, mental health retreats, and international observances.</p>
+                <p>This section is designed to promote visibility, participation, coordination, and documentation of both past and future events.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Calendar Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Interactive Events Calendar</h2>
+                <p>Stay up-to-date with all Youth Synergy Network events through our interactive calendar</p>
+            </div>
+
+            <div class="calendar-container">
+                <div class="calendar-controls">
+                    <div class="calendar-views">
+                        <div class="calendar-view-btn active">Monthly</div>
+                        <div class="calendar-view-btn">Weekly</div>
+                        <div class="calendar-view-btn">Agenda</div>
+                    </div>
+                    <div class="calendar-search">
+                        <input type="text" id="search-events" placeholder="Search events...">
+                        <button onclick="searchEvents()">Search</button>
+                    </div>
+                </div>
+
+                <div class="calendar-grid" id="calendar-grid">
+                    <!-- Calendar days will be dynamically generated -->
+                </div>
+
+                <div class="calendar-filters">
+                    <div class="filter-tag legal">
+                        <input type="checkbox" checked onchange="filterEvents('legal')">
+                        <span>Legal</span>
+                    </div>
+                    <div class="filter-tag mental-health">
+                        <input type="checkbox" checked onchange="filterEvents('mental-health')">
+                        <span>Mental Health</span>
+                    </div>
+                    <div class="filter-tag environment">
+                        <input type="checkbox" checked onchange="filterEvents('environment')">
+                        <span>Environment</span>
+                    </div>
+                    <div class="filter-tag sanitary">
+                        <input type="checkbox" checked onchange="filterEvents('sanitary')">
+                        <span>Sanitary Dignity</span>
+                    </div>
+                    <div class="filter-tag chapter">
+                        <input type="checkbox" checked onchange="filterEvents('chapter')">
+                        <span>University Chapters</span>
+                    </div>
+                    <div class="filter-tag policy">
+                        <input type="checkbox" checked onchange="filterEvents('policy')">
+                        <span>Policy Forums</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Events Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header upcoming-events">
+                <h2>Upcoming Events Preview</h2>
+                <p>Join us for these exciting opportunities to learn, network, and grow</p>
+            </div>
+
+            <div id="events-container" class="events-container">
+                <div class="event-cards" id="event-cards">
+                    
+                    <!-- Events will be dynamically rendered here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Annual Events Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Signature Annual Events</h2>
+                <p>These flagship programs occur each year across Kenya, anchored in YSN's mission</p>
+            </div>
+
+            <div class="annual-events">
+                <div class="annual-event">
+                    <h3>Youth & Constitution Week</h3>
+                    <div class="annual-event-content">
+                        <p><span class="annual-event-month">August</span> - Our flagship legal literacy program aimed at empowering young Kenyans with constitutional knowledge.</p>
+                        <ul>
+                            <li>Legal literacy sessions in schools and universities</li>
+                            <li>Community debates, quizzes, and essay competitions</li>
+                            <li>Social media challenge: "Know Your Rights Kenya"</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="annual-event">
+                    <h3>Healing Circles Camp</h3>
+                    <div class="annual-event-content">
+                        <p><span class="annual-event-month">October</span> - A wellness-focused retreat for students dealing with various forms of stress and pressure.</p>
+                        <ul>
+                            <li>3-day wellness camp for students and young leaders</li>
+                            <li>Safe space for processing trauma, stress, academic pressure</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="annual-event">
+                    <h3>Pads for Power Campaign</h3>
+                    <div class="annual-event-content">
+                        <p><span class="annual-event-month">March</span> - Our largest nationwide dignity campaign focused on menstrual health and education.</p>
+                        <ul>
+                            <li>Largest nationwide YSN pad distribution and dignity campaign</li>
+                            <li>Held during International Women's Month</li>
+                            <li>Targets over 50 schools annually</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="annual-event">
+                    <h3>University Chapter Summit</h3>
+                    <div class="annual-event-content">
+                        <p><span class="annual-event-month">July</span> - A leadership development program bringing together all YSN chapter leaders.</p>
+                        <ul>
+                            <li>Gathering of chapter presidents, secretaries, and coordinators</li>
+                            <li>Training on program design, budgeting, reporting, and leadership</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="annual-event">
+                    <h3>Green Justice Month</h3>
+                    <div class="annual-event-content">
+                        <p><span class="annual-event-month">September</span> - Our environmental justice initiative focused on climate literacy and action.</p>
+                        <ul>
+                            <li>Tree planting drives, climate literacy workshops, clean-up events</li>
+                            <li>Youth leaders trained on environmental governance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Gallery Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Event Highlights Gallery</h2>
+                <p>Explore photos, videos, and resources from our past events</p>
+            </div>
+            <!-- Tabs -->
+            <div class="gallery-tabs">
+                <div class="gallery-tab active" onclick="filterPdfs('all')">All</div>
+                <div class="gallery-tab" onclick="filterPdfs('legal')">Legal</div>
+                <div class="gallery-tab" onclick="filterPdfs('mental-health')">Mental Health</div>
+                <div class="gallery-tab" onclick="filterPdfs('environment')">Environment</div>
+                <div class="gallery-tab" onclick="filterPdfs('sanitary')">Sanitary Dignity</div>
+                <div class="gallery-tab" onclick="filterPdfs('chapter')">University Chapters</div>
+                <div class="gallery-tab" onclick="filterPdfs('policy')">Policy Forums</div>
+            </div>
+            <!-- Gallery Content -->
+            <div class="gallery-content" id="galleryContent"  style="height: 100%; width: 100%">
+                <div id="galleryContainer"></div>
+                <!-- PDFs will be injected here -->
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                            <img src="/assets/images/legalaidcaravan.jpg" alt="Legal Aid Caravan" style="height: 100%; width: 100%">
+                    </div>
+                    <div class="gallery-item-content">
+                        <h4 class="gallery-item-title">2024 Legal Aid Caravan Report</h4>
+                        <p class="gallery-item-description">Download our comprehensive report...</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="/assets/images/mentalawareness.jpg" alt="Healing Circles Kisumu"  style="height: 100%; width: 100%">
+                    </div>
+                    <div class="gallery-item-content">
+                        <h4 class="gallery-item-title">Photo Album: Healing Circles Kisumu Edition</h4>
+                        <p class="gallery-item-description">Browse through moments captured during our transformative mental health sessions</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="/assets/images/youthclimate.jpg" alt="Youth Climate Assembly"   style="height: 100%; width: 100%">
+                    </div>
+                    <div class="gallery-item-content">
+                        <h4 class="gallery-item-title">Highlight Video: Youth Climate Assembly – Mombasa</h4>
+                        <p class="gallery-item-description">Watch key moments from our coastal climate justice program</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="/assets/images/summit.jpg" alt="2023 Summit"   style="height: 100%; width: 100%">
+                    </div>
+                    <div class="gallery-item-content">
+                        <h4 class="gallery-item-title">Blog Post: What I Learned from the 2023 Summit</h4>
+                        <p class="gallery-item-description">Personal reflections from a university chapter president on leadership and growth</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Host Event Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Host an Event With YSN</h2>
+                <p>Partner with us to bring YSN programming to your institution or community</p>
+            </div>
+
+            <div class="host-steps">
+                <div class="host-step">
+                    <div class="step-number">1</div>
+                    <h4>Submit Proposal</h4>
+                    <p>Fill out our "Host a YSN Event" form indicating your theme, location, expected participants, and preferred date range</p>
+                </div>
+
+                <div class="host-step">
+                    <div class="step-number">2</div>
+                    <h4>Initial Review</h4>
+                    <p>Our Program Team will respond within 5 working days with feedback and next steps</p>
+                </div>
+
+                <div class="host-step">
+                    <div class="step-number">3</div>
+                    <h4>Partnership Agreement</h4>
+                    <p>We'll sign an MOU or Partnership Agreement outlining responsibilities, expectations and deliverables</p>
+                </div>
+
+                <div class="host-step">
+                    <div class="step-number">4</div>
+                    <h4>Joint Planning</h4>
+                    <p>Collaborative planning begins with our team working closely with yours to ensure success</p>
+                </div>
+
+                <div class="host-step">
+                    <div class="step-number">5</div>
+                    <h4>Event Execution</h4>
+                    <p>Host a transformative event with YSN's expertise, resources, and network support</p>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="mailto:info@youthsynergy.or.ke" class="btn btn-primary">Start Event Proposal</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Volunteer Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Volunteer & Speaker Opportunities</h2>
+                <p>Join us in making our events impactful and memorable</p>
+            </div>
+
+            <div class="volunteer-section">
+                <h3>Volunteer Roles Per Event:</h3>
+                <div class="volunteer-roles">
+                    <div class="volunteer-role">
+                        <h4>Ushers</h4>
+                        <p>Assist with registration, seating, and general flow management during events</p>
+                    </div>
+
+                    <div class="volunteer-role">
+                        <h4>Documentation Assistants</h4>
+                        <p>Help with photography, note-taking, video recording, and social media coverage</p>
+                    </div>
+
+                    <div class="volunteer-role">
+                        <h4>First Aid/Wellness Officers</h4>
+                        <p>Provide basic support for participants' physical and emotional wellbeing</p>
+                    </div>
+
+                    <div class="volunteer-role">
+                        <h4>Peer Legal Educators</h4>
+                        <p>Law students who can simplify legal concepts for younger audiences</p>
+                    </div>
+
+                    <div class="volunteer-role">
+                        <h4>Social Media Ambassadors</h4>
+                        <p>Help amplify our event message across various digital platforms</p>
+                    </div>
+                </div>
+
+                <div class="speaker-portal">
+                    <h3>Speaker/Trainer Portal</h3>
+                    <p>Are you an expert in mental health, law, gender, or climate justice? Join our Speaker Bureau to share your knowledge with Kenya's youth.</p>
+                    <a href="mailto:info@youthsynergy.or.ke" class="btn btn-outline">Apply as Speaker/Trainer</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Dashboard Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Impact Metrics Dashboard</h2>
+                <p>Live statistics of our cumulative event impact across Kenya</p>
+            </div>
+
+            <div class="impact-dashboard">
+                <div class="impact-metrics">
+                    <div class="metric-card">
+                        <div class="metric-value">280+</div>
+                        <div class="metric-label">Events Hosted</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-value">21,000+</div>
+                        <div class="metric-label">Students Reached</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-value">30+</div>
+                        <div class="metric-label">Counties Covered</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-value">10,000+</div>
+                        <div class="metric-label">Pads Distributed</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-value">12,000+</div>
+                        <div class="metric-label">Trees Planted</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-value">95+</div>
+                        <div class="metric-label">Legal Aid Sessions</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-value">110+</div>
+                        <div class="metric-label">Healing Circles</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Law Schools Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Kenyan Law School Universities in this Movement</h2>
+                <p>Our university chapter network spans across these prestigious law schools</p>
+            </div>
+
+            <div class="law-schools-section">
+                <div class="law-schools-grid">
+                    <div class="law-school-card">
+                        <h4>University of Nairobi</h4>
+                        <div class="law-school-location">
+                            <span class="location-icon">📍</span>
+                            <span>Parklands, Nairobi</span>
+                        </div>
+                    </div>
+
+                    <div class="law-school-card">
+                        <h4>Moi University</h4>
+                        <div class="law-school-location">
+                            <span class="location-icon">📍</span>
+                            <span>Eldoret (Annex Campus)</span>
+                        </div>
+                    </div>
+
+                    <div class="law-school-card">
+                        <h4>Kenyatta University</h4>
+                        <div class="law-school-location">
+                            <span class="location-icon">📍</span>
+                            <span>Parklands, Nairobi</span>
+                        </div>
+                    </div>
+
+                    <div class="law-school-card">
+                        <h4>Strathmore University</h4>
+                        <div class="law-school-location">
+                            <span class="location-icon">📍</span>
+                            <span>Madaraka, Nairobi</span>
+                        </div>
+                    </div>
+
+                    <div class="law-school-card">
+                        <h4>Jomo Kenyatta University (JKUAT)</h4>
+                        <div class="law-school-location">
+                            <span class="location-icon">📍</span>
+                            <span>Karen, Nairobi</span>
+                        </div>
+                    </div>
+
+                    <div class="law-school-card">
+                        <h4>Mount Kenya University (MKU)</h4>
+                        <div class="law-school-location">
+                            <span class="location-icon">📍</span>
+                            <span>Parklands, Nairobi</span>
+                        </div>
+                    </div>
+
+                    <div class="law-school-card">
+                        <h4>Catholic University (CUEA)</h4>
+                        <div class="law-school-location">
+                            <span class="location-icon">📍</span>
+                            <span>Lang'ata, Nairobi</span>
+                        </div>
+                    </div>
+
+                    <div class="law-school-card">
+                        <h4>Kisii University</h4>
+                        <div class="law-school-location">
+                            <span class="location-icon">📍</span>
+                            <span>Kisii Town</span>
+                        </div>
+                    </div>
+
+                    <div class="law-school-card">
+                        <h4>Maseno University</h4>
+                        <div class="law-school-location">
+                            <span class="location-icon">📍</span>
+                            <span>Kisumu City Campus</span>
+                        </div>
+                    </div>
+
+                    <div class="law-school-card">
+                        <h4>Egerton University</h4>
+                        <div class="law-school-location">
+                            <span class="location-icon">📍</span>
+                            <span>Nakuru Town Campus</span>
+                        </div>
+                    </div>
+
+                    <div class="law-school-card">
+                        <h4>Africa Nazarene University</h4>
+                        <div class="law-school-location">
+                            <span class="location-icon">📍</span>
+                            <span>Ongata Rongai, Kajiado</span>
+                        </div>
+                    </div>
+
+                    <div class="law-school-card">
+                        <h4>Daystar University</h4>
+                        <div class="law-school-location">
+                            <span class="location-icon">📍</span>
+                            <span>Valley Road, Nairobi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Make an Impact?</h2>
+                <p>Join Youth Synergy Network in creating positive change across Kenya through our events and initiatives.</p>
+                <div class="cta-buttons">
+                    <a href="join-us.html" class="btn btn-primary">Register for an Event</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container ">
+            <div class="footer-content ">
+                <div class="footer-about ">
+                    <div class="footer-logo ">
+                        <img src="assets/images/ysn-logo.jpg " alt="YSN Logo ">
+                        <h2>Youth Synergy Network</h2>
+                    </div>
+                    <p>Empowering youth to become leaders in legal literacy, climate action, mental health awareness, and community service.</p>
+                    <h3>Social Media Links</h3>
+                    <div class="social-links ">
+                        <a href="https://www.facebook.com/profile.php?id=61575320623640" class="social-icon ">Facebook</a>
+                        <a href="https://x.com/YouthN49907?t=LglVEql7hVOFXLyZCiQuYA&s=09" class="social-icon ">X Platform</a>
+                        <a href="https://www.linkedin.com/in/youth-synergy-network-51b538362?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon ">LinkedIn</a>
+                        <a href="https://www.tiktok.com/@youth.synergy.net" class="social-icon ">Tiktok</a>
+                        <a href="https://www.instagram.com/youth_synergynework?igsh=Mmx1eHM4NGdycjFu" class="social-icon ">Instagram</a>
+                    </div>
+                </div>
+
+                <div class="footer-links ">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html ">Home</a></li>
+                        <li><a href="about.html ">About Us</a></li>
+                        <li><a href="programs.html ">Programs</a></li>
+                        <li>
+                            <a href="program-details.html ">Impacts</a>
+                        </li>
+                        <li><a href="leadership.html ">Leadership</a></li>
+                        <li><a href="chapters.html ">University Chapters</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links ">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="events.html ">Events</a></li>
+                        <li><a href="resources.html ">Resources</a></li>
+                        <li><a href="media.html ">Media Center</a></li>
+                        <li><a href="blog.html ">Blog</a></li>
+                        <li><a href="contact.html ">Contact Us</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="footer-subscribe ">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for updates on our programs and impact stories.</p>
+                    <form id="subscribeForm" class="subscribe-form">
+                        <input type="email" id="email" name="email" class="subscribe-input" placeholder="Your email address" required><br><br>
+                        <button type="submit" class="subscribe-btn">Subscribe</button>
+                    </form>
+                    <p id="subscribeMessage"></p>
+                </div>
+            </div>
+
+            <div class="footer-bottom ">
+                <p>&copy; 2025 Youth Synergy Network. All Rights Reserved.</p>
+                <p>Developer: Francis(<i><a href="mailto:mtechspacesolutions@gmail.com">Mobet Tech Space Solutions. Click to email them.</a></i>)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let allEvents = [];
+
+        // Fetch events from backend and initialize everything
+        async function loadEvents() {
+            try {
+                const res = await fetch('/api/events');
+                allEvents = await res.json();
+                console.log("Loaded events:", allEvents); // Add this line
+                renderCalendar(allEvents);
+                renderUpcomingEvents(allEvents);
+                setupFilters();
+                renderGallery(allEvents);
+            } catch (err) {
+                console.error("Error loading events:", err);
+            }
+        }
+
+        // Render calendar grid with events
+        function renderCalendar(events) {
+            const calendarGrid = document.getElementById("calendar-grid");
+            calendarGrid.innerHTML = "";
+
+            // Example: Show current month days (1-31)
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayDiv = document.createElement("div");
+                dayDiv.className = "calendar-day";
+                dayDiv.innerHTML = `<div class="calendar-day-number">${i}</div>`;
+
+                // Add events for this day
+                events.forEach(event => {
+                    const eventDate = new Date(event.date);
+                    if (
+                        eventDate.getFullYear() === year &&
+                        eventDate.getMonth() === month &&
+                        eventDate.getDate() === i
+                    ) {
+                        const eventDiv = document.createElement("div");
+                        eventDiv.className = `calendar-event ${event.category}`;
+                        eventDiv.textContent = event.title;
+                        eventDiv.onclick = () => viewEventDetails(event);
+                        dayDiv.appendChild(eventDiv);
+                    }
+                });
+
+                calendarGrid.appendChild(dayDiv);
+            }
+        }
+
+        // Render upcoming events cards
+        function renderUpcomingEvents(events) {
+            const eventCards = document.getElementById("event-cards");
+            if (!eventCards) {
+                console.error("Element #event-cards not found");
+                return;
+            }
+
+            // Clear previous cards
+            eventCards.innerHTML = "";
+
+            // Sort by soonest date
+            const sorted = [...events].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            if (sorted.length === 0) {
+                eventCards.innerHTML = "<p>No upcoming events match your criteria.</p>";
+                return;
+            }
+
+            sorted.forEach(event => {
+                const eventCard = document.createElement("div");
+                eventCard.className = "event-card";
+
+                const eventDate = new Date(event.date);
+                const countdown = calculateCountdown(event.date);
+
+                // Validate imageUrl
+                const imageUrl = event.imageUrl
+                    ? `/uploads/images/${event.imageUrl.replace(/^.*[\\/]/, '')}`
+                    : "https://via.placeholder.com/300x200?text=No+Image";
+                eventCard.innerHTML = `
+                    <div class="event-image">
+                        <img src="${event.imageUrl}" alt="${event.title}">
+                    </div>
+                    <div class="event-countdown">${countdown}</div>
+                    <div class="event-content">
+                        <span class="event-category ${event.category}">${event.category}</span>
+                        <h3 class="event-title">${event.title}</h3>
+                        <div class="event-details">
+                            <div class="event-detail">
+                                <span class="event-icon">📅</span>
+                                <span>${eventDate.toLocaleDateString()}</span>
+                            </div>
+                            <div class="event-detail">
+                                <span class="event-icon">📍</span>
+                                <span>${event.location || 'Not specified'}</span>
+                            </div>
+                        </div>
+                        <p>${event.description}</p>
+                    </div>
+                `;
+                eventCards.appendChild(eventCard);
+            });
+        }
+
+        // Countdown helper
+        function calculateCountdown(eventDate) {
+            const now = new Date();
+            const eventTime = new Date(eventDate).getTime();
+            const timeLeft = eventTime - now.getTime();
+
+            if (timeLeft <= 0) return "Event Started!";
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        // Show event details (simple alert, can be improved)
+        function viewEventDetails(event) {
+            alert(
+                `Event: ${event.title}\nDate: ${new Date(event.date).toLocaleString()}\nLocation: ${event.location}\nDescription: ${event.description}`
+            );
+        }
+
+        // Filtering logic
+        function setupFilters() {
+            document.querySelectorAll('.calendar-filters input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', applyFiltersAndSearch);
+            });
+            document.getElementById('search-events').addEventListener('input', applyFiltersAndSearch);
+        }
+
+        function applyFiltersAndSearch() {
+            // Get checked categories
+            const checked = Array.from(document.querySelectorAll('.calendar-filters input[type="checkbox"]:checked'))
+                .map(cb => cb.parentElement.classList[1]);
+            // Get search query
+            const query = document.getElementById('search-events').value.trim().toLowerCase();
+
+            let filtered = allEvents.filter(event => checked.includes(event.category));
+            if (query) {
+                filtered = filtered.filter(event => event.title.toLowerCase().includes(query));
+            }
+
+            renderCalendar(filtered);
+            renderUpcomingEvents(filtered);
+        }
+
+        // Search button (for accessibility)
+        function searchEvents() {
+            applyFiltersAndSearch();
+        }
+
+        function renderGallery(events) {
+            const container = document.getElementById("galleryContent");
+            container.innerHTML = ""; // Clear previous
+
+            if (!events.length) {
+                container.innerHTML = "<p>No events found.</p>";
+                return;
+            }
+
+            events.forEach(event => {
+                const item = document.createElement("div");
+                item.className = "event-card";
+                const eventDate = new Date(event.date);
+                const dateStr = eventDate.toLocaleDateString();
+                const imageUrl = event.imageUrl
+                    ? (event.imageUrl.startsWith('http') ? event.imageUrl : `/uploads/events/${event.imageUrl}`)
+                    : "https://via.placeholder.com/300x200?text=No+Image";
+                const countdown = typeof calculateCountdown === "function" ? calculateCountdown(event.date) : "";
+
+                item.innerHTML = `
+                    <div class="event-image">
+                        <img src="${event.imageUrl}" alt="${event.title}">
+                    </div>
+                    <div class="event-countdown">${countdown}</div>
+                    <div class="event-content">
+                        <span class="event-category ${event.category}">${event.category}</span>
+                        <h3 class="event-title">${event.title}</h3>
+                        <div class="event-details">
+                            <div class="event-detail">
+                                <span class="event-icon">📅</span>
+                                <span>${dateStr}</span>
+                            </div>
+                            <div class="event-detail">
+                                <span class="event-icon">📍</span>
+                                <span>${event.location || 'Not specified'}</span>
+                            </div>
+                        </div>
+                        <p>${event.description}</p>
+                    </div>
+                `;
+                container.appendChild(item);
+
+                // Start countdown if needed
+                if (typeof startCountdown === "function") {
+                    startCountdown(event._id, event.date);
+                }
+            });
+        }
+
+        // Filter events by category
+        window.filterPdfs = function(category) {
+            const filtered = category === 'all'
+                ? allEvents
+                : allEvents.filter(ev => ev.category === category);
+
+            renderGallery(filtered);
+
+            // Update active tab
+            document.querySelectorAll('.gallery-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('onclick') === `filterPdfs('${category}')`) {
+                    tab.classList.add('active');
+                }
+            });
+        }
+
+        // Countdown logic (from your original code)
+        function startCountdown(id, eventDateStr) {
+            const countDownDate = new Date(eventDateStr).getTime();
+            const x = setInterval(function () {
+                const now = new Date().getTime();
+                const distance = countDownDate - now;
+
+                if (distance < 0) {
+                    document.getElementById("countdown-" + id).innerHTML = "Started!";
+                    clearInterval(x);
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("countdown-" + id).innerHTML =
+                    days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+            }, 1000);
+        }
+
+        // Initialize
+        document.addEventListener("DOMContentLoaded", () => {
+            loadEvents();
+
+            // Set default tab
+            const allTab = document.querySelector('.gallery-tab[onclick="filterPdfs(\'all\')"]');
+            if (allTab) allTab.classList.add('active');
+        });
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', loadEvents);
+        
+    </script>
+            
+    <script>
+        document.getElementById('subscribeForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+
+            // Basic email validation
+            if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email }),
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    // Subscription was successful
+                    alert(result.message || "Subscribed successfully!");
+                    document.getElementById('subscribeForm').reset();
+                } else {
+                    // Application-level error (including "already subscribed")
+                    alert(result.error || "User already subscribed.");
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again.');
+                document.getElementById('subscribeMessage').textContent = "";
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById('articleForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+    
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+    
+            try {
+                const response = await fetch('/dashboard', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+    
+                if (response.ok) {
+                    alert('Article added successfully!');
+                    e.target.reset();
+                } else {
+                    alert('Failed to add article.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while adding the article.');
+            }
+        });
+    </scrip>
+
+    <script>
+        let allPdfs = [];
+
+        // Fetch PDFs from backend
+        async function fetchPdfs() {
+            try {
+                const res = await fetch('/api/pdfs');
+                allPdfs = await res.json();
+                renderPdfs(allPdfs);
+            } catch (err) {
+                console.error("Failed to load PDFs:", err);
+            }
+        }
+
+        // Render PDFs
+        function renderPdfs(pdfs) {
+            const container = document.getElementById("galleryContent");
+            container.innerHTML = "";
+
+            if (pdfs.length === 0) {
+                container.innerHTML = "<p>No PDFs available yet.</p>";
+                return;
+            }
+
+            pdfs.forEach(pdf => {
+                const div = document.createElement("div");
+                div.className = "gallery-item";
+
+                div.innerHTML = `
+                    <div class="gallery-content" id="galleryContent" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
+                        <div class="gallery-item" style="background-color: white; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); cursor: pointer; transition: transform 0.3s ease;">
+                            <div class="gallery-image" style="height: 180px; background-color: var(--secondary); display: flex; align-items: center; justify-content: center; color: white;">
+                                <img src="/assets/images/pdf-icon.png" alt="PDF Icon" style="width:100%; height:auto;">
+                            </div>
+                            <div class="gallery-item-content" style="padding: 1.5rem;">
+                                <h4 class="gallery-item-title" style='font-weight: 600; margin-bottom: 0.5rem; color: var(--dark);'>${pdf.title}</h4>
+                                <p class="gallery-item-description" style="color: #64748b; font-size: 0.9rem;">${pdf.description || 'Download this resource'}</p>
+                                <a href="/api/download/${pdf._id}" target="_blank">
+                                    <button class="btn btn-primary">Download PDF</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Filter by category
+        function filterPdfs(category) {
+            const tabs = document.querySelectorAll(".gallery-tab");
+            tabs.forEach(tab => tab.classList.remove("active"));
+            event.target.classList.add("active");
+
+            if (category === "all") {
+                renderPdfs(allPdfs);
+            } else {
+                const filtered = allPdfs.filter(pdf => pdf.category === category);
+                renderPdfs(filtered);
+            }
+        }
+
+        // Load on page load
+        window.onload = fetchPdfs;
+    </script>
+    <script>
+        // Toggle mobile navigation
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.textContent = nav.classList.contains('active') ? '✕' : '☰';
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !hamburger.contains(e.target) && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                hamburger.textContent = '☰';
+            }
+        });
+        
+        // Close mobile menu when window is resized above mobile breakpoint
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                hamburger.textContent = '☰';
+            }
+        });
+    </script>
+
+</body>
+
+</html>

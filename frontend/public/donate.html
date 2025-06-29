@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate | Youth Synergy Network</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        /* Base Styles */
+        
+         :root {
+            --primary: #ff7700;
+            --secondary: #1e3a8a;
+            --accent: #10b981;
+            --light: #f8fafc;
+            --dark: #0f172a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Utility Classes */
+        
+        .container {
+            width: 100%;
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e05f00;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #15296b;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        .donate-section {
+            padding: 5rem 0;
+        }
+        .donate-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+        .btn-donate {
+            background-color:  #e05f00;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-donate:hover {
+            background-color:rgb(101, 158, 180);
+        }
+        .success-message, .error-message {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            display: none;
+            margin-top: 1rem;
+        }
+        .success-message {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+        .error-message {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        /* Footer */
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo img {
+            height: 40px;
+        }
+        
+        .footer-logo h2 {
+            font-size: 1.25rem;
+        }
+        
+        .footer-about p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: block;
+            gap: 1rem;
+        }
+        
+        .social-icon {
+            display: block;
+            align-items: center;
+            justify-content: left;
+            padding: 5px;
+            width: 55%;
+            height: 5%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+        
+        .footer-subscribe h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-subscribe p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 300px;
+        }
+        
+        .subscribe-input {
+            flex-grow: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 0.375rem 0 0 0.375rem;
+            outline: none;
+            font-size: 0.875rem;
+        }
+        
+        .subscribe-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 0.375rem 0.375rem 0;
+            padding: 0 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .subscribe-btn:hover {
+            background-color: #e05f00;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.875rem;
+        }
+        /* Header and Navigation */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 1rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #0066cc;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline {
+            border: 2px solid #0066cc;
+            color: #0066cc;
+        }
+        
+        .btn-outline:hover {
+            background-color: #0066cc;
+            color: #fff;
+        }
+        
+        .btn-primary {
+            background-color: #0066cc;
+            color: #fff;
+            border: 2px solid #0066cc;
+        }
+        
+        .btn-primary:hover {
+            background-color: #004d99;
+            border-color: #004d99;
+        }
+        
+        /* Mobile Navigation */
+        .hamburger {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        nav {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            z-index: 1001;
+        }
+        nav.active {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        nav ul li {
+            margin: 0;
+            width: 100%;
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        /* Media Queries */
+        @media screen and (max-width: 1024px) {
+            nav ul li {
+                margin-left: 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #fff;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
+            }
+            
+            nav.active {
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                padding: 0.75rem 2rem;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-buttons {
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: center;
+                border-bottom: none;
+            }
+            
+            .logo h1 {
+                font-size: 1rem;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo h1 {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="assets/images/ysn-logo.jpg" alt="YSN Logo">
+                <h1>Youth Synergy Network</h1>
+            </div>
+            <button class="hamburger" aria-label="Toggle navigation">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="programs.html">Programs</a></li>
+                    <li><a href="program-details.html">Impacts</a></li>
+                    <li><a href="chapters.html">Chapters</a></li>
+                    <li><a href="leadership.html">Leadership</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="media.html">Media</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="nav-buttons"><a href="donate.html" class="btn btn-outline">Donate</a></li>
+                    <li class="nav-buttons"><a href="join-us.html" class="btn btn-primary">Join Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+<!-- Hero Section -->
+<section class="chapters-hero">
+    <div class="container">
+        <div class="chapters-hero-content">
+            <h1>Support Our Mission</h1>
+            <p>Help us empower youth through legal literacy, climate action, and community service</p>
+        </div>
+    </div>
+</section>
+
+<!-- Donation Form -->
+<section class="section donate-section">
+    <div class="container donate-container">
+        <h2 style="text-align:center; margin-bottom: 2rem;">Make a Donation Through Mpesa</h2>
+        <ul>
+            <label style="color: Orange; font-size: 20px; font-weight: bold;">Phone Number: </label>
+            <h2 style="color: Blue">0748492574</h2>
+            <label style="color: Orange; font-size: 20px; font-weight: bold;">Name: </label>
+            <h2 style="color: Blue">Enock Omwansa</h2>
+        <ul>
+
+        <!--    <form id="donationForm">
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" name="phone" placeholder="e.g. 7XX XXX XXX" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">Amount (KES)</label>
+                    <input type="number" id="amount" name="amount" placeholder="e.g. 500" required min="10">
+                </div>
+
+                <div class="form-group" style="text-align:center;">
+                    <button type="submit" class="btn-donate">Donate via M-Pesa</button>
+                </div>
+
+                <!-- Success/Error Messages -->
+                <!-- <div id="successMessage" class="success-message">Initiating payment...</div>
+                <div id="errorMessage" class="error-message"></div>
+            </form>
+        -->
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container ">
+        <div class="footer-content ">
+            <div class="footer-about ">
+                <div class="footer-logo ">
+                    <img src="assets/images/ysn-logo.jpg " alt="YSN Logo ">
+                    <h2>Youth Synergy Network</h2>
+                </div>
+                <p>Empowering youth to become leaders in legal literacy, climate action, mental health awareness, and community service.</p>
+                <h3>Social Media Links</h3>
+                <div class="social-links ">
+                    <a href="https://www.facebook.com/profile.php?id=61575320623640" class="social-icon ">Facebook</a>
+                    <a href="https://x.com/YouthN49907?t=LglVEql7hVOFXLyZCiQuYA&s=09" class="social-icon ">X Platform</a>
+                    <a href="https://www.linkedin.com/in/youth-synergy-network-51b538362?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon ">LinkedIn</a>
+                    <a href="https://www.tiktok.com/@youth.synergy.net" class="social-icon ">Tiktok</a>
+                    <a href="https://www.instagram.com/youth_synergynework?igsh=Mmx1eHM4NGdycjFu" class="social-icon ">Instagram</a>
+                </div>
+            </div>
+
+            <div class="footer-links ">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html ">Home</a></li>
+                    <li><a href="about.html ">About Us</a></li>
+                    <li><a href="programs.html ">Programs</a></li>
+                    <li>
+                        <a href="program-details.html ">Impacts</a>
+                    </li>
+                    <li><a href="leadership.html ">Leadership</a></li>
+                    <li><a href="chapters.html ">University Chapters</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links ">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="events.html ">Events</a></li>
+                    <li><a href="resources.html ">Resources</a></li>
+                    <li><a href="media.html ">Media Center</a></li>
+                    <li><a href="blog.html ">Blog</a></li>
+                    <li><a href="contact.html ">Contact Us</a></li>
+                </ul>
+            </div>
+
+
+            <div class="footer-subscribe ">
+                <h3>Stay Updated</h3>
+                <p>Subscribe to our newsletter for updates on our programs and impact stories.</p>
+                <form id="subscribeForm" class="subscribe-form">
+                    <input type="email" id="email" name="email" class="subscribe-input" placeholder="Your email address" required><br><br>
+                    <button type="submit" class="subscribe-btn">Subscribe</button>
+                </form>
+                <p id="subscribeMessage"></p>
+            </div>
+        </div>
+
+        <div class="footer-bottom ">
+            <p>&copy; 2025 Youth Synergy Network. All Rights Reserved.</p>
+            <p>Developer: Francis(<i><a href="mailto:mtechspacesolutions@gmail.com">Mobet Tech Space Solutions. Click to email them.</a></i>)</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.getElementById('subscribeForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value;
+
+        try {
+            const response = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                document.getElementById('subscribeMessage').textContent = result.message;
+                document.getElementById('subscribeForm').reset();
+            } else {
+                document.getElementById('subscribeMessage').textContent = result.error;
+            }
+        } catch (error) {
+            console.error('Error subscribing:', error);
+            document.getElementById('subscribeMessage').textContent = 'An error occurred. Please try again.';
+        }
+    });
+</script>
+
+<script>
+    document.getElementById('subscribeForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+    
+        const email = document.getElementById('emailInput').value;
+        const messageDiv = document.getElementById('subscribeMessage');
+    
+        if (!email) {
+            messageDiv.textContent = "Please enter a valid email.";
+            messageDiv.style.color = "red";
+            return;
+        }
+    
+        fetch('/api/subscribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                messageDiv.textContent = "Subscription successful!";
+                messageDiv.style.color = "green";
+                document.getElementById('emailInput').value = '';
+            } else {
+                messageDiv.textContent = data.message || "Something went wrong.";
+                messageDiv.style.color = "red";
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            messageDiv.textContent = "Failed to connect to server.";
+            messageDiv.style.color = "red";
+        });
+    });
+</script>
+<script>
+    document.getElementById("donationForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const successMsg = document.getElementById("successMessage");
+        const errorMsg = document.getElementById("errorMessage");
+
+        successMsg.style.display = "none";
+        errorMsg.style.display = "none";
+
+        const phone = document.getElementById("phone").value.trim();
+        const amount = document.getElementById("amount").value.trim();
+
+        if (!phone || !amount) {
+            errorMsg.textContent = "Please fill out all fields.";
+            errorMsg.style.display = "block";
+            return;
+        }
+
+        // Send data to backend
+        fetch("/stk", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ phone, amount })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.ResponseCode === "0") {
+                successMsg.textContent = "Payment request sent successfully!";
+                successMsg.style.display = "block";
+                document.getElementById("donationForm").reset();
+            } else {
+                errorMsg.textContent = data.ResponseDescription || "Something went wrong.";
+                errorMsg.style.display = "block";
+            }
+        })
+        .catch(err => {
+            console.error("Error:", err);
+            errorMsg.textContent = "Failed to process donation.";
+            errorMsg.style.display = "block";
+        });
+    });
+</script>
+<script>
+        // Toggle mobile navigation
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+    
+    hamburger.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        hamburger.textContent = nav.classList.contains('active') ? '✕' : '☰';
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!nav.contains(e.target) && !hamburger.contains(e.target) && nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            hamburger.textContent = '☰';
+        }
+    });
+    
+    // Close mobile menu when window is resized above mobile breakpoint
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            hamburger.textContent = '☰';
+        }
+    });
+</script>
+
+</body>
+</html>

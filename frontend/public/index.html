@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youth Synergy Network | Empowering Kenya's Youth</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <style>
+        /* Base Styles */
+        
+         :root {
+            --primary: #ff7700;
+            --secondary: #1e3a8a;
+            --accent: #10b981;
+            --light: #f8fafc;
+            --dark: #0f172a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Utility Classes */
+        
+        .container {
+            width: 100%;
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e05f00;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #15296b;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        /* Header Styles */
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            font-weight: 500;
+            color: var(--dark);
+            transition: color 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        .login-container {
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+            text-align: center;
+        }
+        /* Hero Section */
+        
+        .hero {
+            margin-top: 86px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://picsum.photos/1600/800') center/cover no-repeat;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        /* About Section */
+        
+        .about {
+            padding: 5rem 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .about-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .about-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .about-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .about-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        /* Programs Section */
+        
+        .programs {
+            background-color: #f1f5f9;
+            padding: 5rem 0;
+        }
+        
+        .program-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .program-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .image_prog {
+            height: 100%;
+            width: 100%;
+            background-color: white;
+            position: relative;
+        }
+        
+        .program-img {
+            height: 200px;
+            background-color: white;
+            position: relative;
+        }
+        
+        .program-content {
+            padding: 1.5rem;
+        }
+        
+        .program-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+        }
+        
+        .program-content p {
+            margin-bottom: 1.5rem;
+            color: #64748b;
+        }
+        /* Testimonials */
+        
+        .testimonials {
+            padding: 5rem 0;
+        }
+        
+        .testimonial-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #334155;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .testimonial-author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ddd;
+        }
+        
+        .testimonial-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ddd;
+        }
+        
+        .testimonial-author-info h4 {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .testimonial-author-info p {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+        /* Events Section */
+        
+        .events {
+            background-color: #f1f5f9;
+            padding: 5rem 0;
+        }
+        
+        .event-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .event-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .event-img {
+            height: 200px;
+            background-color: #ddd;
+        }
+        
+        .event-content {
+            padding: 1.5rem;
+        }
+        
+        .event-date {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .event-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+        }
+        
+        .event-content p {
+            margin-bottom: 1.5rem;
+            color: #64748b;
+        }
+        
+        .event-details {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+        /* University Chapters */
+        
+        .chapters {
+            padding: 5rem 0;
+        }
+        
+        .chapter-map {
+            height: 400px;
+            background-color: #e2e8f0;
+            border-radius: 0.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .chapter-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .chapter-item {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .chapter-item h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .chapter-item p {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+        /* Call to Action */
+        
+        .cta {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://picsum.photos/1600/600') center/cover no-repeat;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            margin-bottom: 2rem;
+            font-size: 1.125rem;
+            opacity: 0.9;
+        }
+        /* Footer */
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo img {
+            height: 40px;
+        }
+        
+        .footer-logo h2 {
+            font-size: 1.25rem;
+        }
+        
+        .footer-about p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: block;
+            gap: 1rem;
+        }
+        
+        .social-icon {
+            display: block;
+            align-items: center;
+            justify-content: left;
+            padding: 5px;
+            width: 55%;
+            height: 5%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+        
+        .footer-subscribe h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-subscribe p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 300px;
+        }
+        
+        .subscribe-input {
+            flex-grow: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 0.375rem 0 0 0.375rem;
+            outline: none;
+            font-size: 0.875rem;
+        }
+        
+        .subscribe-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 0.375rem 0.375rem 0;
+            padding: 0 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .subscribe-btn:hover {
+            background-color: #e05f00;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.875rem;
+        }
+        /* Header and Navigation */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 1rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #0066cc;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline {
+            border: 2px solid #0066cc;
+            color: #0066cc;
+        }
+        
+        .btn-outline:hover {
+            background-color: #0066cc;
+            color: #fff;
+        }
+        
+        .btn-primary {
+            background-color: #0066cc;
+            color: #fff;
+            border: 2px solid #0066cc;
+        }
+        
+        .btn-primary:hover {
+            background-color: #004d99;
+            border-color: #004d99;
+        }
+        
+        /* Mobile Navigation */
+        .hamburger {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        nav {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            z-index: 1001;
+        }
+        nav.active {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        nav ul li {
+            margin: 0;
+            width: 100%;
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        /* Media Queries */
+        @media screen and (max-width: 1024px) {
+            nav ul li {
+                margin-left: 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #fff;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
+            }
+            
+            nav.active {
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                padding: 0.75rem 2rem;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-buttons {
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: center;
+                border-bottom: none;
+            }
+            
+            .logo h1 {
+                font-size: 1rem;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo h1 {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="assets/images/ysn-logo.jpg" alt="YSN Logo">
+                <h1>Youth Synergy Network</h1>
+            </div>
+            <button class="hamburger" aria-label="Toggle navigation">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="programs.html">Programs</a></li>
+                    <li><a href="program-details.html">Impacts</a></li>
+                    <li><a href="chapters.html">Chapters</a></li>
+                    <li><a href="leadership.html">Leadership</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="media.html">Media</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="nav-buttons"><a href="donate.html" class="btn btn-outline">Donate</a></li>
+                    <li class="nav-buttons"><a href="join-us.html" class="btn btn-primary">Join Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Empowering Youth For A Better Kenya</h1>
+                <img src="assets/images/empoweringyouth.jpg" alt="About Us" style="height: 100%; width=100%;">
+                <p>Youth Synergy Network connects, trains, and empowers young Kenyans to become agents of positive change in their communities through leadership, innovation, and collaboration.</p>
+                <div class="hero-buttons">
+                    <a href="join-us.html" class="btn btn-primary">Become A Member</a>
+                    <a href="about.html" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>Who We Are</h2>
+                <img src="assets/images/youth.jpg" alt="About Us" style="height: 100%; width=100%;">
+                <p>Youth Synergy Network (YSN) is a youth-led organization dedicated to empowering young Kenyans through education, leadership development, and community engagement.</p>
+            </div>
+            <div class="about-content">
+                <div class="about-card">
+                    <div class="about-icon">📚</div>
+                    <h3>Our Vision</h3>
+                    <p>To create a network of empowered youth leaders who drive positive change in their communities and across Kenya.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">🎯</div>
+                    <h3>Our Mission</h3>
+                    <p>To connect, train, and equip young Kenyans with the skills, resources, and opportunities they need to make a meaningful impact.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">💪</div>
+                    <h3>Our Values</h3>
+                    <p>Integrity, innovation, inclusivity, leadership, collaboration, and community service guide everything we do.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs" id="programs">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Programs</h2>
+                <p>Discover the various initiatives through which we empower young Kenyans to become agents of positive change.</p>
+            </div>
+            <div class="program-cards">
+                <div class="program-card">
+                    <div class="program-img">
+                        <img class="image_prog" src="assets/images/youngyoutheducation.jpg ">
+                    </div>
+                    <div class="program-content ">
+                        <h3>Youth Leadership Academy</h3>
+                        <p>Comprehensive leadership training program designed to develop the next generation of Kenyan leaders through workshops, mentorship, and practical experience.</p>
+                        <a href="leadership.html " class="btn btn-outline ">Learn More</a>
+                    </div>
+                </div>
+                <div class="program-card ">
+                    <div class="program-img ">
+                        <img class="image_prog" src="assets/images/legal_empowerment.jpg ">
+                    </div>
+                    <div class=" program-content ">
+                        <h3>Legal Empowerment</h3>
+                        <p>Providing legal education and resources to young Kenyans, helping them understand their rights and responsibilities as citizens.</p>
+                        <a href="resources.html" class="btn btn-outline ">Learn More</a>
+                    </div>
+                </div>
+                <div class="program-card ">
+                    <div class="program-img ">
+                        <img class="image_prog" src="assets/images/ysncommunity.jpg ">
+                    </div>
+                    <div class="program-content ">
+                        <h3>Community Service Projects</h3>
+                        <p>Engaging youth in meaningful community service projects that address local challenges and create positive impact.</p>
+                        <a href="chapters.html" class="btn btn-outline ">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials ">
+        <div class="container ">
+            <div class="section-header ">
+                <h2>Success Stories</h2>
+                <p>Hear from the youth whose lives have been transformed through our programs and initiatives.</p>
+            </div>
+            <div class="testimonial-cards ">
+                <div class="testimonial-card ">
+                    <div class="testimonial-text ">
+                        "Being part of Youth Synergy Network completely changed my perspective on leadership and community service. The skills and connections I gained have been invaluable in my journey as a young professional. "
+                    </div>
+                    <div class="testimonial-author ">
+                        <div class="testimonial-author-img ">
+                            <img class="testimonial-img" src=" assets/images/Gero.jpg ">
+                        </div>
+                        <div class=" testimonial-author-info ">
+                            <h4>Griffins Gero</h4>
+                            <p>Law Student, Kabarak University</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card ">
+                    <div class="testimonial-text ">
+                        "YSN ' s leadership program equipped me with the confidence and skills to start my own community initiative. I 'm now leading a team of volunteers addressing environmental challenges in my county. "
+                    </div>
+                    <div class="testimonial-author ">
+                        <div class="testimonial-author-img ">
+                            <img class="testimonial-img" src="assets/images/faith.jpg ">
+                        </div>
+                        <div class="testimonial-author-info ">
+                            <h4>Faith Kimani</h4>
+                            <p>Environmental Advocate</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card ">
+                    <div class="testimonial-text ">
+                        "The mentorship and legal training I received through YSN 's programs have been crucial in my development as a young advocate. I now feel empowered to make a difference in my community. "
+                    </div>
+                    <div class="testimonial-author ">
+                        <div class="testimonial-author-img ">
+                            <img class="testimonial-img" src="assets/images/sarah.jpg">
+                        </div>
+                        <div class="testimonial-author-info ">
+                            <h4>Sarah Odhiambo</h4>
+                            <p>Law Graduate, Kenyatta University</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events " id="events ">
+        <div class="container ">
+            <div class="section-header ">
+                <h2>Upcoming Events</h2>
+                <p>Join us for these exciting opportunities to learn, network, and grow.</p>
+            </div>
+            <div class="event-cards ">
+                <div class="event-card ">
+                    <div class="event-img ">
+                        <img class="image_prog" src="assets/images/ysnconnecting.jpg">
+                    </div>
+                    <div class="event-content ">
+                        <span class="event-date ">May 15, 2025</span>
+                        <h3>Youth Leadership Summit 2025</h3>
+                        <p>Annual gathering of young leaders from across Kenya to discuss pressing issues and develop collaborative solutions.</p>
+                        <div class="event-details ">
+                            <span>Nairobi, Kenya</span>
+                            <span>9:00 AM - 5:00 PM</span>
+                        </div>
+                        <!-- <a href="join-us.html" class="btn btn-primary ">Register Now</a> -->
+                    </div>
+                </div>
+                <div class="event-card ">
+                    <div class="event-img ">
+                        <img class="image_prog" src="assets/images/ysneduc.jpg">
+                    </div>
+                    <div class="event-content ">
+                        <span class="event-date ">June 5, 2025</span>
+                        <h3>Legal Awareness Workshop</h3>
+                        <p>Interactive workshop focusing on constitutional rights and civic responsibilities for university students.</p>
+                        <div class="event-details ">
+                            <span>Kabarak University</span>
+                            <span>2:00 PM - 4:00 PM</span>
+                        </div>
+                        <!-- <a href="join-us.html" class="btn btn-primary ">Register Now</a> -->
+                    </div>
+                </div>
+                <div class="event-card ">
+                    <div class="event-img ">
+                        <img class="image_prog" src="assets/images/ysncommunity.jpg">
+                    </div>
+                    <div class="event-content ">
+                        <span class="event-date ">June 20, 2025</span>
+                        <h3>Community Service Day</h3>
+                        <p>Join us for a day of giving back to the community through various service projects across Nairobi.</p>
+                        <div class="event-details ">
+                            <span>Multiple Locations</span>
+                            <span>8:00 AM - 3:00 PM</span>
+                        </div>
+                        <!--<a href="join-us.html" class="btn btn-primary ">Register Now</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- University Chapters Section -->
+    <section class="map-section">
+        <div class="map-container">
+            <div class="section-header ">
+                <h2 class="section-title">Our Chapters Across Kenya</h2>
+                <p>Youth Synergy Network is present in universities across Kenya, creating a nationwide community of young leaders. <a href="chapters-map.html" class="btn btn-primary ">Click here to view</a></p>
+            </div>
+        </div>
+        
+        <div class="chapter-list ">
+            <div class="chapter-item ">
+                <h3>Kabarak University</h3>
+                <p>Est. 2020</p>
+            </div>
+            <div class="chapter-item ">
+                <h3>University of Nairobi</h3>
+                <p>Est. 2021</p>
+            </div>
+            <div class="chapter-item ">
+                <h3>Kenyatta University</h3>
+                <p>Est. 2021</p>
+            </div>
+            <div class="chapter-item ">
+                <h3>Moi University</h3>
+                <p>Est. 2022</p>
+            </div>
+            <div class="chapter-item ">
+                <h3>Strathmore University</h3>
+                <p>Est. 2022</p>
+            </div>
+            <div class="chapter-item ">
+                <h3>Egerton University</h3>
+                <p>Est. 2023</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta ">
+        <div class="container ">
+            <div class="cta-content ">
+                <h2>Join Our Movement</h2>
+                <p>Be part of a growing network of young leaders committed to creating positive change across Kenya. Together, we can build a better future for all.</p>
+                <a href="join-us.html" class="btn btn-primary ">Become A Member</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container ">
+            <div class="footer-content ">
+                <div class="footer-about ">
+                    <div class="footer-logo ">
+                        <img src="assets/images/ysn-logo.jpg " alt="YSN Logo ">
+                        <h2>Youth Synergy Network</h2>
+                    </div>
+                    <p>Empowering youth to become leaders in legal literacy, climate action, mental health awareness, and community service.</p>
+                    <h3>Social Media Links</h3>
+                    <div class="social-links ">
+                        <a href="https://www.facebook.com/profile.php?id=61575320623640" class="social-icon ">Facebook</a>
+                        <a href="https://x.com/YouthN49907?t=LglVEql7hVOFXLyZCiQuYA&s=09" class="social-icon ">X Platform</a>
+                        <a href="https://www.linkedin.com/in/youth-synergy-network-51b538362?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon ">LinkedIn</a>
+                        <a href="https://www.tiktok.com/@youth.synergy.net" class="social-icon ">Tiktok</a>
+                        <a href="https://www.instagram.com/youth_synergynework?igsh=Mmx1eHM4NGdycjFu" class="social-icon ">Instagram</a>
+                    </div>
+                </div>
+
+                <div class="footer-links ">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html ">Home</a></li>
+                        <li><a href="about.html ">About Us</a></li>
+                        <li><a href="programs.html ">Programs</a></li>
+                        <li>
+                            <a href="program-details.html ">Impacts</a>
+                        </li>
+                        <li><a href="leadership.html ">Leadership</a></li>
+                        <li><a href="chapters.html ">University Chapters</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links ">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="events.html ">Events</a></li>
+                        <li><a href="resources.html ">Resources</a></li>
+                        <li><a href="media.html ">Media Center</a></li>
+                        <li><a href="blog.html ">Blog</a></li>
+                        <li><a href="contact.html ">Contact Us</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="footer-subscribe ">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for updates on our programs and impact stories.</p>
+                    <form id="subscribeForm" class="subscribe-form">
+                        <input type="email" id="email" name="email" class="subscribe-input" placeholder="Your email address" required><br><br>
+                        <button type="submit" class="subscribe-btn">Subscribe</button>
+                    </form>
+                    <p id="subscribeMessage"></p>
+                </div>
+
+                <div class="login-container">
+                    <h2>Admin Login</h2>
+                    <form id="loginForm">
+                        <input type="text" name="username" placeholder="Username" required>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <button type="submit">Login</button>
+                    </form>
+                    <p id="status"></p>
+                </div>
+            </div>
+
+            <div class="footer-bottom ">
+                <p>&copy; 2025 Youth Synergy Network. All Rights Reserved.</p>
+                <p>Developer: Francis(<i><a href="mailto:mtechspacesolutions@gmail.com">Mobet Tech Space Solutions. Click to email them.</a></i>)</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Toggle mobile navigation
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.textContent = nav.classList.contains('active') ? '✕' : '☰';
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !hamburger.contains(e.target) && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                hamburger.textContent = '☰';
+            }
+        });
+        
+        // Close mobile menu when window is resized above mobile breakpoint
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                hamburger.textContent = '☰';
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById('subscribeForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+
+            // Basic email validation
+            if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email }),
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    // Subscription was successful
+                    alert(result.message || "Subscribed successfully!");
+                    document.getElementById('subscribeForm').reset();
+                } else {
+                    // Application-level error (including "already subscribed")
+                    alert(result.error || "User already subscribed.");
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again.');
+                document.getElementById('subscribeMessage').textContent = "";
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById('articleForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+    
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+    
+            try {
+                const response = await fetch('/dashboard', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+    
+                if (response.ok) {
+                    alert('Article added successfully!');
+                    e.target.reset();
+                } else {
+                    alert('Failed to add article.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while adding the article.');
+            }
+        });
+    </script>
+    
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+        
+            const res = await fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+        
+            if (res.redirected) window.location.href = res.url;
+            else document.getElementById('status').textContent = await res.text();
+        });
+        
+    </script>
+    
+</body>
+
+</html>

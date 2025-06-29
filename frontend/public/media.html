@@ -1,0 +1,1424 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media | Youth Synergy Network</title>
+    <!-- <link rel="stylesheet" href="css/styles.css"> -->
+    <style>
+        /* Base Styles */
+        
+            :root {
+            --primary: #ff7700;
+            --secondary: #1e3a8a;
+            --accent: #10b981;
+            --light: #f8fafc;
+            --dark: #0f172a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Utility Classes */
+        
+        .container {
+            width: 100%;
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e05f00;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #15296b;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Hero Section */
+        
+        .media-hero {
+            margin-top: 86px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://picsum.photos/1600/800') center/cover no-repeat;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+        
+        .media-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .media-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .media-hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        /* Section Styles */
+        
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-alt {
+            background-color: #f1f5f9;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        /* Media Overview */
+        
+        .media-overview {
+            max-width: 900px;
+            margin: 0 auto 4rem;
+        }
+        /* Media Categories Section */
+        
+        .categories-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .category-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-image {
+            height: 180px;
+            background-color: var(--secondary);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .category-icon {
+            font-size: 3.5rem;
+            color: white;
+        }
+        
+        .category-content {
+            padding: 1.5rem;
+        }
+        
+        .category-content h3 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+        
+        .category-content ul {
+            list-style-position: inside;
+            margin-top: 1rem;
+        }
+        
+        .category-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .category-content a {
+            color: var(--primary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .category-content a:hover {
+            color: #e05f00;
+        }
+        /* Media Partnerships */
+        
+        .partnerships-section {
+            padding: 4rem 0;
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .partnerships-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .partnerships-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .partnerships-content p {
+            margin-bottom: 2rem;
+        }
+        
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .partner-logo {
+            background-color: rgba(255, 255, 255, 0.9);
+            height: 120px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .partner-logo img {
+            max-width: 100%;
+            max-height: 80px;
+        }
+        /* Featured Projects */
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .project-image {
+            height: 50%;
+            background-color: #f1f5f9;
+            position: relative;
+            width: 100%;
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        .project-content h3 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .project-content p {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: #f1f5f9;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        /* Social Media Section */
+        
+        .social-media-section {
+            padding: 4rem 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .social-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .social-link-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+        }
+        
+        .social-link-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-handle {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .social-description {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+        
+        .social-features {
+            margin-top: 3rem;
+        }
+        
+        .social-features h4 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .feature-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-hashtag {
+            font-weight: 600;
+            color: #ffffff;
+            margin-right: 0.5rem;
+        }
+        /* Media Contributions */
+        
+        .contributions-section {
+            padding: 5rem 0;
+        }
+        
+        .contributions-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .contributions-list {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .contributions-list ul {
+            list-style: none;
+        }
+        
+        .contributions-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            padding: 0.5rem 0;
+        }
+        
+        .contributions-list li:before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 0.75rem;
+        }
+        
+        .highlight-box {
+            background-color: #f1f5f9;
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        .highlight-box h4 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        /* Gallery Section */
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .gallery-item {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            height: 180px;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 1rem;
+            font-size: 0.875rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-caption {
+            font-weight: 500;
+        }
+        
+        .gallery-location {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+        
+        .gallery-buttons {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        /* CTA Section */
+        
+        .cta-section {
+            text-align: center;
+            padding: 5rem 0;
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-content p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        /* Footer */
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo img {
+            height: 40px;
+        }
+        
+        .footer-logo h2 {
+            font-size: 1.25rem;
+        }
+        
+        .footer-about p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: block;
+            gap: 1rem;
+        }
+        
+        .social-icon {
+            display: block;
+            align-items: center;
+            justify-content: left;
+            padding: 5px;
+            width: 55%;
+            height: 5%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-icon-footer:hover {
+            background-color: var(--primary);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+        
+        .footer-subscribe h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-subscribe p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 300px;
+        }
+        
+        .subscribe-input {
+            flex-grow: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 0.375rem 0 0 0.375rem;
+            outline: none;
+            font-size: 0.875rem;
+        }
+        
+        .subscribe-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 0.375rem 0.375rem 0;
+            padding: 0 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .subscribe-btn:hover {
+            background-color: #e05f00;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.875rem;
+        }
+        /* Header and Navigation */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 1rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #0066cc;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline {
+            border: 2px solid #0066cc;
+            color: #0066cc;
+        }
+        
+        .btn-outline:hover {
+            background-color: #0066cc;
+            color: #fff;
+        }
+        
+        .btn-primary {
+            background-color: #0066cc;
+            color: #fff;
+            border: 2px solid #0066cc;
+        }
+        
+        .btn-primary:hover {
+            background-color: #004d99;
+            border-color: #004d99;
+        }
+        
+        /* Mobile Navigation */
+        .hamburger {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        nav {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            z-index: 1001;
+        }
+        nav.active {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        nav ul li {
+            margin: 0;
+            width: 100%;
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        /* Media Queries */
+        @media screen and (max-width: 1024px) {
+            nav ul li {
+                margin-left: 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #fff;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
+            }
+            
+            nav.active {
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                padding: 0.75rem 2rem;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-buttons {
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: center;
+                border-bottom: none;
+            }
+            
+            .logo h1 {
+                font-size: 1rem;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo h1 {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="assets/images/ysn-logo.jpg" alt="YSN Logo">
+                <h1>Youth Synergy Network</h1>
+            </div>
+            <button class="hamburger" aria-label="Toggle navigation">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="programs.html">Programs</a></li>
+                    <li><a href="program-details.html">Impacts</a></li>
+                    <li><a href="chapters.html">Chapters</a></li>
+                    <li><a href="leadership.html">Leadership</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="media.html">Media</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="nav-buttons"><a href="donate.html" class="btn btn-outline">Donate</a></li>
+                    <li class="nav-buttons"><a href="join-us.html" class="btn btn-primary">Join Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="media-hero">
+        <div class="container">
+            <div class="media-hero-content">
+                <h1>Media</h1>
+                <p>Amplifying the energy, voices, and impact of our programs through powerful storytelling</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Overview</h2>
+            </div>
+            <div class="media-overview">
+                <p>The Media Section of Youth Synergy Network serves as our digital gallery, public record, and storytelling platform. It amplifies the energy, voices, and impact of our programs, members, and events through photos, videos, podcasts,
+                    live broadcasts, and media features.</p>
+                <p>YSN uses media not just to document, but to educate, influence, and inspire. Through powerful visuals and creative narratives, we break stigma, highlight local heroes, and spark dialogue around youth empowerment, mental health, environmental
+                    justice, and legal literacy.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Media Categories Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Media Categories</h2>
+                <p>Explore our diverse multimedia content</p>
+            </div>
+
+            <div class="categories-container">
+                <!-- Category 1 -->
+                <div class="category-card">
+                    <div class="category-image">
+                        <div class="category-icon">📸</div>
+                    </div>
+                    <div class="category-content">
+                        <h3>Photo Gallery</h3>
+                        <p>Organized by program, event, region, and year</p>
+                        <ul>
+                            <li>Tree planting campaigns</li>
+                            <li>Legal forums</li>
+                            <li>Mentorship visits</li>
+                            <li>Mental health clubs</li>
+                            <li>Pad drives</li>
+                            <li>University Chapter launches</li>
+                        </ul>
+                        <a href="#gallery-prev" class="btn btn-outline">View Gallery</a>
+                    </div>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="category-card">
+                    <div class="category-image">
+                        <div class="category-icon">🎬</div>
+                    </div>
+                    <div class="category-content">
+                        <h3>Videos</h3>
+                        <ul>
+                            <li>Event recap videos</li>
+                            <li>Documentary-style features</li>
+                            <li>Student testimonials</li>
+                            <li>"Know Your Rights" series</li>
+                            <li>Spoken word performances</li>
+                            <li>Behind-the-scenes content</li>
+                        </ul>
+                        <a href="https://youtube.com/@synergynetwork-x3b?feature=shared" class="btn btn-outline">Watch Videos</a>
+                    </div>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="category-card">
+                    <div class="category-image">
+                        <div class="category-icon">🎙️</div>
+                    </div>
+                    <div class="category-content">
+                        <h3>Podcasts (Coming Soon)</h3>
+                        <p>"The Youth Synergy Podcast" – Monthly audio episodes featuring:</p>
+                        <ul>
+                            <li>Conversations with law students</li>
+                            <li>Mental health experts</li>
+                            <li>Environmental activists</li>
+                            <li>Interviews with founders & alumni</li>
+                        </ul>
+                        <p>Available on YouTube</p>
+                        <a href="#subscribeForm" class="btn btn-outline">Get Notified</a>
+                    </div>
+                </div>
+
+                <!-- Category 4 -->
+                <div class="category-card">
+                    <div class="category-image">
+                        <div class="category-icon">📱</div>
+                    </div>
+                    <div class="category-content">
+                        <h3>Live Events & Streams</h3>
+                        <p>Livestream of major events via:</p>
+                        <ul>
+                            <li>YouTube Live</li>
+                            <li>Instagram and Facebook</li>
+                            <li>Public legal debates</li>
+                            <li>Climate dialogues</li>
+                            <li>Wellness sessions</li>
+                            <li>Music/art therapy events</li>
+                        </ul>
+                        <a href="events.html" class="btn btn-outline">Upcoming Streams</a>
+                    </div>
+                </div>
+
+                <!-- Category 5 -->
+                <div class="category-card">
+                    <div class="category-image">
+                        <div class="category-icon">📊</div>
+                    </div>
+                    <div class="category-content">
+                        <h3>Infographics & Visual Reports</h3>
+                        <ul>
+                            <li>Graphical reports for impact tracking</li>
+                            <li>Data dashboards showing regional outreach</li>
+                            <li>Youth & the Constitution</li>
+                            <li>Climate change facts</li>
+                            <li>Mental health statistics</li>
+                            <li>Legal rights simplified</li>
+                        </ul>
+                        <!-- <a href="#" class="btn btn-outline">View Infographics</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Media Partnerships Section -->
+    <section class="partnerships-section">
+        <div class="container">
+            <div class="partnerships-content">
+                <h3>Media Partnerships</h3>
+                <p>Youth Synergy Network collaborates with media partners to expand its digital reach and visibility</p>
+
+                <div class="partners-grid">
+                    <div class="partner-logo">
+                        <img src="/assets/images/county-govts.jpg" alt="Partner Logo">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="/assets/images/faith-based.jpg" alt="Partner Logo">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="/assets/images/friends-of-diversity.jpg" alt="Partner Logo">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="/assets/images/law-societies.jpg" alt="Partner Logo">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="/assets/images/pta's.jpg" alt="Partner Logo">
+                    </div>
+                </div>
+
+                <a href="mailto:media@youthsynergy.or.ke" class="btn btn-primary">Become a Media Partner</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Media Projects -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Media Projects</h2>
+                <p>Powerful storytelling initiatives highlighting our impact</p>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/assets/images/faces-of-justice.jpg" alt="Faces of Youth Justice" style="height: 100%;">
+                    </div>
+                    <div class="project-content">
+                        <h3>"Faces of Youth Justice"</h3>
+                        <p>A short video series profiling law students making a difference in rural Kenya</p>
+                        <div>
+                            <span class="project-tag">Video Series</span>
+                            <span class="project-tag">Legal Literacy</span>
+                        </div>
+                        <a href="https://youtube.com/@synergynetwork-x3b?feature=shared" class="btn btn-outline">Watch Series</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/assets/images/dignity.jpg" alt="Sanitary Dignity Diaries" style="height: 100%;">
+                    </div>
+                    <div class="project-content">
+                        <h3>"Sanitary Dignity Diaries"</h3>
+                        <p>A documentary capturing testimonies from girls receiving pad support</p>
+                        <div>
+                            <span class="project-tag">Documentary</span>
+                            <span class="project-tag">Sanitary Dignity</span>
+                        </div>
+                        <a href="https://youtube.com/@synergynetwork-x3b?feature=shared" class="btn btn-outline">Watch Documentary</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/assets/images/podcast.jpg" alt="Green Voices Podcast" style="height: 100%;">
+                    </div>
+                    <div class="project-content">
+                        <h3>"Green Voices Podcast"</h3>
+                        <p>Monthly discussions with young environmental activists across university chapters</p>
+                        <div>
+                            <span class="project-tag">Podcast</span>
+                            <span class="project-tag">Environmental Justice</span>
+                        </div>
+                        <a href="https://youtube.com/@synergynetwork-x3b?feature=shared" class="btn btn-outline">Listen Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="social-media-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Connect With Us</h2>
+                <p>Follow our social media channels for daily updates, stories, and inspiration</p>
+            </div>
+
+            <div class="social-links-grid">
+                <!-- Social Media 1 -->
+                <div class="social-link-card">
+                    <div class="social-icon">📱</div>
+                    <div class="social-handle">@YouthSynergyNet</div>
+                    <div class="social-description">Instagram</div>
+                </div>
+
+                <!-- Social Media 2 -->
+                <div class="social-link-card">
+                    <div class="social-icon">🐦</div>
+                    <div class="social-handle">@YouthSynergyNet</div>
+                    <div class="social-description">Twitter</div>
+                </div>
+
+                <!-- Social Media 3 -->
+                <div class="social-link-card">
+                    <div class="social-icon">📘</div>
+                    <div class="social-handle">Youth Synergy Network</div>
+                    <div class="social-description">Facebook</div>
+                </div>
+
+                <!-- Social Media 4 -->
+                <div class="social-link-card">
+                    <div class="social-icon">🎬</div>
+                    <div class="social-handle">Youth Synergy Network</div>
+                    <div class="social-description">YouTube</div>
+                </div>
+            </div>
+
+            <div class="social-features" style="margin-top: 3rem;">
+                <h4>Our Social Media Features</h4>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <span>Weekly #SynergySpotlight posts</span>
+                    </div>
+                    <div class="feature-item">
+                        <span>Monthly #ChangemakerTuesday profiles</span>
+                    </div>
+                    <div class="feature-item">
+                        <span>Video highlights, reels, and event previews</span>
+                    </div>
+                    <div class="feature-item">
+                        <span>Interactive Q&As and youth polls</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Media Contributions Section -->
+    <section class="contributions-section section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Media Contributions from Members</h2>
+                <p>Share your perspective and creativity with our community</p>
+            </div>
+
+            <div class="contributions-container">
+                <div class="contributions-list">
+                    <p>All members, especially from university chapters, are encouraged to submit:</p>
+                    <ul>
+                        <li>Edited videos of campus activities</li>
+                        <li>Photos with full caption descriptions</li>
+                        <li>Personal stories or video reflections</li>
+                        <li>Short TikTok-style clips on impact moments</li>
+                        <li>Artwork and spoken word performances</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <h4>Recognition for Contributors</h4>
+                        <p>Top contributors are profiled in the monthly "Media Hero Feature" and may be invited for media training workshops.</p>
+                        <a href="mailto:media@youthsynergy.or.ke" class="btn btn-primary" style="margin-top: 1rem;">Submit Your Content</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Preview Section -->
+    <section class="section section-alt" id="gallery-prev">
+        <div class="container">
+            <div class="section-header">
+                <h2>Gallery Preview</h2>
+                <p>A glimpse of our impactful moments</p>
+            </div>
+
+            <div class="gallery-grid">
+                <!-- Gallery Item 1 -->
+                <div class="gallery-item">
+                    <img src="/assets/images/tree-planting.jpg" alt="Tree Planting Day" style="height=100%; width=100%">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">Tree Planting Initiative</div>
+                        <div class="gallery-location">Nairobi, Kenya</div>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 2 -->
+                <div class="gallery-item">
+                    <img src="/assets/images/legal_empowerment.jpg" alt="Legal Workshop" style="height=100%; width=100%">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">Legal Literacy Workshop</div>
+                        <div class="gallery-location">University of Nairobi</div>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 3 -->
+                <div class="gallery-item">
+                    <img src="/assets/images/mentalawareness.jpg" alt="Mental Health Session" style="height=100%; width=100%">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">Mental Health Awareness Session</div>
+                        <div class="gallery-location">Strathmore University</div>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 4 -->
+                <div class="gallery-item">
+                    <img src="/assets/images/dignity.jpg" alt="Pad Drive" style="height=100%; width=100%">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">Sanitary Pad Distribution</div>
+                        <div class="gallery-location">Rural School, Kisumu</div>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 5 -->
+                <div class="gallery-item">
+                    <img src="/assets/images/ysnconnecting.jpg" alt="Leadership Training" style="height=100%; width=100%">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">Leadership Training Workshop</div>
+                        <div class="gallery-location">Youth Center, Mombasa</div>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 6 -->
+                <div class="gallery-item">
+                    <img src="/assets/images/youthclimate.jpg" alt="Climate Strike" style="height=100%; width=100%">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">Youth Climate Strike</div>
+                        <div class="gallery-location">Central Park, Nairobi</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-buttons">
+                <a href="#gallery-prev" class="btn btn-primary">View Full Gallery</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Join Our Media Team</h2>
+                <p>Help us tell powerful stories of youth impact across Kenya. We're looking for photographers, videographers, writers, and social media enthusiasts to join our media volunteer team.</p>
+                <div class="cta-buttons">
+                    <a href="mailto:media@youthsynergy.or.ke" class="btn btn-primary">Apply to Join</a>
+                    <a href="#" class="btn btn-outline" style="background-color:transparent; color:white; border-color:white;">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container ">
+            <div class="footer-content ">
+                <div class="footer-about ">
+                    <div class="footer-logo ">
+                        <img src="assets/images/ysn-logo.jpg " alt="YSN Logo ">
+                        <h2>Youth Synergy Network</h2>
+                    </div>
+                    <p>Empowering youth to become leaders in legal literacy, climate action, mental health awareness, and community service.</p>
+                    <h3>Social Media Links</h3>
+                    <div class="social-links ">
+                        <a href="https://www.facebook.com/profile.php?id=61575320623640" class="social-icon ">Facebook</a>
+                        <a href="https://x.com/YouthN49907?t=LglVEql7hVOFXLyZCiQuYA&s=09" class="social-icon ">X Platform</a>
+                        <a href="https://www.linkedin.com/in/youth-synergy-network-51b538362?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon ">LinkedIn</a>
+                        <a href="https://www.tiktok.com/@youth.synergy.net" class="social-icon ">Tiktok</a>
+                        <a href="https://www.instagram.com/youth_synergynework?igsh=Mmx1eHM4NGdycjFu" class="social-icon ">Instagram</a>
+                    </div>
+                </div>
+
+                <div class="footer-links ">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html ">Home</a></li>
+                        <li><a href="about.html ">About Us</a></li>
+                        <li><a href="programs.html ">Programs</a></li>
+                        <li>
+                            <a href="program-details.html ">Impacts</a>
+                        </li>
+                        <li><a href="leadership.html ">Leadership</a></li>
+                        <li><a href="chapters.html ">University Chapters</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links ">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="events.html ">Events</a></li>
+                        <li><a href="resources.html ">Resources</a></li>
+                        <li><a href="media.html ">Media Center</a></li>
+                        <li><a href="blog.html ">Blog</a></li>
+                        <li><a href="contact.html ">Contact Us</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="footer-subscribe ">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for updates on our programs and impact stories.</p>
+                    <form id="subscribeForm" class="subscribe-form">
+                        <input type="email" id="email" name="email" class="subscribe-input" placeholder="Your email address" required><br><br>
+                        <button type="submit" class="subscribe-btn">Subscribe</button>
+                    </form>
+                    <p id="subscribeMessage"></p>
+                </div>
+            </div>
+
+            <div class="footer-bottom ">
+                <p>&copy; 2025 Youth Synergy Network. All Rights Reserved.</p>
+                <p>Developer: Francis(<i><a href="mailto:mtechspacesolutions@gmail.com">Mobet Tech Space Solutions. Click to email them.</a></i>)</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Toggle mobile navigation
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.textContent = nav.classList.contains('active') ? '✕' : '☰';
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !hamburger.contains(e.target) && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                hamburger.textContent = '☰';
+            }
+        });
+        
+        // Close mobile menu when window is resized above mobile breakpoint
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                hamburger.textContent = '☰';
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById('subscribeForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+    
+            const email = document.getElementById('email').value;
+    
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email }),
+                });
+    
+                const result = await response.json();
+    
+                if (response.ok) {
+                    document.getElementById('subscribeMessage').textContent = result.message;
+                    document.getElementById('subscribeForm').reset();
+                } else {
+                    document.getElementById('subscribeMessage').textContent = result.error;
+                }
+            } catch (error) {
+                console.error('Error subscribing:', error);
+                document.getElementById('subscribeMessage').textContent = 'An error occurred. Please try again.';
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById('articleForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+    
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+    
+            try {
+                const response = await fetch('/dashboard', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+    
+                if (response.ok) {
+                    alert('Article added successfully!');
+                    e.target.reset();
+                } else {
+                    alert('Failed to add article.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while adding the article.');
+            }
+        });
+    </script>
+    
+    <script>
+        document.getElementById('subscribeForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+
+            // Basic email validation
+            if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email }),
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    // Subscription was successful
+                    alert(result.message || "Subscribed successfully!");
+                    document.getElementById('subscribeForm').reset();
+                } else {
+                    // Application-level error (including "already subscribed")
+                    alert(result.error || "User already subscribed.");
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again.');
+                document.getElementById('subscribeMessage').textContent = "";
+            }
+        });
+    </script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

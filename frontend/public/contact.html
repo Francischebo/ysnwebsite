@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Partnerships | Youth Synergy Network</title>
+    <!-- <link rel="stylesheet" href="css/styles.css"> -->
+    <style>
+        /* Base Styles */
+        
+         :root {
+            --primary: #ff7700;
+            --secondary: #1e3a8a;
+            --accent: #10b981;
+            --light: #f8fafc;
+            --dark: #0f172a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Utility Classes */
+        
+        .container {
+            width: 100%;
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e05f00;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #15296b;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        /* Hero Section */
+        
+        .contact-hero {
+            margin-top: 86px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://picsum.photos/1600/800') center/cover no-repeat;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+        
+        .contact-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .contact-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        /* Section Styles */
+        
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-alt {
+            background-color: #f1f5f9;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        /* Contact Info Section */
+        
+        .contact-info {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 3rem;
+        }
+        
+        .contact-info h3 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.75rem;
+        }
+        
+        .contact-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .contact-detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+        
+        .contact-text h4 {
+            font-size: 1.125rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-text p,
+        .contact-text a {
+            color: #64748b;
+        }
+        
+        .contact-text a:hover {
+            color: var(--primary);
+        }
+        /* Form Section */
+        
+        .contact-form {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 3rem;
+        }
+        
+        .contact-form h3 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.75rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-check input {
+            width: 20px;
+            height: 20px;
+        }
+        /* Chapters Section */
+        
+        .chapters-section {
+            margin-bottom: 3rem;
+        }
+        
+        .chapters-container {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .chapters-container h3 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.75rem;
+        }
+        
+        .chapter-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        /* Media Section */
+        
+        .media-section {
+            margin-bottom: 3rem;
+        }
+        
+        .media-container {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .media-container h3 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.75rem;
+        }
+        
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .media-item {
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .media-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .media-item h4 {
+            color: var(--dark);
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .media-item p {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        /* Partnership Section */
+        
+        .partnership-section {
+            margin-bottom: 3rem;
+        }
+        
+        .partnership-container {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .partnership-container h3 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.75rem;
+        }
+        
+        .partnership-types {
+            margin-bottom: 2rem;
+        }
+        
+        .partnership-types ul {
+            list-style-position: inside;
+            columns: 2;
+            column-gap: 2rem;
+        }
+        
+        .partnership-types li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .partnership-types li:before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+        }
+        
+        .partnership-models {
+            margin-top: 2rem;
+        }
+        
+        .partnership-models h4 {
+            color: var(--dark);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .model-card {
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .model-card h5 {
+            color: var(--dark);
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .model-card p {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        /* Volunteer Section */
+        
+        .volunteer-section {
+            margin-bottom: 3rem;
+        }
+        
+        .volunteer-container {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .volunteer-container h3 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.75rem;
+        }
+        
+        .volunteer-roles {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .role-card {
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .role-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .role-card .role-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .role-card h4 {
+            color: var(--dark);
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .commitment-options {
+            margin-top: 2rem;
+        }
+        
+        .commitment-options h4 {
+            color: var(--dark);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .commitment-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .commitment-badge {
+            background-color: #f8fafc;
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .commitment-badge:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        /* Social Media Section */
+        
+        .social-media-section {
+            margin-bottom: 3rem;
+        }
+        
+        .social-container {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .social-container h3 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.75rem;
+        }
+        
+        .social-platforms {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .platform-card {
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .platform-card:hover {
+            transform: translateY(-5px);
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .platform-card:hover .platform-icon,
+        .platform-card:hover h4,
+        .platform-card:hover p {
+            color: white;
+        }
+        
+        .platform-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .platform-card h4 {
+            color: var(--dark);
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .platform-card p {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        
+        .hashtags {
+            margin-top: 2rem;
+        }
+        
+        .hashtags h4 {
+            color: var(--dark);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hashtag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .hashtag {
+            background-color: #f8fafc;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-weight: 500;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .hashtag:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        /* CTA Section */
+        
+        .cta-section {
+            text-align: center;
+            padding: 5rem 0;
+            background-color: var(--secondary);
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-content p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        /* Footer */
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo img {
+            height: 40px;
+        }
+        
+        .footer-logo h2 {
+            font-size: 1.25rem;
+        }
+        
+        .footer-about p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: block;
+            gap: 1rem;
+        }
+        
+        .social-icon {
+            display: block;
+            align-items: center;
+            justify-content: left;
+            padding: 5px;
+            width: 55%;
+            height: 5%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+        
+        .footer-subscribe h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-subscribe p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 300px;
+        }
+        
+        .subscribe-input {
+            flex-grow: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 0.375rem 0 0 0.375rem;
+            outline: none;
+            font-size: 0.875rem;
+        }
+        
+        .subscribe-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 0.375rem 0.375rem 0;
+            padding: 0 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .subscribe-btn:hover {
+            background-color: #e05f00;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.875rem;
+        }
+        /* Header and Navigation */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 1rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #0066cc;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline {
+            border: 2px solid #0066cc;
+            color: #0066cc;
+        }
+        
+        .btn-outline:hover {
+            background-color: #0066cc;
+            color: #fff;
+        }
+        
+        .btn-primary {
+            background-color: #0066cc;
+            color: #fff;
+            border: 2px solid #0066cc;
+        }
+        
+        .btn-primary:hover {
+            background-color: #004d99;
+            border-color: #004d99;
+        }
+        
+        /* Mobile Navigation */
+        .hamburger {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        nav {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            z-index: 1001;
+        }
+        nav.active {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        nav ul li {
+            margin: 0;
+            width: 100%;
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        /* Media Queries */
+        @media screen and (max-width: 1024px) {
+            nav ul li {
+                margin-left: 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #fff;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
+            }
+            
+            nav.active {
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                padding: 0.75rem 2rem;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-buttons {
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: center;
+                border-bottom: none;
+            }
+            
+            .logo h1 {
+                font-size: 1rem;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo h1 {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="assets/images/ysn-logo.jpg" alt="YSN Logo">
+                <h1>Youth Synergy Network</h1>
+            </div>
+            <button class="hamburger" aria-label="Toggle navigation">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="programs.html">Programs</a></li>
+                    <li><a href="program-details.html">Impacts</a></li>
+                    <li><a href="chapters.html">Chapters</a></li>
+                    <li><a href="leadership.html">Leadership</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="media.html">Media</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="nav-buttons"><a href="donate.html" class="btn btn-outline">Donate</a></li>
+                    <li class="nav-buttons"><a href="join-us.html" class="btn btn-primary">Join Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="container">
+            <div class="contact-hero-content">
+                <h1>Contact & Partnerships</h1>
+                <p>Your gateway to collaborate with Youth Synergy Network - Kenya's leading youth-led organization for legal literacy, mental health advocacy, and community empowerment</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Overview</h2>
+                <p>This section serves as the official communication gateway between Youth Synergy Network (YSN) and its supporters, partners, beneficiaries, media, and volunteers. Whether you're seeking to collaborate, donate, volunteer, or invite YSN to
+                    your institution, this is your go-to hub.</p>
+                <p>We believe in open, prompt, and youth-friendly communication, ensuring every inquiry is acknowledged and channeled to the right department.</p>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <div class="contact-details">
+                    <div>
+                        <div class="contact-detail-item">
+                            <div class="contact-icon">📍</div>
+                            <div class="contact-text">
+                                <h4>Head Office – National Secretariat</h4>
+                                <p>Youth Synergy Network – Kenya</p>
+                                <p>Nairobi, Kenya</p>
+                            </div>
+                        </div>
+                        <div class="contact-detail-item">
+                            <div class="contact-icon">📞</div>
+                            <div class="contact-text">
+                                <h4>Phone</h4>
+                                <p><a href="tel:+254758951372">0758 951 372</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="contact-detail-item">
+                            <div class="contact-icon">✉️</div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <p>General: <a href="mailto:info@youthsynergy.or.ke">info@youthsynergy.or.ke</a></p>
+                                <p>Programs: <a href="mailto:programs@youthsynergy.or.ke">programs@youthsynergy.or.ke</a></p>
+                                <p>Media & Press: <a href="mailto:media@youthsynergy.or.ke">media@youthsynergy.or.ke</a></p>
+                                <p>Partnerships: <a href="mailto:partners@youthsynergy.or.ke">partners@youthsynergy.or.ke</a></p>
+                                <p>Volunteers: <a href="mailto:volunteer@youthsynergy.or.ke">volunteer@youthsynergy.or.ke</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="contact-detail-item">
+                            <div class="contact-icon">🕒</div>
+                            <div class="contact-text">
+                                <h4>Office Hours</h4>
+                                <p><strong>Monday to Friday</strong> – 8:00 AM to 5:30 PM (EAT)</p>
+                                <p>Closed on weekends and public holidays</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Message Form -->
+            <div class="contact-form">
+                <h3>Quick Message Form</h3>
+                <form id="contactForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number (Optional)</label>
+                    <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" class="form-control" id="subject" placeholder="Enter the subject of your message" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea class="form-control" id="message" placeholder="Type your message here..." rows="4" required></textarea>
+                </div>
+                <div class="form-check mb-3">
+                    <input type="checkbox" id="newsletter" class="form-check-input">
+                    <label for="newsletter" class="form-check-label">Subscribe to our newsletter to stay updated</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+
+            <!-- University Chapters Section -->
+            <div class="chapters-section">
+                <div class="chapters-container">
+                    <h3>University Chapters Contact</h3>
+                    <p>Contact our university chapters directly for local campus activities and collaborations.</p>
+                    <select class="chapter-select">
+                        <option selected disabled>Select a University Chapter</option>
+                        <option value="uon">University of Nairobi Chapter</option>
+                        <option value="ku">Kenyatta University Chapter</option>
+                        <option value="jkuat">JKUAT Chapter</option>
+                        <option value="moi">Moi University Chapter</option>
+                        <option value="maseno">Maseno University Chapter</option>
+                        <option value="egerton">Egerton University Chapter</option>
+                        <option value="mmust">Masinde Muliro University Chapter</option>
+                        <option value="technical">Technical University of Kenya Chapter</option>
+                    </select>
+                    <div id="chapter-details">
+                        <p>Please select a university chapter to view contact details.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Media Inquiries Section -->
+            <div class="media-section">
+                <div class="media-container">
+                    <h3>Media Inquiries</h3>
+                    <p>For press releases, interviews, and media coverage of our activities.</p>
+                    <div class="media-grid">
+                        <div class="media-item">
+                            <h4>Press Kits</h4>
+                            <p>Download our logo, brand assets, and recent press releases.</p>
+                            <a href="#" class="btn btn-outline">Download Press Kit</a>
+                        </div>
+                        <div class="media-item">
+                            <h4>Interview Requests</h4>
+                            <p>Request interviews with our leadership team or program coordinators.</p>
+                            <a href="mailto:media@youthsynergy.or.ke" class="btn btn-outline">Request Interview</a>
+                        </div>
+                        <div class="media-item">
+                            <h4>Event Coverage</h4>
+                            <p>Invite us to cover your youth-related events or initiatives.</p>
+                            <a href="mailto:media@youthsynergy.or.ke" class="btn btn-outline">Submit Event</a>
+                        </div>
+                        <div class="media-item">
+                            <h4>Success Stories</h4>
+                            <p>Explore impact stories from our programs and beneficiaries.</p>
+                            <a href="blog.html" class="btn btn-outline">View Stories</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Partnership Opportunities Section -->
+            <div class="partnership-section">
+                <div class="partnership-container">
+                    <h3>Partnership Opportunities</h3>
+                    <p>Explore various ways to partner with Youth Synergy Network to create lasting impact.</p>
+
+                    <div class="partnership-types">
+                        <h4>We Welcome Partnerships In:</h4>
+                        <ul>
+                            <li>Legal literacy and access to justice initiatives</li>
+                            <li>Mental health awareness and support programs</li>
+                            <li>Educational scholarships and resources</li>
+                            <li>Youth leadership development programs</li>
+                            <li>Community service and outreach activities</li>
+                            <li>Research and advocacy campaigns</li>
+                            <li>Technology for social good projects</li>
+                            <li>Cultural exchange and youth mobility</li>
+                        </ul>
+                    </div>
+
+                    <div class="partnership-models">
+                        <h4>Partnership Models</h4>
+                        <div class="models-grid">
+                            <div class="model-card">
+                                <h5>Financial Support</h5>
+                                <p>Fund our programs, events, or operational costs to expand our reach and impact.</p>
+                            </div>
+                            <div class="model-card">
+                                <h5>Technical Support</h5>
+                                <p>Provide expertise, tools, or systems to enhance our program delivery and efficiency.</p>
+                            </div>
+                            <div class="model-card">
+                                <h5>In-kind Donations</h5>
+                                <p>Contribute resources, materials, equipment, or services to support our operations.</p>
+                            </div>
+                            <div class="model-card">
+                                <h5>Collaborative Programs</h5>
+                                <p>Co-create and implement programs that align with our mission and your objectives.</p>
+                            </div>
+                            <div class="model-card">
+                                <h5>Capacity Building</h5>
+                                <p>Help strengthen our organizational capabilities through training and mentorship.</p>
+                            </div>
+                            <div class="model-card">
+                                <h5>Research Partnerships</h5>
+                                <p>Collaborate on research initiatives addressing youth issues in Kenya and beyond.</p>
+                            </div>
+                        </div>
+                        <div class="text-center" style="margin-top: 2rem;">
+                            <a href="mailto:partners@youthsynergy.or.ke" class="btn btn-primary">Discuss Partnership Opportunities</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Volunteer Opportunities Section -->
+            <div class="volunteer-section">
+                <div class="volunteer-container">
+                    <h3>Volunteer Opportunities</h3>
+                    <p>We offer meaningful, skill-building volunteer opportunities across all levels:</p>
+
+                    <div class="volunteer-roles">
+                        <div class="role-card">
+                            <div class="role-icon">👨‍⚖️</div>
+                            <h4>Legal Literacy Trainer</h4>
+                            <p>Support legal literacy programs and access to justice initiatives</p>
+                        </div>
+                        <div class="role-card">
+                            <div class="role-icon">🧠</div>
+                            <h4>Mental Health Advocate</h4>
+                            <p>Facilitate workshops and peer support groups</p>
+                        </div>
+                        <div class="role-card">
+                            <div class="role-icon">📝</div>
+                            <h4>Content Creator</h4>
+                            <p>Develop educational content and social media materials</p>
+                        </div>
+                        <div class="role-card">
+                            <div class="role-icon">📊</div>
+                            <h4>Program Assistant</h4>
+                            <p>Support program implementation and evaluation</p>
+                        </div>
+                        <div class="role-card">
+                            <div class="role-icon">💻</div>
+                            <h4>IT Support</h4>
+                            <p>Provide technical assistance and digital solutions</p>
+                        </div>
+                    </div>
+
+                    <div class="commitment-options">
+                        <h4>Commitment Options</h4>
+                        <div class="commitment-badges">
+                            <span class="commitment-badge">Short-term(1-3 months)</span>
+                            <span class="commitment-badge">Long-term(1-3 months)</span>
+                            <span class="commitment-badge">Remote Volunteering</span>
+                            <span class="commitment-badge">In-person Programs</span>
+                            <span class="commitment-badge">Internships</span>
+                        </div>
+                        <div class="text-center">
+                            <a href="mailto:volunteer@youthsynergy.or.ke" class="btn btn-primary">Become a Volunteer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Section -->
+            <div class="social-media-section">
+                <div class="social-container">
+                    <h3>Connect on Social Media</h3>
+                    <p>Follow us on social media to stay updated on our activities and engage with our community.</p>
+
+                    <div class="social-platforms">
+                        <a href="https://www.facebook.com/profile.php?id=61575320623640" class="platform-card">
+                            <div class="platform-icon">📘</div>
+                            <h4>Facebook</h4>
+                            <p>@YouthSynergyNetwork</p>
+                        </a>
+                        <a href="https://x.com/YouthN49907?t=LglVEql7hVOFXLyZCiQuYA&s=09" class="platform-card">
+                            <div class="platform-icon">📱</div>
+                            <h4>X Platform(Twitter)</h4>
+                            <p>@YouthSynergyKE</p>
+                        </a>
+                        <a href="https://www.instagram.com/youth_synergynework?igsh=Mmx1eHM4NGdycjFu" class="platform-card">
+                            <div class="platform-icon">📸</div>
+                            <h4>Instagram</h4>
+                            <p>@youth_synergy_network</p>
+                        </a>
+                        <a href="https://youtube.com/@synergynetwork-x3b?feature=shared" class="platform-card">
+                            <div class="platform-icon">📺</div>
+                            <h4>YouTube</h4>
+                            <p>Youth Synergy Network Kenya</p>
+                        </a>
+                        <a href="https://www.linkedin.com/in/youth-synergy-network-51b538362?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="platform-card">
+                            <div class="platform-icon">💼</div>
+                            <h4>LinkedIn</h4>
+                            <p>Youth Synergy Network</p>
+                        </a>
+                    </div>
+
+                    <div class="hashtags">
+                        <h4>Our Hashtags</h4>
+                        <div class="hashtag-list">
+                            <span class="hashtag">#YouthSynergyNetwork</span>
+                            <span class="hashtag">#PadsForPower</span>
+                            <span class="hashtag">#GreenJusticeMovement</span>
+                            <span class="hashtag">#HealingCirclesYSN</span>
+                            <span class="hashtag">#LegalLiteracyKE</span>
+                            <span class="hashtag">#KenyanYouth</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Make an Impact?</h2>
+                <p>Whether you want to partner, volunteer, donate, or simply learn more about our work, we're excited to connect with you and explore how we can create positive change together.</p>
+                <div class="cta-buttons">
+                    <a href="mailto:partners@youthsynergy.or.ke" class="btn btn-primary">Become a Partner</a>
+                    <a href="donate.html" class="btn btn-outline">Make a Donation</a>
+                    <a href="join-us.html" class="btn btn-primary">Join Our Team</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container ">
+            <div class="footer-content ">
+                <div class="footer-about ">
+                    <div class="footer-logo ">
+                        <img src="assets/images/ysn-logo.jpg " alt="YSN Logo ">
+                        <h2>Youth Synergy Network</h2>
+                    </div>
+                    <p>Empowering youth to become leaders in legal literacy, climate action, mental health awareness, and community service.</p>
+                    <h3>Social Media Links</h3>
+                    <div class="social-links ">
+                        <a href="https://www.facebook.com/profile.php?id=61575320623640" class="social-icon ">Facebook</a>
+                        <a href="https://x.com/YouthN49907?t=LglVEql7hVOFXLyZCiQuYA&s=09" class="social-icon ">X Platform</a>
+                        <a href="https://www.linkedin.com/in/youth-synergy-network-51b538362?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon ">LinkedIn</a>
+                        <a href="https://www.tiktok.com/@youth.synergy.net" class="social-icon ">Tiktok</a>
+                        <a href="https://www.instagram.com/youth_synergynework?igsh=Mmx1eHM4NGdycjFu" class="social-icon ">Instagram</a>
+                    </div>
+                </div>
+
+                <div class="footer-links ">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html ">Home</a></li>
+                        <li><a href="about.html ">About Us</a></li>
+                        <li><a href="programs.html ">Programs</a></li>
+                        <li>
+                            <a href="program-details.html ">Impacts</a>
+                        </li>
+                        <li><a href="leadership.html ">Leadership</a></li>
+                        <li><a href="chapters.html ">University Chapters</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links ">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="events.html ">Events</a></li>
+                        <li><a href="resources.html ">Resources</a></li>
+                        <li><a href="media.html ">Media Center</a></li>
+                        <li><a href="blog.html ">Blog</a></li>
+                        <li><a href="contact.html ">Contact Us</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="footer-subscribe ">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for updates on our programs and impact stories.</p>
+                    <form id="subscribeForm" class="subscribe-form">
+                        <input type="email" id="email" name="email" class="subscribe-input" placeholder="Your email address" required><br><br>
+                        <button type="submit" class="subscribe-btn">Subscribe</button>
+                    </form>
+                    <p id="subscribeMessage"></p>
+                </div>
+            </div>
+
+            <div class="footer-bottom ">
+                <p>&copy; 2025 Youth Synergy Network. All Rights Reserved.</p>
+                <p>Developer: Francis(<i><a href="mailto:mtechspacesolutions@gmail.com">Mobet Tech Space Solutions. Click to email them.</a></i>)</p>
+            </div>
+        </div>
+    </footer>
+
+    </script>
+
+    <script>
+        document.getElementById('articleForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+    
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+    
+            try {
+                const response = await fetch('/dashboard', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+    
+                if (response.ok) {
+                    alert('Article added successfully!');
+                    e.target.reset();
+                } else {
+                    alert('Failed to add article.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while adding the article.');
+            }
+        });
+    </script>
+    
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+        
+          const formData = {
+            fullName: document.getElementById('fullName').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            phone: document.getElementById('phone').value.trim(),
+            subject: document.getElementById('subject').value.trim(),
+            message: document.getElementById('message').value.trim(),
+            newsletter: document.getElementById('newsletter').checked
+          };
+        
+          fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              alert('✅ Your message was sent successfully!');
+              document.getElementById('contactForm').reset();
+            } else {
+              alert('❌ There was an issue sending your message.');
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            alert('⚠️ An unexpected error occurred. Please try again later.');
+          });
+        });
+    </script>
+    <script>
+        document.getElementById('subscribeForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+
+            // Basic email validation
+            if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email }),
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    // Subscription was successful
+                    alert(result.message || "Subscribed successfully!");
+                    document.getElementById('subscribeForm').reset();
+                } else {
+                    // Application-level error (including "already subscribed")
+                    alert(result.error || "User already subscribed.");
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again.');
+                document.getElementById('subscribeMessage').textContent = "";
+            }
+        });
+    </script>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('nav ul');
+        const navButtons = document.querySelector('.nav-buttons');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            navButtons.classList.toggle('active');
+        });
+
+        // Chapter selection
+        const chapterSelect = document.querySelector('.chapter-select');
+        const chapterDetails = document.getElementById('chapter-details');
+
+        const chapters = {
+            uon: {
+                name: "University of Nairobi Chapter",
+                coordinator: "Jane Mwangi",
+                email: "uon@youthsynergy.or.ke",
+                phone: "+254 712 345 678",
+                location: "Main Campus, Student Center"
+            },
+            ku: {
+                name: "Kenyatta University Chapter",
+                coordinator: "John Kamau",
+                email: "ku@youthsynergy.or.ke",
+                phone: "+254 723 456 789",
+                location: "KU Students Plaza, 2nd Floor"
+            },
+            jkuat: {
+                name: "JKUAT Chapter",
+                coordinator: "Faith Njeri",
+                email: "jkuat@youthsynergy.or.ke",
+                phone: "+254 734 567 890",
+                location: "Main Campus, Block B"
+            },
+            moi: {
+                name: "Moi University Chapter",
+                coordinator: "Daniel Kiprop",
+                email: "moi@youthsynergy.or.ke",
+                phone: "+254 745 678 901",
+                location: "Main Campus, Student Center"
+            },
+            maseno: {
+                name: "Maseno University Chapter",
+                coordinator: "Mercy Achieng",
+                email: "maseno@youthsynergy.or.ke",
+                phone: "+254 756 789 012",
+                location: "Main Campus, Learning Center"
+            },
+            egerton: {
+                name: "Egerton University Chapter",
+                coordinator: "Simon Kimani",
+                email: "egerton@youthsynergy.or.ke",
+                phone: "+254 767 890 123",
+                location: "Main Campus, Student Affairs Block"
+            },
+            mmust: {
+                name: "Masinde Muliro University Chapter",
+                coordinator: "Grace Wanjiku",
+                email: "mmust@youthsynergy.or.ke",
+                phone: "+254 778 901 234",
+                location: "Main Campus, Club House"
+            },
+            technical: {
+                name: "Technical University of Kenya Chapter",
+                coordinator: "Brian Otieno",
+                email: "tuk@youthsynergy.or.ke",
+                phone: "+254 789 012 345",
+                location: "Main Campus, Student Hub"
+            }
+        };
+
+        chapterSelect.addEventListener('change', function() {
+            const selectedChapter = this.value;
+            if (chapters[selectedChapter]) {
+                const chapter = chapters[selectedChapter];
+                chapterDetails.innerHTML = `
+                    <div class="chapter-info">
+                        <h4>${chapter.name}</h4>
+                        <p><strong>Chapter Coordinator:</strong> ${chapter.coordinator}</p>
+                        <p><strong>Email:</strong> <a href="mailto:${chapter.email}">${chapter.email}</a></p>
+                        <p><strong>Phone:</strong> <a href="tel:${chapter.phone}">${chapter.phone}</a></p>
+                        <p><strong>Location:</strong> ${chapter.location}</p>
+                        <div style="margin-top: 1rem;">
+                            <a href="#" class="btn btn-outline">View Chapter Page</a>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        // Form validation
+        const contactForm = document.querySelector('.contact-form form');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Simple validation
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            if (!fullName || !email || !subject || !message) {
+                alert("Please fill in all required fields");
+                return;
+            }
+
+            // Form submission logic would go here
+            alert("Thank you for your message! We will get back to you shortly.");
+            this.reset();
+        });
+    </script>
+    <script>
+        // Toggle mobile navigation
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.textContent = nav.classList.contains('active') ? '✕' : '☰';
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !hamburger.contains(e.target) && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                hamburger.textContent = '☰';
+            }
+        });
+        
+        // Close mobile menu when window is resized above mobile breakpoint
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                hamburger.textContent = '☰';
+            }
+        });
+    </script>
+</body>
+
+</html>

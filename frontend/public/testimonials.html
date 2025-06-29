@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials | Youth Synergy Network</title>
+    <!-- <link rel="stylesheet" href="css/styles.css"> -->
+    <style>
+        /* Base Styles */
+        
+         :root {
+            --primary: #ff7700;
+            --secondary: #1e3a8a;
+            --accent: #10b981;
+            --light: #f8fafc;
+            --dark: #0f172a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Utility Classes */
+        
+        .container {
+            width: 100%;
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e05f00;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #15296b;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        /* Hero Section */
+        
+        .testimonials-hero {
+            margin-top: 86px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://picsum.photos/1600/800') center/cover no-repeat;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+        
+        .testimonials-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .testimonials-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        .testimonials-hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+
+        /* Section Styles */
+        
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-alt {
+            background-color: #f1f5f9;
+        }
+        
+        /* Testimonials Overview */
+        .testimonials-overview {
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.3s forwards;
+        }
+
+        /* Categories of Testimonials */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .category-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .category-card:nth-child(1) { animation-delay: 0.1s; }
+        .category-card:nth-child(2) { animation-delay: 0.2s; }
+        .category-card:nth-child(3) { animation-delay: 0.3s; }
+        .category-card:nth-child(4) { animation-delay: 0.4s; }
+        .category-card:nth-child(5) { animation-delay: 0.5s; }
+        .category-card:nth-child(6) { animation-delay: 0.6s; }
+        .category-card:nth-child(7) { animation-delay: 0.7s; }
+        .category-card:nth-child(8) { animation-delay: 0.8s; }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-icon {
+            height: 120px;
+            background-color: var(--secondary);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            overflow: hidden;
+        }
+
+        .category-icon:before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            top: -80%;
+            left: -80%;
+            transition: all 0.5s ease;
+        }
+
+        .category-card:hover .category-icon:before {
+            top: 80%;
+            left: 80%;
+        }
+        
+        .category-content {
+            padding: 1.5rem;
+        }
+        
+        .category-content h3 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .category-content h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.4s ease;
+        }
+
+        .category-card:hover .category-content h3:after {
+            width: 100%;
+        }
+        
+        .category-content p {
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+
+        .category-content .example {
+            font-style: italic;
+            border-left: 3px solid var(--primary);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: #4b5563;
+            background-color: rgba(255, 119, 0, 0.05);
+            padding: 0.8rem 1rem;
+            border-radius: 0 0.3rem 0.3rem 0;
+        }
+
+        /* Featured Testimonials */
+        .testimonial-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .testimonial-card:nth-child(1) { animation-delay: 0.2s; }
+        .testimonial-card:nth-child(2) { animation-delay: 0.4s; }
+        .testimonial-card:nth-child(3) { animation-delay: 0.6s; }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card:before {
+            content: """;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 5rem;
+            color: rgba(255, 119, 0, 0.1);
+            font-family: Georgia, serif;
+            z-index: 1;
+            line-height: 1;
+        }
+        
+        .testimonial-image {
+            height: 200px;
+            background-color: #f1f5f9;
+            position: relative;
+        }
+        
+        .testimonial-content {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .testimonial-content p {
+            color: #334155;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .author-info span {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        /* Multimedia Testimonials Section */
+        .multimedia-section {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 5rem 0;
+        }
+
+        .multimedia-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .multimedia-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .multimedia-header h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .multimedia-header p {
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+
+        .multimedia-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .multimedia-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .multimedia-item:nth-child(1) { animation-delay: 0.2s; }
+        .multimedia-item:nth-child(2) { animation-delay: 0.4s; }
+        .multimedia-item:nth-child(3) { animation-delay: 0.6s; }
+
+        .multimedia-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .multimedia-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .multimedia-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .multimedia-item p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* Submission Portal */
+        .submission-portal {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.3s forwards;
+        }
+
+        .submission-portal h3 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 119, 0, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-group input {
+            width: auto;
+        }
+
+        .incentives-list {
+            margin-top: 2rem;
+            background-color: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 0.375rem;
+        }
+
+        .incentives-list h4 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+
+        .incentives-list ul {
+            list-style: none;
+        }
+
+        .incentives-list li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .incentives-list li:before {
+            content: "★";
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        /* Display Options Section */
+        .display-options {
+            padding: 4rem 0;
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .options-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .options-content h3 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .option-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .option-item:nth-child(1) { animation-delay: 0.2s; }
+        .option-item:nth-child(2) { animation-delay: 0.4s; }
+        .option-item:nth-child(3) { animation-delay: 0.6s; }
+        .option-item:nth-child(4) { animation-delay: 0.8s; }
+
+        .option-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .option-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .option-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .option-item p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 5rem 0;
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-content p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo img {
+            height: 40px;
+        }
+        
+        .footer-logo h2 {
+            font-size: 1.25rem;
+        }
+        
+        .footer-about p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: block;
+            gap: 1rem;
+        }
+        
+        .social-icon {
+            display: block;
+            align-items: center;
+            justify-content: left;
+            padding: 5px;
+            width: 55%;
+            height: 5%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-icon-footer:hover {
+            background-color: var(--primary);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+        
+        .footer-subscribe h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-subscribe p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 300px;
+        }
+        
+        .subscribe-input {
+            flex-grow: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 0.375rem 0 0 0.375rem;
+            outline: none;
+            font-size: 0.875rem;
+        }
+        
+        .subscribe-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 0.375rem 0.375rem 0;
+            padding: 0 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .subscribe-btn:hover {
+            background-color: #e05f00;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.875rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from { 
+                opacity: 0; 
+                transform: translateX(-20px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+        }
+        /* Container styling */
+        .tcontainer {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+        
+        /* Header styling */
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 20px;
+        }
+        
+        .section-header h2 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .section-header p {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+        
+        /* Form styling */
+        form {
+            margin-top: 20px;
+        }
+        
+        label {
+            font-weight: 500;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            font-size: 15px;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        input[type="text"]:focus,
+        textarea:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        input[type="file"] {
+            padding: 10px 0;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        
+        /* Checkbox styling */
+        input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.2);
+            accent-color: #3498db;
+        }
+        
+        /* Button styling */
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: block;
+            margin: 20px auto 0;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        /* File input styling */
+        input[type="file"] {
+            border: 1px dashed #ddd;
+            padding: 15px;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+        
+        input[type="file"]:hover {
+            border-color: #3498db;
+            background-color: #f0f7fc;
+        }
+        
+        /* Success message styling */
+        #testimonialMessage {
+            margin-top: 20px;
+            padding: 15px;
+            text-align: center;
+            display: none;
+        }
+        
+        #testimonialMessage.success {
+            display: block;
+            background-color: #d4edda;
+            color: #155724;
+            border-radius: 6px;
+        }
+        
+        /* Animation for focus states */
+        @keyframes focusAnimation {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+        
+        /* Form placeholders styling */
+        ::placeholder {
+            color: #aab2bd;
+            opacity: 0.8;
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 1rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #0066cc;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline {
+            border: 2px solid #0066cc;
+            color: #0066cc;
+        }
+        
+        .btn-outline:hover {
+            background-color: #0066cc;
+            color: #fff;
+        }
+        
+        .btn-primary {
+            background-color: #0066cc;
+            color: #fff;
+            border: 2px solid #0066cc;
+        }
+        
+        .btn-primary:hover {
+            background-color: #004d99;
+            border-color: #004d99;
+        }
+        
+        /* Mobile Navigation */
+        .hamburger {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        nav {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            z-index: 1001;
+        }
+        nav.active {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        nav ul li {
+            margin: 0;
+            width: 100%;
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        /* Media Queries */
+        @media screen and (max-width: 1024px) {
+            nav ul li {
+                margin-left: 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #fff;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
+            }
+            
+            nav.active {
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                padding: 0.75rem 2rem;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-buttons {
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: center;
+                border-bottom: none;
+            }
+            
+            .logo h1 {
+                font-size: 1rem;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo h1 {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="assets/images/ysn-logo.jpg" alt="YSN Logo">
+                <h1>Youth Synergy Network</h1>
+            </div>
+            <button class="hamburger" aria-label="Toggle navigation">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="programs.html">Programs</a></li>
+                    <li><a href="program-details.html">Impacts</a></li>
+                    <li><a href="chapters.html">Chapters</a></li>
+                    <li><a href="leadership.html">Leadership</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="media.html">Media</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="nav-buttons"><a href="donate.html" class="btn btn-outline">Donate</a></li>
+                    <li class="nav-buttons"><a href="join-us.html" class="btn btn-primary">Join Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="testimonials-hero">
+        <div class="container">
+            <div class="testimonials-hero-content">
+                <h1>Testimonials</h1>
+                <p>A curated gallery of authentic voices sharing the transformative impact of YSN's programs</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Authentic Voices of Impact</h2>
+            </div>
+            <div class="testimonials-overview">
+                <p>The Testimonials section of the Youth Synergy Network website is a curated gallery of authentic voices — students, teachers, partners, parents, university officials, legal professionals, and beneficiaries — who have personally experienced the transformative impact of YSN's programs.</p>
+                <p>These testimonials validate YSN's work from the ground level and offer compelling proof of change, growth, and empowerment. This section also builds credibility for donors, motivation for youth, and insight for new partners.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories of Testimonials Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Categories of Testimonials</h2>
+                <p>Diverse perspectives on YSN's impact across communities</p>
+            </div>
+
+            <div class="categories-grid">
+                <!-- Category 1 -->
+                <div class="category-card">
+                    <div class="category-icon">👨‍🎓</div>
+                    <div class="category-content">
+                        <h3>Student Voices</h3>
+                        <p>Testimonies from high school and university mentees, club leaders, peer counselors, and legal aid volunteers.</p>
+                        <p>Topics include: legal awareness, mental wellness, access to sanitary pads, environmental activism, and leadership growth.</p>
+                        <div class="example">
+                            "Through YSN, I found my voice. Now I'm the president of our school's environmental club."<br>
+                            — Akinyi, Form 3, Makueni Girls
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="category-card">
+                    <div class="category-icon">🎓</div>
+                    <div class="category-content">
+                        <h3>University Chapter Leaders</h3>
+                        <p>Reflections on mobilizing, leading, and managing university-based YSN chapters.</p>
+                        <p>Testimonials on personal growth, teamwork, and community outreach.</p>
+                        <div class="example">
+                            "YSN gave my legal education a purpose beyond exams."<br>
+                            — Kibet, Former President, Moi Law Chapter
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 3 -->
+<div class="category-card">
+    <div class="category-icon">👩‍🏫</div>
+    <div class="category-content">
+        <h3>Teachers & School Administrators</h3>
+        <p>Narratives on school-wide transformations due to YSN visits, workshops, and pad distribution.</p>
+        <p>Testimonials on improved performance, confidence, discipline, and participation.</p>
+        <div class="example">
+            "After your legal literacy seminar, students began challenging unfair punishments — respectfully and legally."<br>
+            — Teacher, Kathonzweni Secondary
+        </div>
+    </div>
+</div>
+
+<!-- Category 4 -->
+<div class="category-card">
+    <div class="category-icon">👪</div>
+    <div class="category-content">
+        <h3>Parents & Guardians</h3>
+        <p>Messages of gratitude for programs that addressed youth depression, period poverty, or early pregnancy.</p>
+        <p>Testimonies on restored hope, safety, and academic focus.</p>
+        <div class="example">
+            "My daughter came home from a YSN forum with a changed heart and a pad in her pocket."<br>
+            — Mother, Wote Town
+        </div>
+    </div>
+</div>
+
+<!-- Category 5 -->
+<div class="category-card">
+    <div class="category-icon">🧠</div>
+    <div class="category-content">
+        <h3>Mental Health Beneficiaries</h3>
+        <p>Testimonies from youth who joined YSN Healing Circles, received peer support, or accessed referrals.</p>
+        <p>Topics include resilience, therapy journeys, suicide prevention, and finding peace.</p>
+        <div class="example">
+            "YSN saved my life. I learned it's okay to cry — and to rise."<br>
+            — Anonymous, 1st-Year Law Student
+        </div>
+    </div>
+</div>
+
+<!-- Category 6 -->
+<div class="category-card">
+    <div class="category-icon">🤝</div>
+    <div class="category-content">
+        <h3>Partners & Sponsors</h3>
+        <p>Statements from organizations that collaborated with or supported YSN.</p>
+        <p>Testimonials highlighting professionalism, impact, and alignment with shared values.</p>
+        <div class="example">
+            "We sponsored 1,000 pads through YSN, and what we received in return was dignity restored — and lives changed."<br>
+            — CSR Manager, PadCorp Kenya Ltd.
+        </div>
+    </div>
+</div>
+
+<!-- Category 7 -->
+<div class="category-card">
+    <div class="category-icon">⚖️</div>
+    <div class="category-content">
+        <h3>Government & Policy Leaders</h3>
+        <p>Reflections by county youth officers, magistrates, MCAs, and education officers.</p>
+        <p>Testimonials on policy influence, civic awareness, and county-level collaboration.</p>
+        <div class="example">
+            "YSN has become the leading youth legal voice in our county."<br>
+            — Makueni County Solicitor General
+        </div>
+    </div>
+</div>
+
+<!-- Category 8 -->
+<div class="category-card">
+    <div class="category-icon">📱</div>
+    <div class="category-content">
+        <h3>Media & Public Figures</h3>
+        <p>Comments from journalists, influencers, or panelists who engaged with YSN.</p>
+        <p>Testimonials on storytelling, youth power, and social impact.</p>
+        <div class="example">
+            "I interviewed the YSN founders — and walked away inspired by integrity and intellect."<br>
+            — Afrez TV Journalist
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Featured Testimonials Section (Not changing this section as it already exists) -->
+
+<!-- Multimedia Testimonials Section -->
+<section class="multimedia-section">
+<div class="container">
+    <div class="multimedia-header">
+        <h3>Multimedia Testimonials</h3>
+        <p>Experience our stories through videos, audio, and written words</p>
+    </div>
+    
+    <div class="multimedia-grid">
+        <!-- Video Testimonials -->
+        <div class="multimedia-item">
+            <div class="multimedia-icon">🎥</div>
+            <h4>Video Testimonials</h4>
+            <p>Professionally filmed testimonials from participants across our programs.</p>
+            <p>Watch clips from events, school visits, and campus forums, edited with subtitles for accessibility.</p>
+        </div>
+        
+        <!-- Voice Notes -->
+        <div class="multimedia-item">
+            <div class="multimedia-icon">🎤</div>
+            <h4>Voice Notes (Audio Wall)</h4>
+            <p>Listen to authentic WhatsApp voice notes from volunteers and students.</p>
+            <p>Browse our interactive audio testimonies integrated into a map or gallery.</p>
+        </div>
+        
+        <!-- Letter Wall & Quote Cards -->
+        <div class="multimedia-item">
+            <div class="multimedia-icon">✉️</div>
+            <h4>Letter Wall & Quote Cards</h4>
+            <p>Read handwritten letters from students or parents expressing gratitude and sharing their stories.</p>
+            <p>View digital quote cards featuring photos, names, and brief reflections from our community.</p>
+        </div>
+    </div>
+</div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Testimonials</h2>
+            <p>Read what others have to say about us.</p>
+        </div>
+        <div id="testimonials-container">
+            <!-- Testimonials will be dynamically loaded here -->
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial Submission Portal -->
+<section class="section">
+<div class="container">
+    <div class="section-header">
+        <h2>Share Your Story</h2>
+        <p>Your experience matters - help inspire others by contributing your testimonial</p>
+    </div>
+    
+    <div class="submission-portal">
+        <h3>Contribute Your Story</h3>
+        <form id="StoryContributionForm" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="name">Full Name (Optional anonymity allowed)</label>
+              <input type="text" id="name" name="name" placeholder="Your name or 'Anonymous'" class="form-control">
+            </div>
+        
+            <div class="form-group">
+              <label for="role">Role</label>
+              <select id="role" name="role" class="form-control">
+                <option value="">Select your role</option>
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+                <option value="volunteer">Volunteer</option>
+                <option value="parent">Parent/Guardian</option>
+                <option value="partner">Partner Organization</option>
+                <option value="government">Government Official</option>
+                <option value="media">Media Personnel</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+        
+            <div class="form-group">
+              <label for="institution">Institution / Region</label>
+              <input type="text" id="institution" name="institution" placeholder="Your school, organization, or region" class="form-control">
+            </div>
+        
+            <div class="form-group">
+              <label for="story">Your Story (250-500 words)</label>
+              <textarea id="story" name="story" class="form-control" rows="6" placeholder="Share how YSN has impacted you or your community..."></textarea>
+            </div>
+        
+            <div class="form-group">
+              <label for="voice-note">Or Upload a Voice Note</label>
+              <input type="file" id="voice-note" name="voiceNote" accept="audio/*" class="form-control-file">
+            </div>
+        
+            <div class="form-group">
+              <label for="photo">Photo (Optional)</label>
+              <input type="file" id="photo" name="photo" accept="image/*" class="form-control-file">
+            </div>
+        
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="consent" name="consent" required>
+              <label for="consent">I consent to YSN publishing my story on their website and other platforms</label>
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Submit Your Story</button>
+          </form>
+        
+          <div class="incentives-list mt-4">
+            <h4>Incentives for Sharing Your Story</h4>
+            <ul class="list-group">
+              <li class="list-group-item">Featured testimonial on YSN homepage</li>
+              <li class="list-group-item">"Testimonial of the Month" award with special recognition</li>
+              <li class="list-group-item">Printed feature in YSN newsletter or magazine</li>
+              <li class="list-group-item">Opportunity to speak at YSN events</li>
+            </ul>
+          </div>
+          <p id="StoryMessage"></p>
+        </div>
+    </div>
+</div>
+</section>
+<!-- Stories Display Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Stories</h2>
+            <p>Read more stories from different members</p>
+        </div>
+        <div id="stories-container">
+            <!-- Stories will be dynamically loaded here -->
+        </div>
+    </div>
+</section>
+
+<!-- Display Options Section -->
+<section class="display-options">
+    <div class="container">
+        <div class="options-content">
+            <h3>How We Showcase Your Stories</h3>
+            
+            <div class="options-grid">
+                <!-- Option 1 -->
+                <div class="option-item">
+                    <div class="option-icon">🔄</div>
+                    <h4>Testimonial Carousel</h4>
+                    <p>Auto-rotating quotes featured on our homepage to highlight diverse voices and experiences.</p>
+                </div>
+                
+                <!-- Option 2 -->
+                <div class="option-item">
+                    <div class="option-icon">🧱</div>
+                    <h4>Testimonial Wall</h4>
+                    <p>Browse our filterable collection by region, program, or audience to find stories that resonate with you.</p>
+                </div>
+                
+                <!-- Option 3 -->
+                <div class="option-item">
+                    <div class="option-icon">🗺️</div>
+                    <h4>Map of Impact</h4>
+                    <p>Explore our interactive map showing where each story comes from across Kenya and beyond.</p>
+                </div>
+                
+                <!-- Option 4 -->
+                <div class="option-item">
+                    <div class="option-icon">✨</div>
+                    <h4>Spotlight Stories</h4>
+                    <p>Extended testimonials transformed into full blog posts or short films to share profound impact stories.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Be Part of Our Story</h2>
+            <p>Join the growing community of youth advocates transforming lives across Kenya</p>
+            <div class="cta-buttons">
+                <a href="#testimonialForm" class="btn btn-secondary">Share Your Testimonial</a>
+                <a href="volunteers@youthsynergy.or.ke" class="btn btn-outline">Become a Volunteer</a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="tcontainer">
+        <div class="section-header">
+            <h2>Share Your Testimonial</h2>
+            <p>We value your feedback and stories. Share your experience with us!</p>
+        </div>
+        <form id="testimonialForm" enctype="multipart/form-data">
+            <label for="name">Name (Optional):</label><br>
+            <input type="text" id="name" name="name" placeholder="Enter your name"><br><br>
+
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select id="role" name="role" class="form-control">
+                    <option value="">Select your role</option>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="volunteer">Volunteer</option>
+                    <option value="parent">Parent/Guardian</option>
+                    <option value="partner">Partner Organization</option>
+                    <option value="government">Government Official</option>
+                    <option value="media">Media Personnel</option>
+                    <option value="other">Other</option>
+                </select>
+            </div><br><br>
+
+            <label for="institution">Institution:</label><br>
+            <input type="text" id="institution" name="institution" placeholder="e.g., University of Nairobi" required><br><br>
+
+            <label for="story">Your Testimonial:</label><br>
+            <textarea id="story" name="story" rows="10" placeholder="Write your testimonial here (250–500 words)" required></textarea><br><br>
+
+            <label for="photo">Upload a Photo (Optional):</label><br>
+            <input type="file" id="photo" name="photo" accept="image/*"><br><br>
+
+            <label for="voiceNote">Upload a Voice Note (Optional):</label><br>
+            <input type="file" id="voiceNote" name="voiceNote" accept="audio/*"><br><br>
+
+            <label>
+                <input type="checkbox" id="consent" name="consent" required>
+                I consent to the publication of my testimonial.
+            </label><br><br>
+
+            <button type="submit" class="btn btn-primary">Submit Testimonial</button>
+        </form>
+        <p id="testimonialMessage"></p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container ">
+        <div class="footer-content ">
+            <div class="footer-about ">
+                <div class="footer-logo ">
+                    <img src="assets/images/ysn-logo.jpg " alt="YSN Logo ">
+                    <h2>Youth Synergy Network</h2>
+                </div>
+                <p>Empowering youth to become leaders in legal literacy, climate action, mental health awareness, and community service.</p>
+                <h3>Social Media Links</h3>
+                <div class="social-links ">
+                    <a href="https://www.facebook.com/profile.php?id=61575320623640" class="social-icon ">Facebook</a>
+                    <a href="https://x.com/YouthN49907?t=LglVEql7hVOFXLyZCiQuYA&s=09" class="social-icon ">X Platform</a>
+                    <a href="https://www.linkedin.com/in/youth-synergy-network-51b538362?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon ">LinkedIn</a>
+                    <a href="https://www.tiktok.com/@youth.synergy.net" class="social-icon ">Tiktok</a>
+                    <a href="https://www.instagram.com/youth_synergynework?igsh=Mmx1eHM4NGdycjFu" class="social-icon ">Instagram</a>
+                </div>
+            </div>
+
+            <div class="footer-links ">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html ">Home</a></li>
+                    <li><a href="about.html ">About Us</a></li>
+                    <li><a href="programs.html ">Programs</a></li>
+                    <li>
+                        <a href="program-details.html ">Impacts</a>
+                    </li>
+                    <li><a href="leadership.html ">Leadership</a></li>
+                    <li><a href="chapters.html ">University Chapters</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links ">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="events.html ">Events</a></li>
+                    <li><a href="resources.html ">Resources</a></li>
+                    <li><a href="media.html ">Media Center</a></li>
+                    <li><a href="blog.html ">Blog</a></li>
+                    <li><a href="contact.html ">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-subscribe ">
+                <h3>Stay Updated</h3>
+                <p>Subscribe to our newsletter for updates on our programs and impact stories.</p>
+                <form id="subscribeForm" class="subscribe-form">
+                    <input type="email" id="email" name="email" class="subscribe-input" placeholder="Your email address" required><br><br>
+                    <button type="submit" class="subscribe-btn">Subscribe</button>
+                </form>
+                <p id="subscribeMessage"></p>
+            </div>
+        </div>
+
+        <div class="footer-bottom ">
+            <p>&copy; 2025 Youth Synergy Network. All Rights Reserved.</p>
+            <p>Developer: Francis(<i><a href="mailto:mtechspacesolutions@gmail.com">Mobet Tech Space Solutions. Click to email them.</a></i>)</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Handle testimonial submission
+    document.getElementById('StoryContributionForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
+        try {
+            const response = await fetch('/api/stories', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            const msg = document.getElementById('StoryMessage');
+            if (response.ok) {
+                msg.textContent = 'Thank you! Your story has been submitted for review.';
+                msg.className = 'success';
+                this.reset();
+            } else {
+                msg.textContent = result.message || 'Submission failed.';
+                msg.className = '';
+            }
+        } catch (err) {
+            document.getElementById('StoryMessage').textContent = 'An error occurred. Please try again.';
+        }
+    });
+
+    // Display approved stories
+    async function fetchStories() {
+        try {
+            const response = await fetch('/api/stories');
+            const stories = await response.json();
+
+            const container = document.getElementById('stories-container');
+            container.innerHTML = '';
+
+            if (!stories.length) {
+                container.innerHTML = '<p>No stories yet. Be the first to share your story!</p>';
+                return;
+            }
+
+            stories.forEach(story => {
+                container.innerHTML += `
+                    <div class="testimonial-card">
+                        ${story.photo ? `<img src="${story.photo}" alt="Photo" class="story-photo">` : ''}
+                        <div class="testimonial-content">
+                            <p class="testimonial-story">"${story.story}"</p>
+                            <p class="testimonial-meta">
+                                <strong>${story.name || 'Anonymous'}</strong>
+                                ${story.role ? `, ${story.role}` : ''}
+                                ${story.institution ? `, ${story.institution}` : ''}
+                            </p>
+                            ${story.voiceNote ? `<audio controls src="${story.voiceNote}"></audio>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+        } catch (error) {
+            document.getElementById('stories-container').innerHTML = '<p>Could not load stories.</p>';
+        }
+    }
+
+    // Load testimonials on page load
+    window.addEventListener('DOMContentLoaded', fetchStories);
+</script>
+
+
+<script>
+    async function fetchTestimonials() {
+        try {
+            const response = await fetch('/api/testimonials');
+            const testimonials = await response.json();
+
+            const container = document.getElementById('testimonials-container');
+            container.innerHTML = ''; // Clear existing content
+
+            if (!testimonials.length) {
+                container.innerHTML = '<p>No testimonials yet. Be the first to share your story!</p>';
+                return;
+            }
+
+            testimonials.forEach(testimonial => {
+                container.innerHTML += `
+                    <div class="testimonial-card">
+                        ${testimonial.photo ? `<img src="${testimonial.photo}" alt="Photo" class="testimonial-photo">` : ''}
+                        <div class="testimonial-content">
+                            <p class="testimonial-story">"${testimonial.story}"</p>
+                            <p class="testimonial-meta">
+                                <strong>${testimonial.name || 'Anonymous'}</strong>
+                                ${testimonial.role ? `, ${testimonial.role}` : ''}
+                                ${testimonial.institution ? `, ${testimonial.institution}` : ''}
+                            </p>
+                            ${testimonial.voiceNote ? `<audio controls src="${testimonial.voiceNote}"></audio>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+        } catch (error) {
+            document.getElementById('testimonials-container').innerHTML = '<p>Could not load testimonials.</p>';
+        }
+    }
+
+    // Load testimonials when the page loads
+    window.addEventListener('DOMContentLoaded', fetchTestimonials);
+</script>
+
+<script>
+    document.getElementById('testimonialForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
+        try {
+            const response = await fetch('/api/testimonials', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            if (response.ok) {
+                document.getElementById('testimonialMessage').textContent = 'Thank you! Your testimonial has been submitted for review.';
+                this.reset();
+            } else {
+                document.getElementById('testimonialMessage').textContent = result.message || 'Submission failed.';
+            }
+        } catch (err) {
+            document.getElementById('testimonialMessage').textContent = 'An error occurred. Please try again.';
+        }
+    });
+</script>
+<script>
+    document.getElementById('subscribeForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value.trim();
+
+        // Basic email validation
+        if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+            const result = await response.json();
+
+            if (result.success) {
+                // Subscription was successful
+                alert(result.message || "Subscribed successfully!");
+                document.getElementById('subscribeForm').reset();
+            } else {
+                // Application-level error (including "already subscribed")
+                alert(result.error || "User already subscribed.");
+            }
+        } catch (error) {
+            alert('An error occurred. Please try again.');
+            document.getElementById('subscribeMessage').textContent = "";
+        }
+    });
+</script>
+<script>
+    // Toggle mobile navigation
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+    
+    hamburger.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        hamburger.textContent = nav.classList.contains('active') ? '✕' : '☰';
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!nav.contains(e.target) && !hamburger.contains(e.target) && nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            hamburger.textContent = '☰';
+        }
+    });
+    
+    // Close mobile menu when window is resized above mobile breakpoint
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            hamburger.textContent = '☰';
+        }
+    });
+</script>
+</body>
+</html>‍

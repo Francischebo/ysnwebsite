@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Chapters | Youth Synergy Network</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        /* Base Styles */
+        
+         :root {
+            --primary: #ff7700;
+            --secondary: #1e3a8a;
+            --accent: #10b981;
+            --light: #f8fafc;
+            --dark: #0f172a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Utility Classes */
+        
+        .container {
+            width: 100%;
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e05f00;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #15296b;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        /* Hero Section */
+        
+        .chapters-hero {
+            margin-top: 86px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://picsum.photos/1600/800') center/cover no-repeat;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+        
+        .chapters-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .chapters-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chapters-hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .chat-bubble {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            max-width: 70%;
+            font-size: 0.9rem;
+        }
+        .user-msg {
+            background-color: #fef9c3;
+            align-self: flex-end;
+        }
+        .admin-msg {
+            background-color: #e0f7fa;
+            align-self: flex-start;
+        }
+        /* Section Styles */
+        
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-alt {
+            background-color: #f1f5f9;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        /* Chapter Overview */
+        
+        .chapter-overview {
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+        /* Strategic Objectives */
+        
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .objective-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .objective-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .objective-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .objective-card h3 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .objective-card p {
+            color: #64748b;
+        }
+        /* Foundational Principles */
+        
+        .principles-container {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 3rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 4rem;
+        }
+        
+        .principles-list {
+            list-style-position: inside;
+            margin-top: 1.5rem;
+        }
+        
+        .principles-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .principles-list li:before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+        }
+        /* Chapter Structure */
+        
+        .structure-container {
+            margin-bottom: 4rem;
+        }
+        
+        .structure-roles {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .role-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .role-card h4 {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+        
+        .role-card p {
+            color: #64748b;
+        }
+        /* Chapter Activities */
+        
+        .activities-section {
+            margin-bottom: 4rem;
+        }
+        
+        .activities-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .activity-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .activity-image {
+            height: 180px;
+            background-color: var(--secondary);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .activity-image .icon {
+            font-size: 3.5rem;
+            color: white;
+        }
+        
+        .activity-content {
+            padding: 1.5rem;
+        }
+        
+        .activity-content h3 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .activity-content p {
+            color: #64748b;
+        }
+        
+        .chapters-map-section {
+            margin-bottom: 4rem;
+        }
+        
+        .chapters-map {
+            height: 500px;
+            background-color: #f1f5f9;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .active-chapters {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .chapters-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .chapter-badge {
+            background-color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .chapter-badge:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        /* Annual Summit */
+        
+        .summit-section {
+            background-color: var(--secondary);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 4rem;
+        }
+        
+        .summit-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .summit-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .summit-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .summit-feature {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            border-radius: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        /* Join Section */
+        
+        .join-section {
+            margin-bottom: 4rem;
+        }
+        
+        .join-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .join-requirements {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .join-requirements h3 {
+            color: var(--dark);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.75rem;
+        }
+        
+        .requirements-list {
+            list-style-position: inside;
+            margin-bottom: 2rem;
+        }
+        
+        .requirements-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .requirements-list li:before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 0.75rem;
+        }
+        
+        .join-benefits {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .join-benefits h3 {
+            color: var(--dark);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.75rem;
+        }
+        
+        .benefits-list {
+            list-style-position: inside;
+        }
+        
+        .benefits-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .benefits-list li:before {
+            content: "★";
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 0.75rem;
+        }
+        /* CTA Section */
+        
+        .cta-section {
+            text-align: center;
+            padding: 5rem 0;
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-content p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        /* === MODAL STYLING === */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            max-width: 700px;
+            width: 90%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 1rem;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .modal-close {
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        .modal-body {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(255, 119, 0, 0.2);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .carousel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .carousel-item {
+            text-align: center;
+            display: none;
+        }
+
+        .carousel-item.active {
+            display: block;
+        }
+
+        .carousel-item img {
+            max-width: 100%;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .carousel-nav button {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .carousel-nav button:hover {
+            background-color: #e05f00;
+        }
+
+        /* Fade Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Footer */
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo img {
+            height: 40px;
+        }
+        
+        .footer-logo h2 {
+            font-size: 1.25rem;
+        }
+        
+        .footer-about p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: block;
+            gap: 1rem;
+        }
+        
+        .social-icon {
+            display: block;
+            align-items: center;
+            justify-content: left;
+            padding: 5px;
+            width: 55%;
+            height: 5%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+        
+        .footer-subscribe h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-subscribe p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 300px;
+        }
+        
+        .subscribe-input {
+            flex-grow: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 0.375rem 0 0 0.375rem;
+            outline: none;
+            font-size: 0.875rem;
+        }
+        
+        .subscribe-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 0.375rem 0.375rem 0;
+            padding: 0 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .subscribe-btn:hover {
+            background-color: #e05f00;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.875rem;
+        }
+        /* Header and Navigation */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 1rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #0066cc;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline {
+            border: 2px solid #0066cc;
+            color: #0066cc;
+        }
+        
+        .btn-outline:hover {
+            background-color: #0066cc;
+            color: #fff;
+        }
+        
+        .btn-primary {
+            background-color: #0066cc;
+            color: #fff;
+            border: 2px solid #0066cc;
+        }
+        
+        .btn-primary:hover {
+            background-color: #004d99;
+            border-color: #004d99;
+        }
+        
+        /* Mobile Navigation */
+        .hamburger {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        nav {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            z-index: 1001;
+        }
+        nav.active {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        nav ul li {
+            margin: 0;
+            width: 100%;
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        /* Media Queries */
+        @media screen and (max-width: 1024px) {
+            nav ul li {
+                margin-left: 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #fff;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
+            }
+            
+            nav.active {
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                padding: 0.75rem 2rem;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-buttons {
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: center;
+                border-bottom: none;
+            }
+            
+            .logo h1 {
+                font-size: 1rem;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo h1 {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="assets/images/ysn-logo.jpg" alt="YSN Logo">
+                <h1>Youth Synergy Network</h1>
+            </div>
+            <button class="hamburger" aria-label="Toggle navigation">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="programs.html">Programs</a></li>
+                    <li><a href="program-details.html">Impacts</a></li>
+                    <li><a href="chapters.html">Chapters</a></li>
+                    <li><a href="leadership.html">Leadership</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="media.html">Media</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="nav-buttons"><a href="donate.html" class="btn btn-outline">Donate</a></li>
+                    <li class="nav-buttons"><a href="join-us.html" class="btn btn-primary">Join Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="chapters-hero">
+        <div class="container">
+            <div class="chapters-hero-content">
+                <h1>University Chapters</h1>
+                <p>The heartbeat of our grassroots leadership model, empowering students across Kenya to become agents of change</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Overview</h2>
+            </div>
+            <div class="chapter-overview">
+                <p>The University Chapters of Youth Synergy Network represent the heartbeat of our grassroots leadership model. These are semi-autonomous, student-run branches established in Kenyan universities offering law degrees, operating under the broader
+                    mission, constitution, and vision of YSN.</p>
+                <p>Each chapter serves as a local hub for legal empowerment, climate action, mentorship, gender dignity campaigns, and mental health advocacy. The chapters embody YSN's belief that youth leadership must be decentralized, democratic, and context-responsive.</p>
+            </div>
+
+            <!-- Strategic Objectives -->
+            <div class="section-header">
+                <h2>Strategic Objectives of Chapters</h2>
+                <p>Our university chapters work toward these critical goals</p>
+            </div>
+
+            <div class="objectives-grid">
+                <!-- Objective 1 -->
+                <div class="objective-card">
+                    <div class="objective-icon">🔄</div>
+                    <h3>Student Empowerment</h3>
+                    <p>Empower students to take ownership of change-making in their regions</p>
+                </div>
+
+                <!-- Objective 2 -->
+                <div class="objective-card">
+                    <div class="objective-icon">🏫</div>
+                    <h3>Localization</h3>
+                    <p>Localize national programs by adapting them to the specific needs of each university</p>
+                </div>
+
+                <!-- Objective 3 -->
+                <div class="objective-card">
+                    <div class="objective-icon">👥</div>
+                    <h3>Leadership Development</h3>
+                    <p>Build leadership skills through structured chapter positions and activities</p>
+                </div>
+
+                <!-- Objective 4 -->
+                <div class="objective-card">
+                    <div class="objective-icon">⚖️</div>
+                    <h3>Legal Advocacy</h3>
+                    <p>Create youth-led legal advocacy labs inside and outside campuses</p>
+                </div>
+
+                <!-- Objective 5 -->
+                <div class="objective-card">
+                    <div class="objective-icon">🤝</div>
+                    <h3>Peer Mentorship</h3>
+                    <p>Spearhead peer mentorship in surrounding high schools and communities</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Foundational Principles Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Foundational Principles</h2>
+                <p>The core values and frameworks that guide our chapters</p>
+            </div>
+
+            <div class="principles-container">
+                <ul class="principles-list">
+                    <li>Each chapter aligns with YSN's five pillars: Legal Literacy, Mental Health, Climate Action, Mentorship, and Sanitary Dignity.</li>
+                    <li>Chapters operate under the guidance of a National Secretariat and follow a standardized Constitution and Chapter Policy Manual.</li>
+                    <li>Collaboration across chapters is facilitated through annual leadership summits, regional forums, and inter-campus dialogues.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter Structure Section -->
+    <section class="section">
+        <div class="container structure-container">
+            <div class="section-header">
+                <h2>Structure of Each Chapter</h2>
+                <p>Executive Committee (Elected Annually)</p>
+            </div>
+
+            <div class="structure-roles">
+                <!-- Role 1 -->
+                <div class="role-card">
+                    <h4>Chapter Chairperson</h4>
+                    <p>Main campus coordinator; leads all operations</p>
+                </div>
+
+                <!-- Role 2 -->
+                <div class="role-card">
+                    <h4>Vice Chairperson</h4>
+                    <p>Assists the chair and oversees program alignment</p>
+                </div>
+
+                <!-- Role 3 -->
+                <div class="role-card">
+                    <h4>Secretary General</h4>
+                    <p>Records meetings, handles communications</p>
+                </div>
+
+                <!-- Role 4 -->
+                <div class="role-card">
+                    <h4>Director of Legal Affairs</h4>
+                    <p>Leads legal forums, court visits, mock trials</p>
+                </div>
+
+                <!-- Role 5 -->
+                <div class="role-card">
+                    <h4>Director of Mental Health & Welfare</h4>
+                    <p>Coordinates wellness clubs and forums</p>
+                </div>
+
+                <!-- Role 6 -->
+                <div class="role-card">
+                    <h4>Director of Environmental Justice</h4>
+                    <p>Leads eco-projects and clean-up campaigns</p>
+                </div>
+
+                <!-- Role 7 -->
+                <div class="role-card">
+                    <h4>Director of Sanitary Dignity</h4>
+                    <p>Heads pad drives, menstrual health forums</p>
+                </div>
+
+                <!-- Role 8 -->
+                <div class="role-card">
+                    <h4>Treasurer</h4>
+                    <p>Manages finances, fundraising, and accountability</p>
+                </div>
+
+                <!-- Role 9 -->
+                <div class="role-card">
+                    <h4>Liaison Officer</h4>
+                    <p>Connects with high schools, NGOs, and county agencies</p>
+                </div>
+
+                <!-- Role 10 -->
+                <div class="role-card">
+                    <h4>Media & Publicity Director</h4>
+                    <p>Manages digital platforms and event visibility</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter Activities Section -->
+    <section class="section section-alt activities-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Activities at the Chapter Level</h2>
+                <p>Impactful initiatives led by our university chapters</p>
+            </div>
+
+            <div class="activities-container">
+                <!-- Activity 1 -->
+                <div class="activity-card">
+                    <div class="activity-image">
+                        <div class="icon">🗣️</div>
+                    </div>
+                    <div class="activity-content">
+                        <h3>Weekly Forums</h3>
+                        <p>Dynamic discussions on law, leadership, mental health, or climate policy</p>
+                    </div>
+                </div>
+
+                <!-- Activity 2 -->
+                <div class="activity-card">
+                    <div class="activity-image">
+                        <div class="icon">⚖️</div>
+                    </div>
+                    <div class="activity-content">
+                        <h3>Legal Aid Clinics</h3>
+                        <p>In partnership with faculty and legal NGOs to provide access to justice</p>
+                    </div>
+                </div>
+
+                <!-- Activity 3 -->
+                <div class="activity-card">
+                    <div class="activity-image">
+                        <div class="icon">🎓</div>
+                    </div>
+                    <div class="activity-content">
+                        <h3>High School Mentorship Days</h3>
+                        <p>University students mentor local students to inspire academic excellence</p>
+                    </div>
+                </div>
+
+                <!-- Activity 4 -->
+                <div class="activity-card">
+                    <div class="activity-image">
+                        <div class="icon">🧠</div>
+                    </div>
+                    <div class="activity-content">
+                        <h3>Wellness Circles</h3>
+                        <p>Peer counseling, art therapy, and emotional check-ins</p>
+                    </div>
+                </div>
+
+                <!-- Activity 5 -->
+                <div class="activity-card">
+                    <div class="activity-image">
+                        <div class="icon">💟</div>
+                    </div>
+                    <div class="activity-content">
+                        <h3>Sanitary Pad Mobilization</h3>
+                        <p>Collection, distribution, and education campaigns for period dignity</p>
+                    </div>
+                </div>
+
+                <!-- Activity 6 -->
+                <div class="activity-card">
+                    <div class="activity-image">
+                        <div class="icon">🌱</div>
+                    </div>
+                    <div class="activity-content">
+                        <h3>Tree Planting Events</h3>
+                        <p>Environmental conservation projects on campus and in nearby communities</p>
+                    </div>
+                </div>
+
+                <!-- Activity 7 -->
+                <div class="activity-card">
+                    <div class="activity-image">
+                        <div class="icon">💬</div>
+                    </div>
+                    <div class="activity-content">
+                        <h3>Campus Dialogues</h3>
+                        <p>Discussions on youth governance, law reform, and elections
+                        </p>
+                    </div>
+                </div>
+                <!-- Activity 8 -->
+                <div class="activity-card">
+                    <div class="activity-image">
+                        <div class="icon">📊</div>
+                    </div>
+                    <div class="activity-content">
+                        <h3>Monthly Progress Reports</h3>
+                        <p>Shared with the national coordination office to ensure alignment and support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Approved Chapters Section -->
+    <section class="section" id="approved-chapters-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>YSN Approved University Chapters</h2>
+                <p>These chapters have been reviewed and approved by the National Secretariat.</p>
+            </div>
+            <div id="chapters-list"></div>
+        </div>
+    </section>
+
+    <!-- Current Chapters Map Section -->
+    <section class="section chapters-map-section">
+        <div class="container">
+            <div class="map-header">
+                <h1>Youth Synergy Network University Chapters</h1>
+                <p>Explore our network of chapters across Kenya's universities <a href="chapters-map.html" class="btn btn-primary ">Click here to view</a></p>
+            </div>
+    
+            <div class="active-chapters">
+                <h3>Current Active Chapters</h3>
+                <div class="chapters-list">
+                    <div class="chapter-badge">University of Nairobi</div>
+                    <div class="chapter-badge">Strathmore University</div>
+                    <div class="chapter-badge">Kenyatta University</div>
+                    <div class="chapter-badge">Moi University</div>
+                    <div class="chapter-badge">Egerton University</div>
+                    <div class="chapter-badge">Jomo Kenyatta University</div>
+                    <div class="chapter-badge">Catholic University</div>
+                    <div class="chapter-badge">Riara University</div>
+                    <div class="chapter-badge">Mt. Kenya University</div>
+                    <div class="chapter-badge">Maseno University</div>
+                    <div class="chapter-badge">Daystar University</div>
+                    <div class="chapter-badge">USIU-Africa</div>
+                    <div class="chapter-badge">Kisii University</div>
+                    <div class="chapter-badge">Kabarak University</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Annual Summit Section -->
+    <section class="section section-alt summit-section">
+        <div class="container">
+            <div class="summit-content">
+                <h3>Annual National Chapter Summit</h3>
+                <p>Each year, YSN holds a National Chapter Leadership Summit, bringing together all executive committees for collaborative learning and planning.</p>
+
+                <div class="summit-features">
+                    <div class="summit-feature">Capacity building</div>
+                    <div class="summit-feature">Peer learning</div>
+                    <div class="summit-feature">Recognition awards</div>
+                    <div class="summit-feature">Joint strategic planning</div>
+                    <div class="summit-feature">Launch of the "Youth Voices Legal Journal"</div>
+                    <div class="summit-feature">Year-end report</div>
+                </div>
+
+                <a href="#summit-modal" class="btn btn-primary" id="add-summit-btn">View Previous Summit Highlights</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Section -->
+    <section class="section join-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>How to Join or Start a Chapter</h2>
+                <p>YSN welcomes youth from other institutions to apply to start a new chapter</p>
+            </div>
+
+            <div class="join-container">
+                <div class="join-requirements">
+                    <h3>Requirements to Qualify</h3>
+                    <ul class="requirements-list">
+                        <li>The university must offer a law degree</li>
+                        <li>At least 15 founding members needed</li>
+                        <li>Must commit to a one-year activity calendar</li>
+                        <li>Formal application submitted to the National Secretariat</li>
+                    </ul>
+                        <a href="/api/chapter-applications/64f1c2e4b2a1c3d4e5f6a7b8/download" class="btn btn-primary" target="_blank">
+                            Download Application Form
+                        </a>
+                </div>
+
+                <div class="join-benefits">
+                    <h3>Benefits After Approval</h3>
+                    <ul class="benefits-list">
+                        <li>Branding materials (banners, shirts, brochures)</li>
+                        <li>Access to national forums and grants</li>
+                        <li>Training and mentorship from existing leaders</li>
+                        <li>Support for campus events and outreach</li>
+                        <li>Networking opportunities with legal professionals</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Make an Impact?</h2>
+                <p>Join a vibrant community of youth leaders who are changing Kenya through legal empowerment and community service.</p>
+                <div class="cta-buttons">
+                    <!-- Buttons Section -->
+                    <section class="section">
+                        <div class="container">
+                            <div class="cta-buttons">
+                                <button class="btn btn-primary" id="open-start-chapter-modal">Start a New Chapter</button>
+                                <a href="join-us.html" class="btn btn-outline" id="join-chapter">Join Existing Chapter</a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Start Chapter Modal -->
+    <div class="modal-overlay" id="st-chapter-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Start a New Chapter</h2>
+                <button class="modal-close" id="close-chapter-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="start-chapter" enctype="multipart/form-data">
+                    <!-- All form fields here -->
+                    <div class="form-group">
+                        <label>University Name</label>
+                        <input type="text" name="university" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" name="location" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Year Established</label>
+                        <input type="number" name="establishedYear" min="2000" max="2025" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Members</label>
+                        <input type="number" name="members" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" name="description" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Upload Application Letter (PDF)</label>
+                        <input type="file" name="cApplications" accept="application/pdf">
+                    </div>
+                    <button type="submit">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summit Highlights Modal -->
+    <div class="modal-overlay" id="summit-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Previous Summit Highlights</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="summit-carousel" class="carousel">
+                    <!-- Summit Items will be injected here dynamically -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Coordinator Modal -->
+    <!--<div class="modal-overlay" id="contact-mdl">
+        <div class="modal" style="max-width: 600px;" id="msg-contact">
+            <div class="modal-header">
+                <h2>Contact Chapter Coordinator</h2>
+                <h5>By calling or filling the form below.</h5>
+                <button class="modal-close">&times;</button>
+                <p>Make a phone call:<a href="tel:+254797145532">0797 145 532</a></p>
+            </div>
+            <div class="modal-body">
+                <form id="message-form"><h3>Fill the form below:</h3>
+                    <div class="form-group">
+                        <label for="message-name">Your Name</label>
+                        <input type="text" id="message-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-email">Your Email</label>
+                        <input type="email" id="message-email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text">Your Message</label>
+                        <textarea id="message-text" class="form-control" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close">Cancel</button>
+                <button class="btn btn-primary" id="send-message-btn">Send Message</button>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="container ">
+            <div class="footer-content ">
+                <div class="footer-about ">
+                    <div class="footer-logo ">
+                        <img src="assets/images/ysn-logo.jpg " alt="YSN Logo ">
+                        <h2>Youth Synergy Network</h2>
+                    </div>
+                    <p>Empowering youth to become leaders in legal literacy, climate action, mental health awareness, and community service.</p>
+                    <h3>Social Media Links</h3>
+                    <div class="social-links ">
+                        <a href="https://www.facebook.com/profile.php?id=61575320623640" class="social-icon ">Facebook</a>
+                        <a href="https://x.com/YouthN49907?t=LglVEql7hVOFXLyZCiQuYA&s=09" class="social-icon ">X Platform</a>
+                        <a href="https://www.linkedin.com/in/youth-synergy-network-51b538362?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon ">LinkedIn</a>
+                        <a href="https://www.tiktok.com/@youth.synergy.net" class="social-icon ">Tiktok</a>
+                        <a href="https://www.instagram.com/youth_synergynework?igsh=Mmx1eHM4NGdycjFu" class="social-icon ">Instagram</a>
+                    </div>
+                </div>
+
+                <div class="footer-links ">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html ">Home</a></li>
+                        <li><a href="about.html ">About Us</a></li>
+                        <li><a href="programs.html ">Programs</a></li>
+                        <li>
+                            <a href="program-details.html ">Impacts</a>
+                        </li>
+                        <li><a href="leadership.html ">Leadership</a></li>
+                        <li><a href="chapters.html ">University Chapters</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links ">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="events.html ">Events</a></li>
+                        <li><a href="resources.html ">Resources</a></li>
+                        <li><a href="media.html ">Media Center</a></li>
+                        <li><a href="blog.html ">Blog</a></li>
+                        <li><a href="contact.html ">Contact Us</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="footer-subscribe ">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for updates on our programs and impact stories.</p>
+                    <form id="subscribeForm" class="subscribe-form">
+                        <input type="email" id="email" name="email" class="subscribe-input" placeholder="Your email address" required><br><br>
+                        <button type="submit" class="subscribe-btn">Subscribe</button>
+                    </form>
+                    <p id="subscribeMessage"></p>
+                </div>
+                <div>
+                    <h2>Contact Coordinator</h2>
+                    <p>Call: <a href="tel:+254797145532">0797 145 532</a></p>
+                </div>
+            </div>
+
+            <div class="footer-bottom ">
+                <p>&copy; 2025 Youth Synergy Network. All Rights Reserved.</p>
+                <p>Developer: Francis(<i><a href="mailto:mtechspacesolutions@gmail.com">Mobet Tech Space Solutions. Click to email them.</a></i>)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Assuming `application` is defined and contains the chapter data
+        if (application && application._id && application.cApplications) {
+            document.getElementById('download-link').innerHTML =
+                `<a href="${application.cApplications}" class="btn btn-primary" target="_blank">Download Application Letter</a>`;
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Modal open/close functionality
+            const openBtn = document.getElementById("open-start-chapter-modal");
+            const closeBtn = document.getElementById("close-chapter-modal");
+            const modalOverlay = document.getElementById("st-chapter-modal");
+            
+            openBtn && openBtn.addEventListener("click", () => {
+                openModal('st-chapter-modal');
+            });
+            closeBtn && closeBtn.addEventListener("click", closeModals);
+            modalOverlay.addEventListener("click", (e) => {
+                if (e.target === modalOverlay) closeModals();
+            });
+
+            function openModal(modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) modal.style.display = "flex";
+            }
+            function closeModals() {
+                document.querySelectorAll('.modal-overlay').forEach(modal => modal.style.display = 'none');
+            }
+        });
+    </script>
+    <script>
+        // Form submission logic
+        const API_URL = "http://localhost:3000"; // ← Placeholder URL. Replace with your live backend URL before deployment
+
+        document.getElementById('start-chapter').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            const response = await fetch(`${API_URL}/api/chapters/submit`, {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message);
+                this.reset();
+            } else {
+                alert('Error submitting chapter.');
+            }
+        });
+    </script>
+    <script>
+        fetch('/api/chapters')
+        .then(res => {
+            if (!res.ok) throw new Error('Network response was not ok');
+            return res.json();
+        })
+        .then(chapters => {
+            console.log("Fetched chapters:", chapters);
+            const list = document.getElementById('chapters-list');
+            list.innerHTML = chapters.map(chap => `
+            <div class="chapter-card">
+                <h3><strong>University:</strong> ${chap.university || chap.uniName || 'N/A'}</h3>
+                <p><strong>Location:</strong> ${chap.location || 'N/A'}</p>
+                <p><strong>Year Established:</strong> ${chap.establishedYear || chap.estYear || 'N/A'}</p>
+                <p><strong>Members:</strong> ${chap.members || chap.numMembers || 'N/A'}</p>
+                <p><strong>Description:</strong> ${chap.description || chap.about || 'N/A'}</p>
+                ${chap.cApplications ? `<a href="${chap.cApplications}" target="_blank">View Application Letter</a>` : ''}
+            </div>
+            `).join('');
+        })
+        .catch(err => {
+            console.error("Error fetching chapters:", err);
+            document.getElementById('chapters-list').innerHTML = '<p>Error loading chapters.</p>';
+        });
+    </script>
+
+    <script>
+        async function loadChapterActivities(chapterId) {
+            const res = await fetch(`/api/activities/chapter/${chapterId}`);
+            const activities = await res.json();
+            const container = document.getElementById('chapter-activities');
+            container.innerHTML = '';
+            activities.forEach(act => {
+                const div = document.createElement('div');
+                div.className = 'activity-card';
+                div.innerHTML = `
+                    <div class="activity-image"><div class="icon">${act.icon}</div></div>
+                    <div class="activity-content">
+                        <h3>${act.title}</h3>
+                        <p>${act.description}</p>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+        // Call loadChapterActivities(CHAPTER_OBJECT_ID) on page load or when viewing a chapter
+    </script>
+
+    <script>
+        document.getElementById('subscribeForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+
+            // Basic email validation
+            if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email }),
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    // Subscription was successful
+                    alert(result.message || "Subscribed successfully!");
+                    document.getElementById('subscribeForm').reset();
+                } else {
+                    // Application-level error (including "already subscribed")
+                    alert(result.error || "User already subscribed.");
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again.');
+                document.getElementById('subscribeMessage').textContent = "";
+            }
+        });
+    </script>
+    
+    <script src="/socket.io/socket.io.js">
+        document.getElementById("contact-btn").addEventListener("click", () => {
+            openModal('contact-modal');
+        });
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+        // Load testimonials on page load
+        window.onload = () => {
+            document.getElementById("send-message-btn").addEventListener("click", () => {
+                const name = document.getElementById("user-name").value.trim();
+                const email = document.getElementById("user-email").value.trim();
+                const message = document.getElementById("user-message").value.trim();
+    
+                if (!name || !email || !message) {
+                    alert("Please fill out all fields.");
+                    return;
+                }
+    
+                // Send message via WebSocket
+                socket.emit("new_message", { name, email, message });
+                alert("Message sent!");
+                closeModals();
+            });
+    
+            // Open Live Chat Modal
+            document.getElementById("start-chat-btn")?.addEventListener("click", () => {
+                openModal("chat-modal");
+            });
+    
+            // Handle incoming coordinator responses
+            socket.on("coordinator_reply", (msg) => {
+                const msgDiv = document.createElement("div");
+                msgDiv.style.padding = "0.5rem";
+                msgDiv.style.background = "#e0f7fa";
+                msgDiv.style.borderRadius = "0.5rem";
+                msgDiv.style.alignSelf = "flex-start";
+                msgDiv.textContent = `Coordinator: ${msg.text}`;
+                document.getElementById("chat-messages").appendChild(msgDiv);
+            });
+    
+            // Send live message
+            document.getElementById("chat-send-btn").addEventListener("click", () => {
+                const input = document.getElementById("chat-input");
+                const text = input.value.trim();
+                if (text === "") return;
+    
+                const msgDiv = document.createElement("div");
+                msgDiv.style.padding = "0.5rem";
+                msgDiv.style.background = "#fef9c3";
+                msgDiv.style.borderRadius = "0.5rem";
+                msgDiv.style.alignSelf = "flex-end";
+                msgDiv.textContent = `You: ${text}`;
+                document.getElementById("chat-messages").appendChild(msgDiv);
+    
+                socket.emit("user_typing", { message: text });
+    
+                input.value = "";
+            });
+        };
+    </script>
+
+    <script>
+        document.getElementById("add-summit-btn").addEventListener("click", () => {
+            openModal('summit-modal');
+        });
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+        // Load testimonials on page load
+        window.onload = () => {
+            // ====== MODAL FOR SUMMIT HIGHLIGHTS ======
+            const summitModal = document.getElementById("summit-highlights-modal");
+            const viewSummitBtn = document.getElementById("view-summit-highlights");
+            const closeModalBtns = document.querySelectorAll(".modal-close");
+        
+            let pastSummits = [];
+        
+            async function loadSummitsFromAPI() {
+                try {
+                    const response = await fetch("/api/summits");
+                    pastSummits = await response.json();
+                } catch (err) {
+                    console.error("Failed to load summits:", err);
+                }
+            }
+        
+            // Open modal
+            viewSummitBtn.addEventListener("click", function(e) {
+                e.preventDefault();
+                summitModal.style.display = "flex";
+                renderCarouselItems();
+                showSlide(currentSlide);
+            });
+        
+            // Close modals
+            closeModalBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    summitModal.style.display = "none";
+                });
+            });
+        
+            // Close modal when clicking outside
+            summitModal.addEventListener("click", function(e) {
+                if (e.target === summitModal) {
+                    summitModal.style.display = "none";
+                }
+            });
+        
+            // ===== CAROUSEL FUNCTIONALITY =====
+            let currentSlide = 0;
+        
+            function renderCarouselItems() {
+                const carousel = document.getElementById("summit-carousel");
+                carousel.innerHTML = ""; // Clear existing
+        
+                pastSummits.forEach((summit, index) => {
+                    const item = document.createElement("div");
+                    item.className = "carousel-item";
+                    item.dataset.index = index;
+                    item.innerHTML = `
+                        <img src="${summit.imageUrl}" alt="${summit.title}">
+                        <h3>${summit.title}</h3>
+                        <p><strong>Year:</strong> ${summit.year}</p>
+                        <p><strong>Date:</strong> ${summit.date}</p>
+                        <p><strong>Location:</strong> ${summit.location}</p>
+                        <p>${summit.description}</p>
+                    `;
+                    carousel.appendChild(item);
+                });
+        
+                // Add navigation buttons
+                const nav = document.createElement("div");
+                nav.className = "carousel-nav";
+                nav.innerHTML = `
+                    <button id="prev-slide">← Previous</button>
+                    <button id="next-slide">Next →</button>
+                `;
+                carousel.appendChild(nav);
+        
+                // Attach event listeners
+                document.getElementById("prev-slide").addEventListener("click", () => {
+                    changeSlide(-1);
+                });
+                document.getElementById("next-slide").addEventListener("click", () => {
+                    changeSlide(1);
+                });
+            }
+        
+            function showSlide(index) {
+                const items = document.querySelectorAll(".carousel-item");
+                items.forEach((item, i) => {
+                    item.classList.remove("active");
+                });
+        
+                // Wrap around
+                currentSlide = (index + pastSummits.length) % pastSummits.length;
+                items[currentSlide].classList.add("active");
+            }
+        
+            function changeSlide(direction) {
+                showSlide(currentSlide + direction);
+            }
+        
+            window.onload = function () {
+                loadSummitsFromAPI();
+            };
+        };
+
+    </script>
+
+    <script>
+        // Toggle mobile navigation
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.textContent = nav.classList.contains('active') ? '✕' : '☰';
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !hamburger.contains(e.target) && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                hamburger.textContent = '☰';
+            }
+        });
+        
+        // Close mobile menu when window is resized above mobile breakpoint
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                hamburger.textContent = '☰';
+            }
+        });
+    </script>
+    
+</body>
+
+</html>
