@@ -739,33 +739,32 @@
                     </div>
                 </div>
             </div>
-            <!-- Applications Table -->
-            <div class="admin-applications">
-            <h2 id="leadership">Leadership Applications</h2>
-            <table id="applicationsTable" border="1" style="width:100%;margin-bottom:2rem;">
-                <thead>
-                <tr>
-                    <th>Position</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Resume</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- Applications will be loaded here -->
-                </tbody>
-            </table>
-            </div>
             <!-- Admin: Add Vacant Leadership Position -->
             <div class="admin-vacant-leadership">
                 <h2>Post a Vacant Leadership Position</h2>
-                    <form id="vacantLeadershipForm">
-                        <label for="position">Position Title:</label>
-                        <input type="text" id="position" name="position" required><br><br>
-
-                        <button type="submit" class="btn btn-primary">Post Position</button>
-                    </form>
+                <form id="vacantLeadershipForm">
+                    <label for="vacant-position">Position Title:</label>
+                    <input type="text" id="vacant-position" name="position" required><br><br>
+                    <button type="submit" class="btn btn-primary">Post Position</button>
+                </form>
                 <div id="vacant-leadership-message"></div>
+            </div>
+            <!-- Applications Table -->
+            <div class="admin-applications">
+                <h2 id="leadership">Leadership Applications</h2>
+                <table id="applicationsTable" border="1" style="width:100%;margin-bottom:2rem;">
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Resume</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Applications will be loaded here -->
+                    </tbody>
+                </table>
             </div><br>
             
             <div class="">
@@ -852,7 +851,7 @@
                         <input type="text" name="location" style="width:100%; padding:0.5rem; margin-bottom:1rem;"><br>
 
                         <label>Event Image:</label><br>
-                        <input type="file" name="image" required>
+                        <input type="file" name="image">
                         <button type="submit" class="btn btn-primary">Add Event</button>
                     </form>
                 </div>
@@ -903,9 +902,7 @@
                 </table>
             </div><br>
 
-
-
-            <div class="">
+            <div id="articles-modal">
                 <div class="modal-header">
                     <h2 id="add-article">Add News Articles</h2>
                 </div>
@@ -929,8 +926,6 @@
                         <button type="submit" class="btn btn-primary">Add Article</button>
                     </form>
                 </div>
-
-
                 <!-- Newss Articles Tab -->
                 <div id="article-tab">
                     <div class="panel">
@@ -965,22 +960,22 @@
 
                 <div class="">
                     <!-- Add/Edit Resource Modal -->
-                    <form id="resourceForm" enctype="multipart/form-data">
-                        <label>Title:</label>
-                        <input type="text" name="title" id="title" required><br>
-                        <label>Description:</label>
-                        <textarea name="description" id="description"></textarea><br>
-                        <label>Category:</label>
-                        <select name="category" id="category" required>
+                    <form id="resource-form" enctype="multipart/form-data">
+                        <label for="resource-title">Title:</label>
+                        <input type="text" name="title" id="resource-title" required>
+                        <label for="resource-description">Description:</label>
+                        <textarea name="description" id="resource-description"></textarea>
+                        <label for="resource-category">Category:</label>
+                        <select name="category" id="resource-category" required>
                             <option value="category">Select Category</option>
                             <option value="report">Report</option>
                             <option value="toolkit">Toolkit</option>
                             <option value="training">Training</option>
                             <option value="branding">Branding</option>
                             <option value="publication">Publication</option>
-                        </select><br>
-                        <label>PDF File:</label>
-                        <input type="file" name="resources" id="file" accept="application/pdf"><br>
+                        </select>
+                        <label for="resource-file">PDF File:</label>
+                        <input type="file" name="resources" id="resource-file" accept="application/pdf">
                         <button type="submit" class="btn btn-primary">Save</button>
                         <button type="button" onclick="closeModal()" class="btn">Cancel</button>
                     </form><br>
@@ -1102,12 +1097,14 @@
                             <label>Profile Image</label>
                             <div class="file-upload">
                                 <label for="testimonial-image">
-                                <div class="file-upload-icon">📁</div>
-                                <p>Click to upload image</p>
-                            </label>
+                                    <div class="file-upload-icon">📁</div>
+                                    <p>Click to upload image</p>
+                                </label>
                                 <input type="file" id="testimonial-image" accept="image/*">
+                                <img id="testimonial-image-preview" style="display:none;max-width:100px;margin-top:10px;">
                             </div>
                         </div>
+                        <button type="submit" class="btn btn-primary">Submit Testimonial</button>
                     </form>
                 </div>
 
@@ -1207,9 +1204,6 @@
                     <div class="panel-header">
                         <h2>Stories Review Panel</h2>
                     </div>
-                    <!-- Add this where you want the blogs to show in dashboard.html -->
-
-                    
                     <div>
                         <table id="adminStoriesTable" border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
                             <thead>
@@ -1229,26 +1223,211 @@
                     </div>
                 </div>
             </div>
-
-            <div>
-                <div>
-                    <h2>Upload Chapter Applications Form</h2>
-                    <td>
-                        <form onsubmit="uploadLetter(event, '${app._id}')">
-                            <input type="file" name="ChapterApplicationLetter" accept="application/pdf" required>
-                            <button type="submit">Upload</button>
-                        </form>
-                        ${app.ChapterApplicationLetter ? `<a href="${app.ChapterApplicationLetter}" target="_blank">View</a>` : ''}
-                    </td>
-                </div>
-            </div>      
         </main>
     </div>
     <script>
-        // ===================
-        // CONFIGURATION
-        // ===================
-        const ADMIN_BASE_URL = "http://localhost:3000"; // ← Placeholder URL for deployment on Render.com
+        const ADMIN_BASE_URL = "http://localhost:3000";
+        const API_URL = '/api/programs';
+
+        // --- EVENTS ---
+        document.getElementById("addEventForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            if (formData.get('date')) {
+                formData.set('date', new Date(formData.get('date')).toISOString());
+            }
+            const eventId = this.dataset.eventId;
+            const url = eventId ? `/api/events/${eventId}` : "/api/events";
+            const method = eventId ? "PUT" : "POST";
+            try {
+                const res = await fetch(url, { method, body: formData });
+                const result = await res.json();
+                if (res.ok) {
+                    alert(eventId ? "✅ Event updated!" : "✅ Event added!");
+                    this.reset();
+                    delete this.dataset.eventId;
+                    fetchEvents();
+                } else {
+                    alert("❌ Error:\n" + (result.message || "Unknown error"));
+                }
+            } catch (err) {
+                console.error("Fetch error:", err);
+                alert("⚠️ Failed to connect to server.");
+            }
+        });
+
+        async function fetchEvents() {
+            try {
+                const res = await fetch("/api/events");
+                const events = await res.json();
+                const tbody = document.getElementById("eventList");
+                if (!tbody) return;
+                tbody.innerHTML = "";
+                events.forEach(event => {
+                    const row = document.createElement("tr");
+                    const dateObj = new Date(event.date);
+                    const dateStr = isNaN(dateObj) ? event.date : dateObj.toLocaleString();
+                    row.innerHTML = `
+                        <td>${event._id}</td>
+                        <td>${event.title}</td>
+                        <td>${dateStr}</td>
+                        <td>${event.location || ''}</td>
+                        <td>Active</td>
+                        <td>
+                            <button class="btn btn-primary" onclick='editEvent("${event._id}")'>Edit</button>
+                            <button class="btn btn-danger" onclick='deleteEvent("${event._id}")'>Delete</button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (error) {
+                console.error("Error fetching events:", error);
+            }
+        }
+
+        window.deleteEvent = async function(id) {
+            if (!confirm("Are you sure you want to delete this event?")) return;
+            try {
+                const res = await fetch(`/api/events/${id}`, { method: "DELETE" });
+                const result = await res.json();
+                if (result.success) {
+                    alert("Event deleted!");
+                    fetchEvents();
+                } else {
+                    alert("Failed to delete event.");
+                }
+            } catch (error) {
+                console.error("Error deleting event:", error);
+            }
+        };
+
+        window.editEvent = async function(id) {
+            const res = await fetch(`/api/events/${id}`);
+            const event = await res.json();
+            document.querySelector('[name="title"]').value = event.title;
+            document.querySelector('[name="description"]').value = event.description;
+            document.querySelector('[name="category"]').value = event.category;
+            document.querySelector('[name="date"]').value = new Date(event.date).toISOString().slice(0, 16);
+            document.querySelector('[name="location"]').value = event.location || "";
+            document.querySelector('[name="imageUrl"]').value = event.imageUrl;
+            document.getElementById("addEventForm").dataset.eventId = id;
+            openModal('events-modal');
+        };
+
+        // --- TESTIMONIALS ---
+        document.getElementById('testimonial-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            try {
+                const res = await fetch('/api/testimonials', { method: 'POST', body: formData });
+                const result = await res.json();
+                if (result.success) {
+                    alert('Testimonial submitted!');
+                    this.reset();
+                    document.getElementById('testimonial-image-preview').style.display = 'none';
+                    loadTestimonials();
+                } else {
+                    alert(result.message || 'Failed to submit testimonial.');
+                }
+            } catch (err) {
+                alert('Error submitting testimonial.');
+            }
+        });
+
+        async function loadTestimonials() {
+            const res = await fetch('/api/admin/testimonials');
+            const data = await res.json();
+            const tbody = document.querySelector('#adminTable tbody');
+            tbody.innerHTML = '';
+            data.forEach(t => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${t.name || 'Anonymous'}</td>
+                        <td>${t.role}</td>
+                        <td>${t.institution}</td>
+                        <td>${t.story}</td>
+                        <td>${t.photo ? `<img src="${t.photo}" width="60">` : ''}</td>
+                        <td>${t.voiceNote ? `<audio controls src="${t.voiceNote}"></audio>` : ''}</td>
+                        <td>${t.status}</td>
+                        <td>
+                            <button onclick="updateTestimonialStatus('${t._id}', 'Approved')">Approve</button>
+                            <button onclick="updateTestimonialStatus('${t._id}', 'Rejected')">Reject</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        async function updateTestimonialStatus(id, status) {
+            await fetch(`/api/admin/testimonials/${id}/status`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status })
+            });
+            loadTestimonials();
+        }
+
+        // --- STORIES ---
+        async function fetchStories() {
+            try {
+                const response = await fetch('/api/dashboard/stories');
+                const stories = await response.json();
+
+                const tableBody = document.getElementById('stories-table-body');
+                tableBody.innerHTML = ''; // Clear existing content
+
+                stories.forEach(story => {
+                    const row = document.createElement('tr');
+
+                    row.innerHTML = `
+                        <td>${story.title}</td>
+                        <td>${story.authorName}</td>
+                        <td>${story.email}</td>
+                        <td>${story.status}</td>
+                        <td>
+                            <button onclick="approveStory('${story._id}')">Approve</button>
+                            <button onclick="rejectStory('${story._id}')">Reject</button>
+                        </td>
+                    `;
+
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching stories:', error);
+            }
+        }
+
+        async function approveStory(storyId) {
+            try {
+                const response = await fetch(`/api/dashboard/stories/${storyId}/approve`, { method: 'PATCH' });
+                if (response.ok) {
+                    alert('Story approved.');
+                    fetchStories();
+                } else {
+                    alert('Failed to approve story.');
+                }
+            } catch (error) {
+                console.error('Error approving story:', error);
+            }
+        }
+
+        async function rejectStory(storyId) {
+            try {
+                const response = await fetch(`/api/admin/stories/${storyId}/reject`, { method: 'PATCH' });
+                if (response.ok) {
+                    alert('Story rejected.');
+                    fetchStories();
+                } else {
+                    alert('Failed to reject story.');
+                }
+            } catch (error) {
+                console.error('Error rejecting story:', error);
+            }
+        }
+
+        // Load stories when the page loads
+        window.onload = fetchStories;
+
 
         async function loadStories() {
             const res = await fetch('/api/admin/stories');
@@ -1256,7 +1435,7 @@
             const tbody = document.querySelector('#adminStoriesTable tbody');
             tbody.innerHTML = '';
             data.forEach(story => {
-                        tbody.innerHTML += `
+                tbody.innerHTML += `
                     <tr>
                         <td>${story.name || 'Anonymous'}</td>
                         <td>${story.role || ''}</td>
@@ -1266,14 +1445,15 @@
                         <td>${story.voiceNote ? `<audio controls src="${story.voiceNote}"></audio>` : ''}</td>
                         <td><span class="${story.status.toLowerCase()}">${story.status}</span></td>
                         <td>
-                            <button class="approve" onclick="updateStatus('${story._id}', 'Approved')">Approve</button>
-                            <button class="reject" onclick="updateStatus('${story._id}', 'Rejected')">Reject</button>
+                            <button class="approve" onclick="updateStoryStatus('${story._id}', 'Approved')">Approve</button>
+                            <button class="reject" onclick="updateStoryStatus('${story._id}', 'Rejected')">Reject</button>
                         </td>
                     </tr>
                 `;
             });
         }
-        async function updateStatus(id, status) {
+
+        async function updateStoryStatus(id, status) {
             await fetch(`/api/admin/stories/${id}/status`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1281,148 +1461,18 @@
             });
             loadStories();
         }
-        loadStories();
 
-        function uploadLetter(event, id) {
-            event.preventDefault();
-            const form = event.target;
-            const formData = new FormData(form);
-            fetch(`/api/admin/chapter-applications/${id}/upload`, {
-                method: 'POST',
-                body: formData,
-                credentials: 'include'
-            })
-            .then(res => res.json())
-            .then(() => {
-                alert('Application letter uploaded!');
-                loadApplications(); // Refresh the table
-            });
-        }
-
-
-        async function loadChapters() {
-            const res = await fetch(`${API_URL}/api/chapters/pending`);
-            const chapters = await res.json();
-
-            const tbody = document.getElementById('chapter-list');
-            tbody.innerHTML = '';
-
-            chapters.forEach(chap => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${chap.university}</td>
-                    <td>${chap.location}</td>
-                    <td>${chap.establishedYear}</td>
-                    <td>${chap.members}</td>
-                    <td>${chap.description}</td>
-                    <td>
-                        <button onclick="updateStatus('${chap._id}', 'approved')">Approve</button>
-                        <button onclick="updateStatus('${chap._id}', 'rejected')">Reject</button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        async function updateStatus(id, status) {
-            await fetch(`${API_URL}/api/chapters/update-status`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, status })
-            });
-            alert(`${status.charAt(0).toUpperCase() + status.slice(1)}!`);
-            loadChapters();
-        }
-
-        window.onload = loadChapters;
-
-
-        const API_URL = '/api/programs'; 
-        document.getElementById('program-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('program-id').value;
-            const method = id ? 'PUT' : 'POST';
-            const url = id ? `${API_URL}/${id}` : API_URL;
-
-            const programData = {
-                name: document.getElementById('program-name').value,
-                category: document.getElementById('program-category').value,
-                description: document.getElementById('program-description').value,
-                status: document.getElementById('program-status').value
-            };
-
-            await fetch(url, {
-                method,
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(programData)
-            });
-
-            fetchPrograms();
-            });
-
-            async function fetchPrograms() {
-                const res = await fetch(API_URL);
-                const programs = await res.json();
-                const tbody = document.getElementById('programs-table-body');
-                tbody.innerHTML = '';
-            
-                programs.forEach((program, index) => {
-                const row = document.createElement('tr');
-            
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${program.name}</td>
-                    <td>${program.category}</td>
-                    <td>${program.status}</td>
-                    <td>${new Date(program.updatedAt || program.createdAt).toLocaleDateString()}</td>
-                    <td>
-                    <div class="table-actions">
-                        <button class="action-btn edit" onclick="editProgram('${program._id}', '${program.name}', '${program.category}', \`${program.description}\`, '${program.status}')">✏️</button>
-                        <button class="action-btn delete" onclick="deleteProgram('${program._id}')">🗑️</button>
-                    </div>
-                    </td>
-                `;
-                tbody.appendChild(row);
-                });
-            }
-
-            function editProgram(id, name, category, description, status) {
-                document.getElementById('program-id').value = id;
-                document.getElementById('program-name').value = name;
-                document.getElementById('program-category').value = category;
-                document.getElementById('program-description').value = description;
-                document.getElementById('program-status').value = status;
-                document.getElementById('modal-title').textContent = 'Edit Program';
-                document.getElementById('program-modal').style.display = 'block';
-            }
-            
-            async function deleteProgram(id) {
-                if (!confirm("Are you sure you want to delete this program?")) return;
-            
-                await fetch(`${API_URL}/${id}`, {
-                method: 'DELETE'
-                });
-            
-                fetchPrograms();
-            }
-
-        // Articles
+        // --- ARTICLES ---
         document.getElementById('articleForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const formData = new FormData(this);
-
             try {
-                const response = await fetch('/api/submit-article', {
-                    method: 'POST',
-                    body: formData,
-                });
+                const response = await fetch('/api/submit-article', { method: 'POST', body: formData });
                 const result = await response.json();
                 if (response.ok) {
                     alert('Article submitted successfully!');
                     this.reset();
-                    // Optionally refresh articles table
                     if (typeof fetchArticles === 'function') fetchArticles();
-                    // Close modal if needed
                     document.getElementById('articles-modal').style.display = 'none';
                 } else {
                     alert(result.error || 'Failed to submit article.');
@@ -1432,13 +1482,13 @@
                 alert('An error occurred. Please try again.');
             }
         });
+
         async function fetchArticles() {
             try {
                 const response = await fetch('/api/dashboard/articles');
                 const articles = await response.json();
                 const tableBody = document.getElementById('articles-table-body');
                 tableBody.innerHTML = '';
-
                 articles.forEach(article => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
@@ -1473,11 +1523,8 @@
             if (!confirm('Approve this article?')) return;
             try {
                 const res = await fetch(`/api/admin/articles/${id}/approve`, { method: 'PATCH' });
-                if (res.ok) {
-                    fetchArticles();
-                } else {
-                    alert('Failed to approve article');
-                }
+                if (res.ok) fetchArticles();
+                else alert('Failed to approve article');
             } catch (err) {
                 alert('Error approving article');
             }
@@ -1487,35 +1534,208 @@
             if (!confirm('Reject this article?')) return;
             try {
                 const res = await fetch(`/api/admin/articles/${id}/reject`, { method: 'PATCH' });
-                if (res.ok) {
-                    fetchArticles();
-                } else {
-                    alert('Failed to reject article');
-                }
+                if (res.ok) fetchArticles();
+                else alert('Failed to reject article');
             } catch (err) {
                 alert('Error rejecting article');
             }
         }
 
-        // Optional: Delete article (requires backend endpoint)
         async function deleteArticle(id) {
             if (!confirm('Delete this article? This cannot be undone.')) return;
             try {
                 const res = await fetch(`/api/admin/articles/${id}`, { method: 'DELETE' });
-                if (res.ok) {
-                    fetchArticles();
-                } else {
-                    alert('Failed to delete article');
-                }
+                if (res.ok) fetchArticles();
+                else alert('Failed to delete article');
             } catch (err) {
                 alert('Error deleting article');
             }
         }
 
-        // Load articles on page load
-        window.onload = fetchArticles;
 
-        // Add or Edit Resource
+        document.getElementById('save-summit').addEventListener('click', () => {
+            const formData = {
+                title: document.getElementById('summit-title').value.trim(),
+                year: parseInt(document.getElementById('summit-year').value),
+                date: document.getElementById('summit-date').value.trim(),
+                location: document.getElementById('summit-location').value.trim(),
+                description: document.getElementById('summit-description').value.trim(),
+                imageUrl: document.getElementById('summit-image').value.trim()
+            };
+
+            // Basic validation
+            if (!formData.title || !formData.year || !formData.date || !formData.location || !formData.description || !formData.imageUrl) {
+                alert("Please fill out all fields.");
+                return;
+            }
+
+            // Save via API or mock it for now
+            console.log("Saving summit:", formData);
+            alert("Summit saved successfully!");
+            closeModals();
+            clearSummitForm();
+            loadSummits(); // Optional: Load from DB later
+        });
+
+        function clearSummitForm() {
+            document.getElementById('summit-title').value = "";
+            document.getElementById('summit-year').value = "";
+            document.getElementById('summit-date').value = "";
+            document.getElementById('summit-location').value = "";
+            document.getElementById('summit-description').value = "";
+            document.getElementById('summit-image').value = "";
+        }
+
+        async function loadSummits() {
+            try {
+                const response = await fetch("/api/summits");
+                const summits = await response.json();
+
+                const tableBody = document.querySelector("#summits-tab #summit-table-body");
+                tableBody.innerHTML = "";
+
+                if (!summits.length) {
+                    tableBody.innerHTML = "<tr><td colspan='6' style='text-align:center'>No summits found.</td></tr>";
+                    return;
+                }
+
+                summits.forEach(summit => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${summit._id}</td>
+                        <td>${summit.title}</td>
+                        <td>${summit.year}</td>
+                        <td>${summit.date}</td>
+                        <td>${summit.location}</td>
+                        <td>
+                            <div class="table-actions">
+                                <button class="action-btn edit" onclick="editSummit('${summit._id}')">✏️</button>
+                                <button class="action-btn delete" onclick="deleteSummit('${summit._id}')">🗑️</button>
+                            </div>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+
+            } catch (err) {
+                console.error("Failed to load summits:", err);
+            }
+        }
+
+        // Dummy Edit/Delete Functions (Optional)
+        function editSummit(id) {
+            alert("Edit functionality coming soon for summit ID: " + id);
+        }
+
+        function deleteSummit(id) {
+            if (confirm("Are you sure you want to delete this summit?")) {
+                alert("Delete functionality coming soon for summit ID: " + id);
+            }
+        }
+        // --- PROGRAMS ---
+        document.getElementById('program-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('program-id').value;
+            const method = id ? 'PUT' : 'POST';
+            const url = id ? `${API_URL}/${id}` : API_URL;
+            const programData = {
+                name: document.getElementById('program-name').value,
+                category: document.getElementById('program-category').value,
+                description: document.getElementById('program-description').value,
+                status: document.getElementById('program-status').value
+            };
+            await fetch(url, {
+                method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(programData)
+            });
+            fetchPrograms();
+        });
+
+        async function fetchPrograms() {
+            const res = await fetch(API_URL);
+            const programs = await res.json();
+            const tbody = document.getElementById('programs-table-body');
+            tbody.innerHTML = '';
+            programs.forEach((program, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${program.name}</td>
+                    <td>${program.category}</td>
+                    <td>${program.status}</td>
+                    <td>${new Date(program.updatedAt || program.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="action-btn edit" onclick="editProgram('${program._id}', '${program.name}', '${program.category}', \`${program.description}\`, '${program.status}')">✏️</button>
+                            <button class="action-btn delete" onclick="deleteProgram('${program._id}')">🗑️</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function editProgram(id, name, category, description, status) {
+            document.getElementById('program-id').value = id;
+            document.getElementById('program-name').value = name;
+            document.getElementById('program-category').value = category;
+            document.getElementById('program-description').value = description;
+            document.getElementById('program-status').value = status;
+            document.getElementById('modal-title').textContent = 'Edit Program';
+            document.getElementById('program-modal').style.display = 'block';
+        }
+
+        async function deleteProgram(id) {
+            if (!confirm("Are you sure you want to delete this program?")) return;
+            await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            fetchPrograms();
+        }
+
+        // --- CHAPTERS ---
+        async function loadChapters() {
+            const res = await fetch(`/api/chapters/pending`);
+            const chapters = await res.json();
+            const tbody = document.getElementById('chapter-list');
+            tbody.innerHTML = '';
+            chapters.forEach(chap => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${chap.university}</td>
+                    <td>${chap.location}</td>
+                    <td>${chap.establishedYear}</td>
+                    <td>${chap.members}</td>
+                    <td>${chap.description}</td>
+                    <td>
+                        <button onclick="updateChapterStatus('${chap._id}', 'approved')">Approve</button>
+                        <button onclick="updateChapterStatus('${chap._id}', 'rejected')">Reject</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        async function updateChapterStatus(id, status) {
+            await fetch(`/api/chapters/update-status`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, status })
+            });
+            alert(`${status.charAt(0).toUpperCase() + status.slice(1)}!`);
+            loadChapters();
+        }
+
+        // --- INIT ---
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchEvents();
+            loadTestimonials();
+            loadStories();
+            fetchArticles();
+            fetchPrograms();
+            loadChapters();
+            // ...add other initializations as needed
+        });
+
         document.getElementById('resourceForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const formData = new FormData(this);
@@ -1600,245 +1820,65 @@
         // Call fetchResources when page loads
         document.addEventListener('DOMContentLoaded', fetchResources);
 
-
-        async function loadApplications() {
-            const res = await fetch('/api/applications');
-            const applications = await res.json();
-            const tbody = document.querySelector('#applicationsTable tbody');
-            tbody.innerHTML = '';
-            if (!applications.length) {
-                tbody.innerHTML = '<tr><td colspan="4">No applications yet.</td></tr>';
-                return;
-            }
-            applications.forEach(app => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${app.position}</td>
-                    <td>${app.applicantName || ''}</td>
-                    <td>${app.applicantEmail || ''}</td>
-                    <td>
-                        ${app.resume ? `<a href="${app.resume.replace(/\\/g, '/')}" target="_blank">Download</a>` : 'N/A'}
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-        // Load applications on page load
-        window.addEventListener('DOMContentLoaded', loadApplications);
-
-        document.getElementById('vacantLeadershipForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const position = document.getElementById('position').value.trim();
-            const messageDiv = document.getElementById('vacant-leadership-message');
-
-            try {
-                const res = await fetch('/api/vacant-positions', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ position })
-                });
-                const result = await res.json();
-                if (res.ok) {
-                    messageDiv.textContent = '✅ Position posted!';
-                    this.reset();
-                } else {
-                    messageDiv.textContent = '❌ ' + (result.error || 'Failed to post position');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load applications
+            async function loadApplications() {
+                try {
+                    const res = await fetch('/api/applications');
+                    const applications = await res.json();
+                    const tbody = document.querySelector('#applicationsTable tbody');
+                    tbody.innerHTML = '';
+                    if (!applications.length) {
+                        tbody.innerHTML = '<tr><td colspan="4">No applications yet.</td></tr>';
+                        return;
+                    }
+                    applications.forEach(app => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${app.position}</td>
+                            <td>${app.applicantName || ''}</td>
+                            <td>${app.applicantEmail || ''}</td>
+                            <td>
+                                ${app.resume ? `<a href="${app.resume.replace(/\\/g, '/')}" target="_blank">Download</a>` : 'N/A'}
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                } catch (err) {
+                    const tbody = document.querySelector('#applicationsTable tbody');
+                    tbody.innerHTML = '<tr><td colspan="4">Error loading applications.</td></tr>';
                 }
-            } catch (err) {
-                messageDiv.textContent = '❌ Error connecting to server.';
+            }
+
+            loadApplications();
+
+            // Handle vacant leadership form
+            const vacantForm = document.getElementById('vacantLeadershipForm');
+            if (vacantForm) {
+                vacantForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    const position = document.getElementById('vacant-position').value.trim();
+                    const messageDiv = document.getElementById('vacant-leadership-message');
+                    try {
+                        const res = await fetch('/api/vacant-positions', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ position })
+                        });
+                        const result = await res.json();
+                        if (res.ok) {
+                            messageDiv.textContent = '✅ Position posted!';
+                            this.reset();
+                            loadApplications(); // Optionally reload applications
+                        } else {
+                            messageDiv.textContent = '❌ ' + (result.error || 'Failed to post position');
+                        }
+                    } catch (err) {
+                        messageDiv.textContent = '❌ Error connecting to server.';
+                    }
+                });
             }
         });
-
-        // Add/Edit Event
-        document.getElementById("addEventForm").addEventListener("submit", async function(e) {
-            e.preventDefault();
-            const formData = Object.fromEntries(new FormData(this));
-            // Fix date to ISO string
-            if (formData.date) {
-                formData.date = new Date(formData.date).toISOString();
-            }
-            const eventId = this.dataset.eventId;
-            const url = eventId ? `/api/events/${eventId}` : "/api/events";
-            const method = eventId ? "PUT" : "POST";
-
-            try {
-                const res = await fetch(url, {
-                    method,
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(formData),
-                });
-                const result = await res.json();
-                if (res.ok) {
-                    alert(eventId ? "✅ Event updated!" : "✅ Event added!");
-                    this.reset();
-                    delete this.dataset.eventId;
-                    fetchEvents();
-                } else {
-                    alert("❌ Error:\n" + (result.message || "Unknown error"));
-                }
-            } catch (err) {
-                console.error("Fetch error:", err);
-                alert("⚠️ Failed to connect to server.");
-            }
-        });
-
-        // Fetch and display events in admin table
-        async function fetchEvents() {
-            try {
-                const res = await fetch("/api/events");
-                const events = await res.json();
-                const tbody = document.getElementById("eventList");
-                if (!tbody) return;
-                tbody.innerHTML = "";
-                events.forEach(event => {
-                    const row = document.createElement("tr");
-                    const dateObj = new Date(event.date);
-                    const dateStr = isNaN(dateObj) ? event.date : dateObj.toLocaleString();
-                    row.innerHTML = `
-                        <td>${event._id}</td>
-                        <td>${event.title}</td>
-                        <td>${dateStr}</td>
-                        <td>${event.location || ''}</td>
-                        <td>Active</td>
-                        <td>
-                            <button class="btn btn-primary" onclick='editEvent("${event._id}")'>Edit</button>
-                            <button class="btn btn-danger" onclick='deleteEvent("${event._id}")'>Delete</button>
-                        </td>
-                    `;
-                    tbody.appendChild(row);
-                });
-            } catch (error) {
-                console.error("Error fetching events:", error);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', fetchEvents);
-
-        // Delete event
-        window.deleteEvent = async function(id) {
-            if (!confirm("Are you sure you want to delete this event?")) return;
-            try {
-                const res = await fetch(`/api/events/${id}`, { method: "DELETE" });
-                const result = await res.json();
-                if (result.success) {
-                    alert("Event deleted!");
-                    fetchEvents();
-                } else {
-                    alert("Failed to delete event.");
-                }
-            } catch (error) {
-                console.error("Error deleting event:", error);
-            }
-        };
-
-        // Edit event
-        window.editEvent = async function(id) {
-            const res = await fetch(`/api/events/${id}`);
-            const event = await res.json();
-            document.querySelector('[name="title"]').value = event.title;
-            document.querySelector('[name="description"]').value = event.description;
-            document.querySelector('[name="category"]').value = event.category;
-            document.querySelector('[name="date"]').value = new Date(event.date).toISOString().slice(0, 16);
-            document.querySelector('[name="location"]').value = event.location || "";
-            document.querySelector('[name="imageUrl"]').value = event.imageUrl;
-            document.getElementById("addEventForm").dataset.eventId = id;
-            openModal('events-modal');
-        };
-
-        async function loadTestimonials() {
-            const res = await fetch('/api/admin/testimonials');
-            const data = await res.json();
-            const tbody = document.querySelector('#adminTable tbody');
-            tbody.innerHTML = '';
-            data.forEach(t => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td>${t.name || 'Anonymous'}</td>
-                        <td>${t.role}</td>
-                        <td>${t.institution}</td>
-                        <td>${t.story}</td>
-                        <td>${t.photo ? `<img src="${t.photo}" width="60">` : ''}</td>
-                        <td>${t.voiceNote ? `<audio controls src="${t.voiceNote}"></audio>` : ''}</td>
-                        <td>${t.status}</td>
-                        <td>
-                            <button onclick="updateStatus('${t._id}', 'Approved')">Approve</button>
-                            <button onclick="updateStatus('${t._id}', 'Rejected')">Reject</button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
-        async function updateStatus(id, status) {
-            await fetch(`/api/admin/testimonials/${id}/status`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ status })
-            });
-            loadTestimonials();
-        }
-        loadTestimonials();
-
-
-        async function fetchStories() {
-            try {
-                const response = await fetch('/api/dashboard/stories');
-                const stories = await response.json();
-
-                const tableBody = document.getElementById('stories-table-body');
-                tableBody.innerHTML = ''; // Clear existing content
-
-                stories.forEach(story => {
-                    const row = document.createElement('tr');
-
-                    row.innerHTML = `
-                        <td>${story.title}</td>
-                        <td>${story.authorName}</td>
-                        <td>${story.email}</td>
-                        <td>${story.status}</td>
-                        <td>
-                            <button onclick="approveStory('${story._id}')">Approve</button>
-                            <button onclick="rejectStory('${story._id}')">Reject</button>
-                        </td>
-                    `;
-
-                    tableBody.appendChild(row);
-                });
-            } catch (error) {
-                console.error('Error fetching stories:', error);
-            }
-        }
-
-        async function approveStory(storyId) {
-            try {
-                const response = await fetch(`/api/dashboard/stories/${storyId}/approve`, { method: 'PATCH' });
-                if (response.ok) {
-                    alert('Story approved.');
-                    fetchStories();
-                } else {
-                    alert('Failed to approve story.');
-                }
-            } catch (error) {
-                console.error('Error approving story:', error);
-            }
-        }
-
-        async function rejectStory(storyId) {
-            try {
-                const response = await fetch(`/api/admin/stories/${storyId}/reject`, { method: 'PATCH' });
-                if (response.ok) {
-                    alert('Story rejected.');
-                    fetchStories();
-                } else {
-                    alert('Failed to reject story.');
-                }
-            } catch (error) {
-                console.error('Error rejecting story:', error);
-            }
-        }
-
-        // Load stories when the page loads
-        window.onload = fetchStories;
-
 
         // ...existing code...
         async function fetchBlogs() {
@@ -1908,196 +1948,6 @@
 
         // Load blogs on page load
         document.addEventListener('DOMContentLoaded', fetchBlogs);
-
-        // Articles
-        fetch('/api/dashboard/articles')
-        .then(res => res.json())
-        .then(articles => {
-            // Render articles in admin panel
-        });
-
-        // Blogs/Stories
-        fetch('/api/dashboard/stories')
-        .then(res => res.json())
-        .then(stories => {
-            // Render stories/blogs in admin panel
-        });
-
-        async function fetchArticles() {
-            const res = await fetch('/api/dashboard/articles');
-            const articles = await res.json();
-            const tableBody = document.getElementById('articles-table-body');
-            tableBody.innerHTML = '';
-            articles.forEach(article => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${article.title}</td>
-                    <td>${article.authorName}</td>
-                    <td>
-                        <span style="color:${article.status === 'Approved' ? 'green' : article.status === 'Rejected' ? 'red' : 'orange'};">
-                            ${article.status}
-                        </span>
-                    </td>
-                    <td>
-                        ${article.status === 'Pending' ? `
-                            <button onclick="approveArticle('${article._id}')">Approve</button>
-                            <button onclick="rejectArticle('${article._id}')">Reject</button>
-                        ` : ''}
-                    </td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
-
-
-        // Add to your dashboard JS
-        async function fetchAdminArticles() {
-            const res = await fetch('/api/dashboard/articles');
-            const articles = await res.json();
-            const table = document.getElementById('admin-articles-table');
-            table.innerHTML = '';
-            articles.forEach(article => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${article.title}</td>
-                    <td>${article.status}</td>
-                    <td>
-                        <button onclick="editArticle('${article._id}')">Edit</button>
-                        <button onclick="deleteArticle('${article._id}')">Delete</button>
-                        ${article.status === 'Pending' ? `
-                            <button onclick="approveArticle('${article._id}')">Approve</button>
-                            <button onclick="rejectArticle('${article._id}')">Reject</button>
-                        ` : ''}
-                    </td>
-                `;
-                table.appendChild(row);
-            });
-        }
-        window.onload = fetchAdminArticles;
-
-
-        async function deleteArticle(id) {
-            if (!confirm('Delete this article?')) return;
-            const res = await fetch(`/api/admin/articles/${id}`, { method: 'DELETE' });
-            if (res.ok) {
-                alert('Article deleted');
-                fetchAdminArticles();
-            } else {
-                alert('Failed to delete');
-            }
-        }
-
-        function editArticle(id) {
-            // Redirect to an edit page or open a modal
-            window.location.href = `/admin/edit-article.html?id=${id}`;
-        }
-
-
-        async function fetchSubscribers() {
-            try {
-                const response = await fetch('/api/dashboard/subscribers');
-                const subscribers = await response.json();
-
-                const tableBody = document.getElementById('subscribers-table-body');
-                tableBody.innerHTML = '';
-
-                subscribers.forEach(subscriber => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${subscriber.email}</td>
-                        <td>${new Date(subscriber.subscribedAt).toLocaleString()}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            } catch (error) {
-                console.error('Error fetching subscribers:', error);
-            }
-        }
-
-        // Load subscribers when the page loads
-        window.addEventListener('DOMContentLoaded', fetchSubscribers);
-
-
-        // file Uploads
-
-        // Load existing files
-        async function loadFiles() {
-            const res = await fetch('/api/pdfs');
-            const files = await res.json();
-            const container = document.getElementById("fileList");
-            container.innerHTML = '';
-
-            files.forEach(file => {
-                const div = document.createElement('div');
-                div.className = 'file-item';
-                div.innerHTML = `
-                    <strong>${file.title}</strong> - ${file.category} (${file.fileType})
-                    <button onclick="deleteFile('${file._id}')">Delete</button>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        document.getElementById('uploadblogs').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const res = await fetch('/api/upload', {
-                method: 'POST',
-                body: formData
-            });
-            const data = await res.json();
-            document.getElementById('status').textContent = data.message || data.error;
-            loadFiles();
-            console.log(data);
-        });
-
-        fetch('/api/categories').then(res => res.json()).then(categories => {
-            const select = document.getElementById('categorySelect');
-            categories.forEach(cat => {
-                const opt = document.createElement('option');
-                opt.value = cat.name;
-                opt.textContent = cat.label;
-                select.appendChild(opt);
-            });
-        });
-
-        async function loadFiles(filter = '') {
-            let url = '/api/pdfs';
-            if (filter) url += `?q=${encodeURIComponent(filter)}`;
-            const res = await fetch(url);
-            const pdfs = await res.json();
-            const container = document.getElementById('pdfList');
-            container.innerHTML = '';
-            pdfs.forEach(pdf => {
-                const div = document.createElement('div');
-                div.innerHTML = `
-                    <strong>${pdf.title}</strong> (${pdf.category} - ${pdf.fileType})
-                    <button onclick="deletePdf('${pdf._id}')">Delete</button>
-                `;
-                container.appendChild(div);
-            });
-        }
-        const filterInput = document.getElementById('filterInput');
-        if (filterInput) {
-            filterInput.addEventListener('input', function() {
-                loadFiles(this.value);
-            });
-        }
-
-        // Delete file
-        async function deleteFile(id) {
-            const res = await fetch(`/api/pdfs/${id}`, {
-                method: 'DELETE'
-            });
-            const data = await res.json();
-            alert(data.message);
-            loadFiles();
-        }
-
-        // On page load
-        window.onload = () => {
-            loadFiles();
-        };
 
 
         document.getElementById('save-summit').addEventListener('click', () => {
@@ -2179,233 +2029,6 @@
                 alert("Delete functionality coming soon for summit ID: " + id);
             }
         }
-
-        const socket = io(); // Connect to backend
-        let currentEmail = "";
-
-        // Ensure DOM Elements Exist
-        window.openChat = function(email) {
-            const replyToField = document.getElementById("reply-to");
-            if (replyToField) {
-                replyToField.value = email;
-                openModal("reply-modal");
-                currentEmail = email;
-            }
-        };
-
-        // Load messages from API
-        async function loadMessages() {
-            try {
-                const response = await fetch("/api/messages");
-                const messages = await response.json();
-
-                const list = document.getElementById("admin-message-list");
-                if (!list) return;
-
-                list.innerHTML = ""; // Clear previous
-
-                if (!messages.length) {
-                    list.innerHTML = "<li>No messages yet.</li>";
-                    return;
-                }
-
-                messages.forEach(msg => {
-                    const item = document.createElement("li");
-                    item.style.marginBottom = "1rem";
-                    item.innerHTML = `
-                        <strong>${msg.name}</strong> (${msg.email})<br>
-                        <em>"${msg.text}"</em><br>
-                        <small>${new Date(msg.timestamp).toLocaleString()}</small><br>
-                        <button class="btn btn-primary start-chat-btn" onclick="openChat('${msg.email}')">Start Chat</button>
-                    `;
-                    list.appendChild(item);
-                });
-            } catch (err) {
-                console.error("Failed to load messages:", err);
-            }
-        }
-
-        // Handle incoming message from user
-        socket.on("new_message", (data) => {
-            const list = document.getElementById("admin-message-list");
-            if (!list) return;
-
-            const item = document.createElement("li");
-            item.style.marginBottom = "1rem";
-            item.innerHTML = `
-                <strong>${data.name}</strong> (${data.email})<br>
-                <em>"${data.text}"</em><br>
-                <small>${new Date(data.timestamp).toLocaleString()}</small><br>
-                <button class="btn btn-primary start-chat-btn" onclick="openChat('${data.email}')">Start Chat</button>
-            `;
-            list.prepend(item); // Show latest first
-        });
-
-        // Send reply back to user
-        document.getElementById("send-reply-btn")?.addEventListener("click", () => {
-            const response = document.getElementById("reply-text").value.trim();
-            if (!response || !currentEmail) {
-                alert("Please enter a reply and select a user.");
-                return;
-            }
-
-            socket.emit("coordinator_reply", {
-                to: currentEmail,
-                text: response
-            });
-
-            alert("Reply sent!");
-            closeModals();
-            document.getElementById("reply-text").value = "";
-        });
-
-        // Call loadMessages when switching to chapters tab
-        document.addEventListener("DOMContentLoaded", function () {
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
-
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    tabContents.forEach(content => content.classList.remove('active'));
-
-                    button.classList.add('active');
-                    const tabId = button.getAttribute('data-tab');
-                    document.getElementById(`${tabId}-tab`).classList.add('active');
-
-                    if (tabId === 'chapters') {
-                        loadMessages(); // Load messages when viewing chapters tab
-                    }
-                });
-            });
-
-            // File Upload Preview
-            document.querySelectorAll('input[type="file"]').forEach(input => {
-                input.addEventListener('change', function () {
-                    if (this.files && this.files[0]) {
-                        const fileUpload = this.parentElement;
-                        let preview = fileUpload.querySelector('.file-preview');
-                        if (!preview) {
-                            preview = document.createElement('img');
-                            preview.className = 'file-preview';
-                            fileUpload.appendChild(preview);
-                        }
-                        const reader = new FileReader();
-                        reader.onload = e => preview.src = e.target.result;
-                        reader.readAsDataURL(this.files[0]);
-                    }
-                });
-            });
-        });
-
-
-        window.onload = () => {
-        fetch('/api/contact')
-            .then(res => res.json())
-            .then(data => {
-            const tbody = document.getElementById('messages-table-body');
-            const loading = document.getElementById('loading');
-            const errorBox = document.getElementById('error');
-
-            loading.classList.add('d-none');
-
-            if (!data || data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" class="text-center no-data">No messages found.</td></tr>';
-                return;
-            }
-
-            data.forEach(msg => {
-                const row = document.createElement('tr');
-
-                row.innerHTML = `
-                <td>${msg.fullName}</td>
-                <td>${msg.email}</td>
-                <td>${msg.phone || '—'}</td>
-                <td>${msg.subject}</td>
-                <td>${msg.message.substring(0, 50)}${msg.message.length > 50 ? '...' : ''}</td>
-                <td>${msg.newsletter ? 'Yes' : 'No'}</td>
-                <td>${new Date(msg.createdAt).toLocaleString()}</td>
-                `;
-
-                tbody.appendChild(row);
-            });
-            })
-            .catch(err => {
-            console.error('Error fetching messages:', err);
-            document.getElementById('loading').classList.add('d-none');
-            document.getElementById('error').classList.remove('d-none');
-            });
-        };
-
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
-        }
-
-        // Close sidebar when clicking outside on mobile
-        document.addEventListener('click', function(event) {
-            const sidebar = document.getElementById('sidebar');
-            const toggle = document.querySelector('.sidebar-toggle');
-            
-            if (window.innerWidth <= 768 && 
-                !sidebar.contains(event.target) && 
-                !toggle.contains(event.target) && 
-                sidebar.classList.contains('active')) {
-                sidebar.classList.remove('active');
-            }
-        });
-
-        // Handle sidebar navigation
-        document.querySelectorAll('.sidebar-menu a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                // Remove active class from all links
-                document.querySelectorAll('.sidebar-menu a').forEach(l => l.classList.remove('active'));
-                // Add active class to clicked link
-                this.classList.add('active');
-                
-                // Close sidebar on mobile after navigation
-                if (window.innerWidth <= 768) {
-                    document.getElementById('sidebar').classList.remove('active');
-                }
-            });
-        });
-
-        async function loadChapters() {
-            const res = await fetch(`${API_URL}/api/chapters/pending`);
-            const chapters = await res.json();
-
-            const tbody = document.getElementById('chapter-list');
-            tbody.innerHTML = '';
-
-            chapters.forEach(chap => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${chap.university}</td>
-                    <td>${chap.location}</td>
-                    <td>${chap.establishedYear}</td>
-                    <td>${chap.members}</td>
-                    <td>${chap.description}</td>
-                    <td>
-                        <button onclick="updateStatus('${chap._id}', 'approved')">Approve</button>
-                        <button onclick="updateStatus('${chap._id}', 'rejected')">Reject</button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        async function updateStatus(id, status) {
-            await fetch(`${API_URL}/api/chapters/update-status`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, status })
-            });
-            alert(`${status.charAt(0).toUpperCase() + status.slice(1)}!`);
-            loadChapters();
-        }
-
-        window.onload = loadChapters;
     </script>
 </body>
 

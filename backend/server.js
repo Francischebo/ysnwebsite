@@ -119,11 +119,12 @@ io.on("connection", (socket) => {
     });
 });
 
+// filepath: c:\Users\JOYLIM\Desktop\join us\join-us\server.js (or your multer config file)
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         if (file.fieldname === 'pdf') {
             cb(null, './uploads/pdf/');
-        } else if (file.fieldname === 'image') {
+        } else if (file.fieldname === 'photo' || file.fieldname === 'image') {
             cb(null, './uploads/images/');
         } else if (file.fieldname === 'voiceNote') {
             cb(null, './uploads/audio/');
@@ -139,6 +140,8 @@ const storage = multer.diskStorage({
             cb(null, './uploads/applications/');
         } else if (file.fieldname === 'chapterApplications') {
             cb(null, './uploads/chapterApplications/');
+        } else if (file.fieldname === 'pdf') { // added for consistency
+            cb(null, './uploads/chapterApplications/');
         } else {
             cb(new Error('Unexpected field'));
         }
@@ -150,7 +153,6 @@ const storage = multer.diskStorage({
     }
 });
 
-// ...existing code...
 function fileFilter(req, file, cb) {
     const allowedTypes = {
         file: 'application/pdf',
@@ -173,7 +175,6 @@ function fileFilter(req, file, cb) {
     }
     cb(null, true);
 }
-// ...existing code...
 
 const upload = multer({
     storage,
@@ -183,7 +184,7 @@ const upload = multer({
 
 
 // Static files
-app.use("/uploads", express.static(path.join(__dirname, "backend/uploads")));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/uploads', express.static('backend/uploads'));
 app.use(express.static(path.join(__dirname, "backend")));
 
@@ -748,8 +749,6 @@ app.post('/api/events', upload.single('image'), async(req, res) => {
     // Get fields from body
     const { title, description, category, date, location } = req.body;
 
-    console.log('BODY:', req.body);
-    console.log('FILE:', req.file);
     // Determine imageUrl
     let imageUrl = null;
     if (req.file) {
