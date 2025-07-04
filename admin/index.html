@@ -630,9 +630,8 @@
                     <li><a href="#V-subscribers"><span class="icon">📅</span><span>Subscribers</span></a></li>
                     <li><a href="#V-member"><span class="icon">👥</span><span>Members</span></a></li>
                     <li><a href="#event"><span class="icon">📝</span><span>Events</span></a></li>
-                    <li><a href="#app-chapter"><span class="icon">🏫</span><span>Chapters</span></a></li>
-                    <li><a href="#testimonials-tab"><span class="icon">💬</span><span>Testimonials</span></a></li>
-                    <li><a href="#"><span class="icon">📸</span><span>Media</span></a></li>
+                    <li><a href="#chapter-list"><span class="icon">🏫</span><span>Chapters</span></a></li>
+                    <li><a href="#addTestimonial"><span class="icon">💬</span><span>Testimonials</span></a></li>
                     <li><a href="#addResources"><span class="icon">📰</span><span>Resources</span></a></li>
                     <li><a href="#blogs"><span class="icon">📰</span><span>Blogs</span></a></li>
                     <li><a href="#add-article"><span class="icon">📰</span><span>Articles</span></a></li>
@@ -686,56 +685,6 @@
                     <p>Testimonials</p>
                     <div class="status up">
                         <span>↑</span> 8 new this month
-                    </div>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <h4 class="mb-3">Recent Messages</h4>
-                <div class="table-responsive">
-                  <table class="table table-bordered table-striped">
-                    <thead class="thead-dark">
-                      <tr>
-                        <th>Full Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Subject</th>
-                        <th>Message Preview</th>
-                        <th>Newsletter</th>
-                        <th>Date Submitted</th>
-                      </tr>
-                    </thead>
-
-                    <tbody id="messages-table-body">
-                      <!-- Rows will be injected here -->
-                    </tbody>
-                  </table>
-                </div>
-                <div id="loading" class="alert alert-info">Loading...</div>
-                <div id="error" class="alert alert-danger d-none">An error occurred while fetching messages.</div>
-                <!-- Reply Modal -->
-                <div class="modal-overlay" id="reply-modal">
-                    <div class="modal" style="max-width: 600px;">
-                        <div class="modal-header">
-                            <h2>Reply to User</h2>
-                            <button class="modal-close">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="reply-form">
-                                <div class="form-group">
-                                    <label for="reply-to">To:</label>
-                                    <input type="text" id="reply-to" class="form-control" disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label for="reply-text">Your Response</label>
-                                    <textarea id="reply-text" class="form-control" required></textarea>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary modal-close">Cancel</button>
-                            <button class="btn btn-primary" id="send-reply-btn">Send Reply</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1062,58 +1011,48 @@
                 </div>
             </div><br>
 
-            <!-- Add Testimonial Modal -->
             <div class="">
                 <div class="modal-header">
                     <h2 id="addTestimonial">Add New Testimonial</h2>
                 </div>
-
-                <div class="">
-                    <form id="testimonial-form">
+                <div class="modal-body">
+                    <!-- Add Testimonial Modal -->
+                    <form id="testimonial-form" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="testimonial-name">Name</label>
-                            <input type="text" id="testimonial-name" class="form-control" required>
+                            <input type="text" id="testimonial-name" name="name" class="form-control" required>
                         </div>
-
                         <div class="form-group">
-                            <label for="testimonial-position">Position</label>
-                            <input type="text" id="testimonial-position" class="form-control" required>
+                            <label for="testimonial-role">Role</label>
+                            <input type="text" id="testimonial-role" name="role" class="form-control" required>
                         </div>
-
                         <div class="form-group">
-                            <label for="testimonial-text">Testimonial</label>
-                            <textarea id="testimonial-text" class="form-control" required></textarea>
+                            <label for="testimonial-institution">Institution</label>
+                            <input type="text" id="testimonial-institution" name="institution" class="form-control" required>
                         </div>
-
+                        <div class="form-group">
+                            <label for="testimonial-story">Testimonial</label>
+                            <textarea id="testimonial-story" name="story" class="form-control" required></textarea>
+                        </div>
                         <div class="form-group">
                             <label for="testimonial-status">Status</label>
-                            <select id="testimonial-status" class="form-control">
-                            <option value="published">Published</option>
-                            <option value="draft">Draft</option>
-                        </select>
+                            <select id="testimonial-status" name="status" class="form-control">
+                                <option value="published">Published</option>
+                                <option value="draft">Draft</option>
+                            </select>
                         </div>
-
                         <div class="form-group">
                             <label>Profile Image</label>
-                            <div class="file-upload">
-                                <label for="testimonial-image">
-                                    <div class="file-upload-icon">📁</div>
-                                    <p>Click to upload image</p>
-                                </label>
-                                <input type="file" id="testimonial-image" accept="image/*">
-                                <img id="testimonial-image-preview" style="display:none;max-width:100px;margin-top:10px;">
-                            </div>
+                            <input type="file" id="testimonial-image" name="photo" accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <label for="testimonial-voiceNote">Voice Note (optional)</label>
+                            <input type="file" id="testimonial-voiceNote" name="voiceNote" accept="audio/*">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit Testimonial</button>
                     </form>
                 </div>
-
-                <div class="modal-footer">
-                    <button class="action-btn edit" onclick="editChapter('${chapter._id}')">✏️</button>
-                    <button class="btn btn-secondary modal-close">Cancel</button>
-                    <button class="btn btn-primary" id="save-testimonial">Save Testimonial</button>
-                </div><br>
-
+                <br>
                 <h2>Testimonials Review Panel</h2>
                 <table id="adminTable">
                     <thead>
@@ -1121,7 +1060,7 @@
                             <th>Name</th>
                             <th>Role</th>
                             <th>Institution</th>
-                            <th>Story</th>
+                            <th>Testimonial</th>
                             <th>Photo</th>
                             <th>Voice Note</th>
                             <th>Status</th>
@@ -1153,7 +1092,7 @@
                                         <th>Date Applied</th>
                                     </tr>
                                 </thead>
-                                <tbody id="applicants-table-body">
+                                <tbody id="members-table-body">
                                     <!-- Dynamic Rows Go Here -->
                                 </tbody>
                             </table>
@@ -1176,10 +1115,10 @@
                         <!-- Subscribers will be dynamically loaded here -->
                     </tbody>
                 </table>
-            </div>
+            </div><br><br>
 
             <div id="blogs">
-                <h3>Upload Blog Stories</h3>
+                <h2>Blog Stories</h2>
                 <form id="uploadblogs" enctype="multipart/form-data">
                     <input type="text" name="title" placeholder="Title" required />
                     <textarea name="description" placeholder="Description"></textarea>
@@ -1193,41 +1132,81 @@
                 </form>
                 <p id="status"></p><br>
                 <!-- Add this where you want the blogs to show in dashboard.html -->
-                <table>
+                
+                <div class="panel-header">
+                    <h3>Blogs</h3>
+                </div>
+                <table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>PDF Files</th>
+                            <th>Photo Files</th>
+                            <th>Audio Files</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
                     <tbody id="blogs-table-body">
                         <!-- Blog rows will be injected here -->
                     </tbody>
                 </table><br>
-
-
-                <div class="panel">
-                    <div class="panel-header">
-                        <h2>Stories Review Panel</h2>
-                    </div>
-                    <div>
-                        <table id="adminStoriesTable" border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Role</th>
-                                    <th>Institution</th>
-                                    <th>Story</th>
-                                    <th>Photo</th>
-                                    <th>Voice Note</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            </div><br>
         </main>
     </div>
     <script>
         const ADMIN_BASE_URL = "http://localhost:3000";
         const API_URL = '/api/programs';
+
+
+        async function fetchMembers() {
+            const res = await fetch('/api/members');
+            const applicants = await res.json();
+            const tbody = document.getElementById('members-table-body');
+            tbody.innerHTML = '';
+            applicants.forEach(applicant => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${applicant._id}</td>
+                    <td>${applicant.fullName}</td>
+                    <td>${applicant.email}</td>
+                    <td>${applicant.phone}</td>
+                    <td>${applicant.university || ''}</td>
+                    <td>${applicant.location}</td>
+                    <td>${applicant.role}</td>
+                    <td>${new Date(applicant.dateApplied).toLocaleString()}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', fetchMembers);
+
+        async function fetchSubscribers() {
+            try {
+                const res = await fetch('/api/dashboard/subscribers');
+                const subscribers = await res.json();
+                const tbody = document.getElementById('subscribers-table-body');
+                tbody.innerHTML = '';
+                if (!subscribers.length) {
+                    tbody.innerHTML = '<tr><td colspan="2">No subscribers found.</td></tr>';
+                    return;
+                }
+                subscribers.forEach(sub => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${sub.email}</td>
+                        <td>${new Date(sub.createdAt).toLocaleString()}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (err) {
+                console.error('Error fetching subscribers:', err);
+                document.getElementById('subscribers-table-body').innerHTML = '<tr><td colspan="2">Error loading subscribers.</td></tr>';
+            }
+        }        
+        // Call this on page load
+        document.addEventListener('DOMContentLoaded', fetchSubscribers);
 
         // --- EVENTS ---
         document.getElementById("addEventForm").addEventListener("submit", async function(e) {
@@ -1285,7 +1264,6 @@
             }
         }
 
-        window.deleteEvent = async function(id) {
             if (!confirm("Are you sure you want to delete this event?")) return;
             try {
                 const res = await fetch(`/api/events/${id}`, { method: "DELETE" });
@@ -1314,7 +1292,6 @@
             openModal('events-modal');
         };
 
-        // --- TESTIMONIALS ---
         document.getElementById('testimonial-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const formData = new FormData(this);
@@ -1367,101 +1344,7 @@
             loadTestimonials();
         }
 
-        // --- STORIES ---
-        async function fetchStories() {
-            try {
-                const response = await fetch('/api/dashboard/stories');
-                const stories = await response.json();
-
-                const tableBody = document.getElementById('stories-table-body');
-                tableBody.innerHTML = ''; // Clear existing content
-
-                stories.forEach(story => {
-                    const row = document.createElement('tr');
-
-                    row.innerHTML = `
-                        <td>${story.title}</td>
-                        <td>${story.authorName}</td>
-                        <td>${story.email}</td>
-                        <td>${story.status}</td>
-                        <td>
-                            <button onclick="approveStory('${story._id}')">Approve</button>
-                            <button onclick="rejectStory('${story._id}')">Reject</button>
-                        </td>
-                    `;
-
-                    tableBody.appendChild(row);
-                });
-            } catch (error) {
-                console.error('Error fetching stories:', error);
-            }
-        }
-
-        async function approveStory(storyId) {
-            try {
-                const response = await fetch(`/api/dashboard/stories/${storyId}/approve`, { method: 'PATCH' });
-                if (response.ok) {
-                    alert('Story approved.');
-                    fetchStories();
-                } else {
-                    alert('Failed to approve story.');
-                }
-            } catch (error) {
-                console.error('Error approving story:', error);
-            }
-        }
-
-        async function rejectStory(storyId) {
-            try {
-                const response = await fetch(`/api/admin/stories/${storyId}/reject`, { method: 'PATCH' });
-                if (response.ok) {
-                    alert('Story rejected.');
-                    fetchStories();
-                } else {
-                    alert('Failed to reject story.');
-                }
-            } catch (error) {
-                console.error('Error rejecting story:', error);
-            }
-        }
-
-        // Load stories when the page loads
-        window.onload = fetchStories;
-
-
-        async function loadStories() {
-            const res = await fetch('/api/admin/stories');
-            const data = await res.json();
-            const tbody = document.querySelector('#adminStoriesTable tbody');
-            tbody.innerHTML = '';
-            data.forEach(story => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td>${story.name || 'Anonymous'}</td>
-                        <td>${story.role || ''}</td>
-                        <td>${story.institution || ''}</td>
-                        <td>${story.story || ''}</td>
-                        <td>${story.photo ? `<img src="${story.photo}" alt="photo">` : ''}</td>
-                        <td>${story.voiceNote ? `<audio controls src="${story.voiceNote}"></audio>` : ''}</td>
-                        <td><span class="${story.status.toLowerCase()}">${story.status}</span></td>
-                        <td>
-                            <button class="approve" onclick="updateStoryStatus('${story._id}', 'Approved')">Approve</button>
-                            <button class="reject" onclick="updateStoryStatus('${story._id}', 'Rejected')">Reject</button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
-
-        async function updateStoryStatus(id, status) {
-            await fetch(`/api/admin/stories/${id}/status`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ status })
-            });
-            loadStories();
-        }
-
+        
         // --- ARTICLES ---
         document.getElementById('articleForm').addEventListener('submit', async function (e) {
             e.preventDefault();
@@ -1553,7 +1436,7 @@
         }
 
 
-        document.getElementById('save-summit').addEventListener('click', () => {
+        document.getElementById('save-summit').addEventListener('click', async () => {
             const formData = {
                 title: document.getElementById('summit-title').value.trim(),
                 year: parseInt(document.getElementById('summit-year').value),
@@ -1569,12 +1452,24 @@
                 return;
             }
 
-            // Save via API or mock it for now
-            console.log("Saving summit:", formData);
-            alert("Summit saved successfully!");
-            closeModals();
-            clearSummitForm();
-            loadSummits(); // Optional: Load from DB later
+            try {
+                const res = await fetch('/api/summits', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                const result = await res.json();
+                if (res.ok) {
+                    alert("Summit saved successfully!");
+                    clearSummitForm();
+                    loadSummits();
+                } else {
+                    alert(result.error || "Failed to save summit.");
+                }
+            } catch (err) {
+                alert("Error saving summit.");
+                console.error(err);
+            }
         });
 
         function clearSummitForm() {
@@ -1591,7 +1486,7 @@
                 const response = await fetch("/api/summits");
                 const summits = await response.json();
 
-                const tableBody = document.querySelector("#summits-tab #summit-table-body");
+                const tableBody = document.querySelector("summit-table-body");
                 tableBody.innerHTML = "";
 
                 if (!summits.length) {
@@ -1733,13 +1628,12 @@
             fetchArticles();
             fetchPrograms();
             loadChapters();
-            // ...add other initializations as needed
         });
 
-        document.getElementById('resourceForm').addEventListener('submit', async function(e) {
+        document.getElementById('resource-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const formData = new FormData(this);
-            const id = formData.get('resourceForm');
+            const id = formData.get('resource-form-id');
             const method = id ? 'PUT' : 'POST';
             const url = id ? `/api/resources/${id}` : '/api/resources';
 
@@ -1881,9 +1775,33 @@
         });
 
         // ...existing code...
+        document.getElementById('uploadblogs').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const statusP = document.getElementById('status');
+            statusP.textContent = 'Uploading...';
+            try {
+                const response = await fetch('/api/admin/blogs', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    statusP.textContent = '✅ Blog uploaded!';
+                    this.reset();
+                    fetchBlogs();
+                } else {
+                    statusP.textContent = '❌ ' + (result.error || 'Failed to upload blog.');
+                }
+            } catch (err) {
+                statusP.textContent = '❌ Error uploading blog.';
+            }
+        });
+
+
         async function fetchBlogs() {
             try {
-                const response = await fetch('/api/dashboard/stories');
+                const response = await fetch('/api/admin/blogs');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -1895,8 +1813,10 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${blog.title}</td>
-                        <td>${blog.authorName || ''}</td>
-                        <td>${blog.email || ''}</td>
+                        <td>${blog.description || ''}</td>
+                        <td>${blog.pdf ? `<a href="${blog.pdf}" target="_blank">PDF</a>` : ''}</td>
+                        <td>${blog.photo ? `<img src="${blog.photo}" style="max-width:60px;">` : ''}</td>
+                        <td>${blog.voiceNote ? `<audio controls src="${blog.voiceNote}"></audio>` : ''}</td>
                         <td>
                             <span style="color:${blog.status === 'Approved' ? 'green' : blog.status === 'Rejected' ? 'red' : 'orange'};">
                                 ${blog.status}
@@ -1949,86 +1869,6 @@
         // Load blogs on page load
         document.addEventListener('DOMContentLoaded', fetchBlogs);
 
-
-        document.getElementById('save-summit').addEventListener('click', () => {
-            const formData = {
-                title: document.getElementById('summit-title').value.trim(),
-                year: parseInt(document.getElementById('summit-year').value),
-                date: document.getElementById('summit-date').value.trim(),
-                location: document.getElementById('summit-location').value.trim(),
-                description: document.getElementById('summit-description').value.trim(),
-                imageUrl: document.getElementById('summit-image').value.trim()
-            };
-
-            // Basic validation
-            if (!formData.title || !formData.year || !formData.date || !formData.location || !formData.description || !formData.imageUrl) {
-                alert("Please fill out all fields.");
-                return;
-            }
-
-            // Save via API or mock it for now
-            console.log("Saving summit:", formData);
-            alert("Summit saved successfully!");
-            closeModals();
-            clearSummitForm();
-            loadSummits(); // Optional: Load from DB later
-        });
-
-        function clearSummitForm() {
-            document.getElementById('summit-title').value = "";
-            document.getElementById('summit-year').value = "";
-            document.getElementById('summit-date').value = "";
-            document.getElementById('summit-location').value = "";
-            document.getElementById('summit-description').value = "";
-            document.getElementById('summit-image').value = "";
-        }
-
-        async function loadSummits() {
-            try {
-                const response = await fetch("/api/summits");
-                const summits = await response.json();
-
-                const tableBody = document.querySelector("#summits-tab #summit-table-body");
-                tableBody.innerHTML = "";
-
-                if (!summits.length) {
-                    tableBody.innerHTML = "<tr><td colspan='6' style='text-align:center'>No summits found.</td></tr>";
-                    return;
-                }
-
-                summits.forEach(summit => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td>${summit._id}</td>
-                        <td>${summit.title}</td>
-                        <td>${summit.year}</td>
-                        <td>${summit.date}</td>
-                        <td>${summit.location}</td>
-                        <td>
-                            <div class="table-actions">
-                                <button class="action-btn edit" onclick="editSummit('${summit._id}')">✏️</button>
-                                <button class="action-btn delete" onclick="deleteSummit('${summit._id}')">🗑️</button>
-                            </div>
-                        </td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-
-            } catch (err) {
-                console.error("Failed to load summits:", err);
-            }
-        }
-
-        // Dummy Edit/Delete Functions (Optional)
-        function editSummit(id) {
-            alert("Edit functionality coming soon for summit ID: " + id);
-        }
-
-        function deleteSummit(id) {
-            if (confirm("Are you sure you want to delete this summit?")) {
-                alert("Delete functionality coming soon for summit ID: " + id);
-            }
-        }
     </script>
 </body>
 

@@ -20,9 +20,11 @@ const Payment = require("./models/paymentModel");
 const ChapterApplication = require('./models/Chapter');
 
 // Models
+const Member = require('./models/Member');
 const Chapter = require("./models/Chapter");
 const Article = require("./models/Article");
 const Event = require("./models/Event");
+const Blog = require('./models/Blog');
 const Admin = require("./models/Admin");
 const Applicant = require("./models/Applicant");
 const Contact = require("./models/Contact");
@@ -61,7 +63,7 @@ app.use(cors({
     origin: [process.env.FRONTEND_URL, process.env.ADMIN_URL],
     credentials: true
 }));
-app.use(express.static(path.join(__dirname, '../frontend/public')));
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 // Routes
 app.use('/api/chapters', require('./routes/chapterRoutes'));
@@ -187,7 +189,6 @@ const upload = multer({
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/uploads', express.static('backend/uploads'));
 app.use(express.static(path.join(__dirname, "backend")));
-
 // View engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -211,6 +212,16 @@ app.use('/uploads/applications', express.static('uploads/applications'));
 
 
 const Activity = require('./models/Activity');
+
+
+app.get('/api/members', async(req, res) => {
+    try {
+        const applicants = await Applicant.find().sort({ dateApplied: -1 });
+        res.json(applicants);
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to fetch applicants.' });
+    }
+});
 
 // Submit Activity (admin or user)
 app.post('/api/submit-activity', upload.single('image'), async(req, res) => {
@@ -520,10 +531,9 @@ app.get('/api/articles/:id', async(req, res) => {
     }
 });
 
-// Serve single article page for /news/article/:id
 app.get('/news/article/:id', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'news-article.html'));
-});
+    res.sendFile(path.join(__dirname, '../frontend/public', 'news-article.html'));
+});;
 
 // Get a single article (for editing)
 app.get('/api/admin/articles/:id', ensureAuthenticated, async(req, res) => {
@@ -624,11 +634,10 @@ app.patch('/api/admin/stories/:id/reject', ensureAuthenticated, async(req, res) 
 });
 
 
-// Submit testimonial
 app.post('/api/testimonials', upload.fields([{ name: 'photo' }, { name: 'voiceNote' }]), async(req, res) => {
     try {
-        const { name, role, institution, story, consent } = req.body;
-        if (!role || !institution || !story || !consent) {
+        const { name, role, institution, story } = req.body;
+        if (!role || !institution || !story) {
             return res.status(400).json({ message: 'All required fields must be filled.' });
         }
         const testimonial = new Testimonial({
@@ -643,16 +652,20 @@ app.post('/api/testimonials', upload.fields([{ name: 'photo' }, { name: 'voiceNo
         await testimonial.save();
         res.json({ success: true, message: 'Testimonial submitted for review.' });
     } catch (err) {
+        console.error('Testimonial POST error:', err); // <-- ADD THIS LINE
         res.status(500).json({ message: 'Server error.' });
     }
 });
 
-// Get testimonials (for user page)
 app.get('/api/testimonials', async(req, res) => {
-    const testimonials = await Testimonial.find({ status: 'Approved' }).sort({ createdAt: -1 });
-    res.json(testimonials);
+    try {
+        // Only fetch testimonials that are approved
+        const testimonials = await Testimonial.find({ status: 'Approved' }).sort({ createdAt: -1 });
+        res.json(testimonials);
+    } catch (err) {
+        res.status(500).json({ message: 'Could not fetch testimonials.' });
+    }
 });
-
 
 // Get all testimonials (for admin)
 app.get('/api/admin/testimonials', async(req, res) => {
@@ -670,21 +683,19 @@ app.post('/api/admin/testimonials/:id/status', async(req, res) => {
     res.json({ success: true });
 });
 
-
 // Submit story
 app.post('/api/stories', upload.fields([{ name: 'photo' }, { name: 'voiceNote' }]), async(req, res) => {
     try {
-        const { name, role, institution, story, consent } = req.body;
-        if (!role || !institution || !story || !consent) {
+        const { title, content, authorName, email, image } = req.body;
+        if (!title || !content || !authorName || !email || !image) {
             return res.status(400).json({ message: 'All required fields must be filled.' });
         }
         const storytelling = new Story({
-            name,
-            role,
-            institution,
-            story,
-            photo: req.files.photo ? `/uploads/${req.files.photo[0].filename}` : '',
-            voiceNote: req.files.voiceNote ? `/uploads/${req.files.voiceNote[0].filename}` : '',
+            title,
+            content,
+            authorName,
+            email,
+            image: req.files.photo ? `/uploads/${req.files.photo[0].filename}` : '',
             status: 'Pending'
         });
         await storytelling.save();
@@ -733,8 +744,6 @@ app.post('/api/subscribe', async(req, res) => {
     res.json({ success: true, message: 'Subscribed successfully!' });
 });
 
-
-// List all subscribers for admin panel
 app.get('/api/dashboard/subscribers', async(req, res) => {
     try {
         const subscribers = await Subscriber.find().sort({ subscribedAt: -1 });
@@ -743,7 +752,6 @@ app.get('/api/dashboard/subscribers', async(req, res) => {
         res.status(500).json({ error: 'Error fetching subscribers' });
     }
 });
-
 // Add Event Endpoint
 app.post('/api/events', upload.single('image'), async(req, res) => {
     // Get fields from body
@@ -904,14 +912,63 @@ app.post('/api/upload', (req, res, next) => {
     }
 });
 
-// ...existing code for GET, DELETE, and download endpoints...
+// Blog upload route
+app.post('/api/blogs', upload.fields([
+    { name: 'pdf' },
+    { name: 'photo' },
+    { name: 'voiceNote' }
+]), async(req, res) => {
+    try {
+        const { title, description } = req.body;
+        const pdf = req.files.pdf ? `/uploads/${req.files.pdf[0].filename}` : '';
+        const photo = req.files.photo ? `/uploads/${req.files.photo[0].filename}` : '';
+        const voiceNote = req.files.voiceNote ? `/uploads/${req.files.voiceNote[0].filename}` : '';
+
+        // Save to DB
+        const blog = new Blog({
+            title,
+            description,
+            pdf,
+            photo,
+            voiceNote,
+            status: 'Pending'
+        });
+        await blog.save();
+
+        res.json({ success: true, message: 'Blog uploaded!' });
+    } catch (err) {
+        console.error('Blog upload error:', err);
+        res.status(500).json({ error: 'Failed to upload blog.' });
+    }
+});
+
 app.get('/api/blogs', async(req, res) => {
     try {
-        const blogs = await Story.find({ status: 'Approved' }).sort({ createdAt: -1 });
+        const blogs = await Blog.find({ status: 'Approved' }).sort({ createdAt: -1 });
         res.json(blogs);
     } catch (err) {
         res.status(500).json({ error: 'Could not retrieve blogs' });
     }
+});
+
+
+app.get('/api/admin/blogs', async(req, res) => {
+    try {
+        const blogs = await Blog.find().sort({ createdAt: -1 });
+        res.json(blogs);
+    } catch (err) {
+        res.status(500).json({ error: 'Could not retrieve blogs' });
+    }
+});
+
+app.get('/api/articles/:id', async(req, res) => {
+    const article = await Article.findById(req.params.id);
+    if (!article) return res.status(404).json({ error: 'Not found' });
+    res.json(article);
+});
+
+app.get('/news/article/:id', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/public', 'news-article.html'));
 });
 
 // Get All PDFs
@@ -1158,6 +1215,42 @@ app.get("/api/contact", async(req, res) => {
     }
 });
 
+
+router.post('/join', async(req, res) => {
+    try {
+        const { fullName, email, phone, university, location, role, message } = req.body;
+        if (!fullName || !email || !phone || !role || !location) {
+            return res.status(400).json({ message: 'All required fields must be filled.' });
+        }
+        // Save to Members collection
+        const newMember = await Member.create({
+            fullName,
+            email,
+            phone,
+            university,
+            location,
+            role,
+            message
+        });
+        res.status(201).json({ message: 'Application received!', member: newMember });
+    } catch (err) {
+        res.status(500).json({ message: 'Server error.' });
+    }
+});
+// ...existing code...
+
+
+// ...existing code...
+router.get('/members', async(req, res) => {
+    try {
+        const members = await Member.find().sort({ createdAt: -1 });
+        res.json(members);
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to fetch members.' });
+    }
+});
+// ...existing code...
+
 // Submit a new chapter application (with optional application letter)
 app.post('/api/chapters', upload.single('cApplications'), async(req, res) => {
     try {
@@ -1272,6 +1365,26 @@ app.get('/api/chapter-applications/:id/download', async(req, res) => {
 });
 // ...existing code...
 
+// POST /api/summits
+app.post('/api/summits', async(req, res) => {
+    try {
+        const summit = await Summit.create(req.body);
+        res.status(201).json(summit);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to save summit.' });
+    }
+});
+
+// GET /api/summits
+app.get('/api/summits', async(req, res) => {
+    try {
+        const summits = await Summit.find().sort({ year: -1, date: -1 });
+        res.json(summits);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch summits.' });
+    }
+});
+
 
 // Auth
 app.post('/login', async(req, res) => {
@@ -1379,8 +1492,8 @@ app.post("/callback", (req, res) => {
     res.status(200).json({ received: true });
 });
 
-// ---------------------------
-// 6. Start Server
+
+
 // ---------------------------
 connectDB().then(() => {
     http.listen(PORT, () => {

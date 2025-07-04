@@ -4,8 +4,8 @@ const dotenv = require('dotenv').config();
 const Admin = require('./models/Admin');
 
 async function createAdmin() {
-    const username = "admin1";
-    const password = "adminFrancis389987653_"; // Change this in prod!
+    const username = "admin";
+    const password = "adminFrancis387653_"; // Change this in prod!
 
     try {
         const mongoUri = process.env.MONGO_URL;

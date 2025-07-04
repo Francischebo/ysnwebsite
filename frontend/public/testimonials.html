@@ -1294,93 +1294,6 @@
         </div>
     </div>
 </section>
-
-<!-- Testimonial Submission Portal -->
-<section class="section">
-<div class="container">
-    <div class="section-header">
-        <h2>Share Your Story</h2>
-        <p>Your experience matters - help inspire others by contributing your testimonial</p>
-    </div>
-    
-    <div class="submission-portal">
-        <h3>Contribute Your Story</h3>
-        <form id="StoryContributionForm" enctype="multipart/form-data">
-            <div class="form-group">
-              <label for="name">Full Name (Optional anonymity allowed)</label>
-              <input type="text" id="name" name="name" placeholder="Your name or 'Anonymous'" class="form-control">
-            </div>
-        
-            <div class="form-group">
-              <label for="role">Role</label>
-              <select id="role" name="role" class="form-control">
-                <option value="">Select your role</option>
-                <option value="student">Student</option>
-                <option value="teacher">Teacher</option>
-                <option value="volunteer">Volunteer</option>
-                <option value="parent">Parent/Guardian</option>
-                <option value="partner">Partner Organization</option>
-                <option value="government">Government Official</option>
-                <option value="media">Media Personnel</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-        
-            <div class="form-group">
-              <label for="institution">Institution / Region</label>
-              <input type="text" id="institution" name="institution" placeholder="Your school, organization, or region" class="form-control">
-            </div>
-        
-            <div class="form-group">
-              <label for="story">Your Story (250-500 words)</label>
-              <textarea id="story" name="story" class="form-control" rows="6" placeholder="Share how YSN has impacted you or your community..."></textarea>
-            </div>
-        
-            <div class="form-group">
-              <label for="voice-note">Or Upload a Voice Note</label>
-              <input type="file" id="voice-note" name="voiceNote" accept="audio/*" class="form-control-file">
-            </div>
-        
-            <div class="form-group">
-              <label for="photo">Photo (Optional)</label>
-              <input type="file" id="photo" name="photo" accept="image/*" class="form-control-file">
-            </div>
-        
-            <div class="form-group checkbox-group">
-              <input type="checkbox" id="consent" name="consent" required>
-              <label for="consent">I consent to YSN publishing my story on their website and other platforms</label>
-            </div>
-        
-            <button type="submit" class="btn btn-primary">Submit Your Story</button>
-          </form>
-        
-          <div class="incentives-list mt-4">
-            <h4>Incentives for Sharing Your Story</h4>
-            <ul class="list-group">
-              <li class="list-group-item">Featured testimonial on YSN homepage</li>
-              <li class="list-group-item">"Testimonial of the Month" award with special recognition</li>
-              <li class="list-group-item">Printed feature in YSN newsletter or magazine</li>
-              <li class="list-group-item">Opportunity to speak at YSN events</li>
-            </ul>
-          </div>
-          <p id="StoryMessage"></p>
-        </div>
-    </div>
-</div>
-</section>
-<!-- Stories Display Section -->
-<section class="section">
-    <div class="container">
-        <div class="section-header">
-            <h2>Stories</h2>
-            <p>Read more stories from different members</p>
-        </div>
-        <div id="stories-container">
-            <!-- Stories will be dynamically loaded here -->
-        </div>
-    </div>
-</section>
-
 <!-- Display Options Section -->
 <section class="display-options">
     <div class="container">
@@ -1610,14 +1523,17 @@
 </script>
 
 
+
+
 <script>
+
     async function fetchTestimonials() {
         try {
             const response = await fetch('/api/testimonials');
             const testimonials = await response.json();
 
             const container = document.getElementById('testimonials-container');
-            container.innerHTML = ''; // Clear existing content
+            container.innerHTML = '';
 
             if (!testimonials.length) {
                 container.innerHTML = '<p>No testimonials yet. Be the first to share your story!</p>';
@@ -1645,11 +1561,7 @@
         }
     }
 
-    // Load testimonials when the page loads
     window.addEventListener('DOMContentLoaded', fetchTestimonials);
-</script>
-
-<script>
     document.getElementById('testimonialForm').addEventListener('submit', async function (e) {
         e.preventDefault();
         const formData = new FormData(this);
