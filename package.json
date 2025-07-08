@@ -1,0 +1,33 @@
+{
+    "dependencies": {
+        "gulp": "^5.0.1",
+        "gulp-csso": "^4.0.1",
+        "path-to-regexp": "^8.2.0",
+        "socket.io": "^4.8.1"
+    },
+    "devDependencies": {
+        "gulp-htmlmin": "^5.0.1",
+        "gulp-terser": "^2.1.0"
+    },
+    "name": "ysn-w",
+    "version": "1.0.0",
+    "description": "",
+    "main": "backend/server.js",
+    "scripts": {
+        "start": "node backend/server.js",
+        "build": "npm run build",
+        "dev": "nodemon backend/server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Francischebo/YSN-SITE.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Francischebo/YSN-SITE/issues"
+    },
+    "homepage": "https://github.com/Francischebo/YSN-SITE#readme"
+}

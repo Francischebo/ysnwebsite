@@ -6,7 +6,7 @@ const resourceSchema = new mongoose.Schema({
     category: { type: String, required: true }, // e.g., 'toolkit', 'report', etc.
     resources: { type: String, required: true },
     originalName: { type: String, required: false },
-    Date: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model("Resource", resourceSchema);

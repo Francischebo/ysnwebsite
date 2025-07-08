@@ -6,7 +6,7 @@ const Leadership = require('./models/Leadership');
 
 async function seedPositions() {
     try {
-        const mongoUri = process.env.MONGO_URL;
+        const mongoUri = process.env.ADMIN_URL;
         if (!mongoUri) throw new Error("MONGO_URL not set");
 
         await mongoose.connect(mongoUri);

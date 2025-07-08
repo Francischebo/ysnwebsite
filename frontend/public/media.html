@@ -1329,29 +1329,33 @@
     <script>
         document.getElementById('subscribeForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-    
-            const email = document.getElementById('email').value;
-    
+            const email = document.getElementById('email').value.trim();
+
+            // Basic email validation
+            if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
             try {
                 const response = await fetch('/api/subscribe', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email }),
                 });
-    
                 const result = await response.json();
-    
-                if (response.ok) {
-                    document.getElementById('subscribeMessage').textContent = result.message;
+
+                if (result.success) {
+                    // Subscription was successful
+                    alert(result.message || "Subscribed successfully!");
                     document.getElementById('subscribeForm').reset();
                 } else {
-                    document.getElementById('subscribeMessage').textContent = result.error;
+                    // Application-level error (including "already subscribed")
+                    alert(result.error || "User already subscribed.");
                 }
             } catch (error) {
-                console.error('Error subscribing:', error);
-                document.getElementById('subscribeMessage').textContent = 'An error occurred. Please try again.';
+                alert('An error occurred. Please try again.');
+                document.getElementById('subscribeMessage').textContent = "";
             }
         });
     </script>

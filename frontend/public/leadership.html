@@ -42,6 +42,28 @@
             margin: 0 auto;
             padding: 0 1rem;
         }
+
+        /* Hover effects that can't be done inline */
+        #vacant-positions-list li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        #applicationForm input:focus,
+        #applicationForm select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
         
         .btn {
             display: inline-block;
@@ -1059,36 +1081,55 @@
             </div>
         </div>
     </section>
-    <section id="vacant-positions-section">
-        <div class="container">
-            <h2>Vacant Leadership Positions</h2>
-            <ul id="vacant-positions-list">
-            <!-- Positions will be loaded here -->
+    <section id="vacant-positions-section" style="padding: 60px 0; background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <h2 style="text-align: center; font-size: 2.5rem; color: #2c3e50; margin-bottom: 40px; font-weight: 700; letter-spacing: -0.5px;">Vacant Leadership Positions</h2>
+            <ul id="vacant-positions-list" style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <!-- Positions will be loaded here -->
+                <!-- Sample position items for demonstration -->
+                <li style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #3498db; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 1.4rem; font-weight: 600;">Marketing Director</h3>
+                    <p style="color: #7f8c8d; margin-bottom: 15px; line-height: 1.6;">Lead our marketing initiatives and drive brand growth across multiple channels.</p>
+                    <span style="background: #e8f4f8; color: #2980b9; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem; font-weight: 500;">Full-time</span>
+                </li>
+                <li style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #e74c3c; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 1.4rem; font-weight: 600;">Operations Manager</h3>
+                    <p style="color: #7f8c8d; margin-bottom: 15px; line-height: 1.6;">Oversee daily operations and ensure efficient workflow across all departments.</p>
+                    <span style="background: #fdf2f2; color: #c0392b; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem; font-weight: 500;">Full-time</span>
+                </li>
             </ul>
         </div>
     </section>
 
-    <section class="cta-section">
-        <div class="lcontainer">
-            <div class="cta-content">
-                <h2>Join Our Leadership Team</h2>
-                <p>Are you passionate about creating change? Apply for vacant leadership positions below.</p>
-                <form id="applicationForm" enctype="multipart/form-data">
-                    <label for="position">Select Position:</label>
-                    <select id="position" name="position" required></select>
-    
-                    <label for="applicantName">Your Name:</label>
-                    <input type="text" id="applicantName" name="applicantName" required>
-    
-                    <label for="applicantEmail">Your Email:</label>
-                    <input type="email" id="applicantEmail" name="applicantEmail" required>
-    
-                    <label for="resume">Upload Resume:</label>
-                    <input type="file" id="resume" name="resume" required>
-    
-                    <button type="submit" class="btn btn-primary">Submit Application</button>
+    <section class="cta-section" style="padding: 80px 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <div class="lcontainer" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
+            <div class="cta-content" style="text-align: center;">
+                <h2 style="font-size: 2.8rem; margin-bottom: 20px; font-weight: 700; letter-spacing: -0.5px;">Join Our Leadership Team</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 50px; opacity: 0.9; line-height: 1.6;">Are you passionate about creating change? Apply for vacant leadership positions below.</p>
+                
+                <form id="applicationForm" enctype="multipart/form-data" style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); text-align: left; max-width: 600px; margin: 0 auto;">
+                    
+                    <label for="position" style="display: block; margin-bottom: 8px; font-weight: 600; color: #2c3e50; font-size: 1rem;">Select Position:</label>
+                    <select id="position" name="position" required style="width: 100%; padding: 12px 16px; margin-bottom: 20px; border: 2px solid #e1e8ed; border-radius: 8px; font-size: 1rem; background: white; color: #2c3e50; transition: border-color 0.3s ease; outline: none;">
+                        <option value="">Choose a position...</option>
+                        <option value="marketing-director">Marketing Director</option>
+                        <option value="operations-manager">Operations Manager</option>
+                        <option value="hr-manager">HR Manager</option>
+                    </select>
+                    
+                    <label for="applicantName" style="display: block; margin-bottom: 8px; font-weight: 600; color: #2c3e50; font-size: 1rem;">Your Name:</label>
+                    <input type="text" id="applicantName" name="applicantName" required style="width: 100%; padding: 12px 16px; margin-bottom: 20px; border: 2px solid #e1e8ed; border-radius: 8px; font-size: 1rem; color: #2c3e50; transition: border-color 0.3s ease; outline: none; box-sizing: border-box;">
+                    
+                    <label for="applicantEmail" style="display: block; margin-bottom: 8px; font-weight: 600; color: #2c3e50; font-size: 1rem;">Your Email:</label>
+                    <input type="email" id="applicantEmail" name="applicantEmail" required style="width: 100%; padding: 12px 16px; margin-bottom: 20px; border: 2px solid #e1e8ed; border-radius: 8px; font-size: 1rem; color: #2c3e50; transition: border-color 0.3s ease; outline: none; box-sizing: border-box;">
+                    
+                    <label for="resume" style="display: block; margin-bottom: 8px; font-weight: 600; color: #2c3e50; font-size: 1rem;">Upload Resume:</label>
+                    <input type="file" id="resume" name="resume" required style="width: 100%; padding: 12px 16px; margin-bottom: 30px; border: 2px solid #e1e8ed; border-radius: 8px; font-size: 1rem; color: #2c3e50; background: white; transition: border-color 0.3s ease; outline: none; box-sizing: border-box;">
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 16px 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; outline: none; text-transform: uppercase; letter-spacing: 0.5px;">Submit Application</button>
                 </form>
-                <p id="applicationMessage"></p>
+                
+                <p id="applicationMessage" style="margin-top: 20px; padding: 15px; border-radius: 8px; font-weight: 500; display: none;"></p>
             </div>
         </div>
     </section>
@@ -1225,13 +1266,19 @@
                 positionSelect.appendChild(option);
             });
         }
+
     
         // Submit Application
         document.getElementById('applicationForm').addEventListener('submit', async function (e) {
             e.preventDefault();
     
             const formData = new FormData(this);
-            const messageElement = document.getElementById('applicationMessage');
+            const messageEl = document.getElementById('applicationMessage');
+            messageEl.textContent = 'Thank you for your application! We will review it and get back to you soon.';
+            messageEl.style.display = 'block';
+            messageEl.style.backgroundColor = '#d4edda';
+            messageEl.style.color = '#155724';
+            messageEl.style.border = '1px solid #c3e6cb';
     
             try {
                 const response = await fetch('/api/apply', {
@@ -1241,17 +1288,20 @@
 
                 const result = await response.json();
                 if (response.ok) {
-                    messageElement.textContent = result.message;
-                    messageElement.style.color = 'green';
+                    messageEl.textContent = result.message;
+                    messageEl.style.color = 'green';
                     this.reset();
                 } else {
-                    messageElement.textContent = result.error;
-                    messageElement.style.color = 'red';
+                    messageEl.textContent = result.error;
+                    messageEl.style.color = 'red';
                 }
             } catch (error) {
-                messageElement.textContent = 'An error occurred. Please try again.';
-                messageElement.style.color = 'red';
+                messageEl.textContent = 'An error occurred. Please try again.';
+                messageEl.style.color = 'red';
             }
+
+            // Reset form
+            this.reset();
         });
     
         // Initialize

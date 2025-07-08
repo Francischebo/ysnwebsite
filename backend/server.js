@@ -1,6 +1,3 @@
-// ---------------------------
-// 1. Dependencies & Setup
-// ------------------
 const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
@@ -13,7 +10,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const axios = require("axios");
 const bcrypt = require("bcryptjs");
-require('dotenv').config({ path: path.join(__dirname, '../.env') });
+require('dotenv').config({ path: path.join(__dirname, './.env') });
 const Resource = require("./models/Resource");
 const Category = require("./models/Category");
 const Payment = require("./models/paymentModel");
@@ -48,7 +45,7 @@ const programRoutes = require("./routes/admin/programRoutes");
 
 // Initialize Express
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3000;
 const http = require("http").createServer(app);
 const io = require("socket.io")(http, {
     cors: {
@@ -64,6 +61,12 @@ app.use(cors({
     credentials: true
 }));
 app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(path.join(__dirname, '../frontend/public')));
+
+// Root route to serve the main page
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/public', 'index.html'));
+});
 
 // Routes
 app.use('/api/chapters', require('./routes/chapterRoutes'));
@@ -120,6 +123,7 @@ io.on("connection", (socket) => {
         io.emit("coordinator_reply", data);
     });
 });
+
 
 // filepath: c:\Users\JOYLIM\Desktop\join us\join-us\server.js (or your multer config file)
 const storage = multer.diskStorage({
@@ -731,17 +735,29 @@ app.post('/api/admin/stories/:id/status', async(req, res) => {
 
 app.post('/api/subscribe', async(req, res) => {
     const { email } = req.body;
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-        return res.status(400).json({ success: false, error: 'Invalid email address.' });
+    try {
+        if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+            return res.status(400).json({ success: false, error: 'Invalid email address.' });
+        }
+        // Check if already subscribed
+        const existing = await Subscriber.findOne({ email });
+        if (existing) {
+            return res.status(400).json({ success: false, error: 'User already subscribed.' });
+        }
+        // Save new subscriber
+        const newSubscriber = new Subscriber({
+            email,
+            subscribedAt: new Date() // ✅ Set current date
+        });
+
+        await newSubscriber.save();
+
+        res.json({ success: true, message: "Subscribed successfully!" });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, error: 'Server error.' });
     }
-    // Check if already subscribed
-    const existing = await Subscriber.findOne({ email });
-    if (existing) {
-        return res.status(400).json({ success: false, error: 'User already subscribed.' });
-    }
-    // Save new subscriber
-    await Subscriber.create({ email, subscribedAt: new Date() });
-    res.json({ success: true, message: 'Subscribed successfully!' });
 });
 
 app.get('/api/dashboard/subscribers', async(req, res) => {
@@ -841,8 +857,6 @@ app.put('/api/events/:id', async(req, res) => {
 
 
 // PDF Upload
-// ...existing code...
-
 // Unified PDF/resource upload endpoint
 app.post('/api/upload', (req, res, next) => {
     // Detect if it's a single or multi upload based on Content-Type and fields
@@ -935,7 +949,7 @@ app.post('/api/blogs', upload.fields([
         });
         await blog.save();
 
-        res.json({ success: true, message: 'Blog uploaded!' });
+        res.json({ success: true, message: 'Blog uploaded successfully!' });
     } catch (err) {
         console.error('Blog upload error:', err);
         res.status(500).json({ error: 'Failed to upload blog.' });
@@ -958,6 +972,33 @@ app.get('/api/admin/blogs', async(req, res) => {
         res.json(blogs);
     } catch (err) {
         res.status(500).json({ error: 'Could not retrieve blogs' });
+    }
+});
+
+
+// Approve a blog
+app.patch('/api/admin/blogs/:id/approve', async(req, res) => {
+    try {
+        const blog = await Blog.findByIdAndUpdate(
+            req.params.id, { status: 'Approved' }, { new: true }
+        );
+        if (!blog) return res.status(404).json({ error: 'Blog not found' });
+        res.json({ message: 'Blog approved', blog });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to approve blog' });
+    }
+});
+
+// Reject a blog
+app.patch('/api/admin/blogs/:id/reject', async(req, res) => {
+    try {
+        const blog = await Blog.findByIdAndUpdate(
+            req.params.id, { status: 'Rejected' }, { new: true }
+        );
+        if (!blog) return res.status(404).json({ error: 'Blog not found' });
+        res.json({ message: 'Blog rejected', blog });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to reject blog' });
     }
 });
 
@@ -1111,6 +1152,7 @@ app.post('/api/resources', upload.single('resources'), async(req, res) => {
         res.status(500).json({ error: err.message || 'Failed to upload resource.' });
     }
 });
+
 
 app.get('/api/resources', async(req, res) => {
     try {
@@ -1405,8 +1447,12 @@ app.post('/login', async(req, res) => {
 
 function ensureAuthenticated(req, res, next) {
     if (req.session.adminId) return next();
-    res.redirect('/login');
+    res.redirect('/admin/login.html');
 }
+
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, '../admin', 'login.html'));
+});
 
 app.get('/dashboard', ensureAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, '../admin', 'index.html'));

@@ -1522,11 +1522,30 @@
     window.addEventListener('DOMContentLoaded', fetchStories);
 </script>
 
+<script>
+    document.getElementById('testimonialForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
 
-
+        try {
+            const response = await fetch('/api/testimonials', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            if (response.ok) {
+                document.getElementById('testimonialMessage').textContent = 'Thank you! Your testimonial has been submitted for review.';
+                this.reset();
+            } else {
+                document.getElementById('testimonialMessage').textContent = result.message || 'Submission failed.';
+            }
+        } catch (err) {
+            document.getElementById('testimonialMessage').textContent = 'An error occurred. Please try again.';
+        }
+    });
+</script>
 
 <script>
-
     async function fetchTestimonials() {
         try {
             const response = await fetch('/api/testimonials');
@@ -1562,26 +1581,6 @@
     }
 
     window.addEventListener('DOMContentLoaded', fetchTestimonials);
-    document.getElementById('testimonialForm').addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const formData = new FormData(this);
-
-        try {
-            const response = await fetch('/api/testimonials', {
-                method: 'POST',
-                body: formData
-            });
-            const result = await response.json();
-            if (response.ok) {
-                document.getElementById('testimonialMessage').textContent = 'Thank you! Your testimonial has been submitted for review.';
-                this.reset();
-            } else {
-                document.getElementById('testimonialMessage').textContent = result.message || 'Submission failed.';
-            }
-        } catch (err) {
-            document.getElementById('testimonialMessage').textContent = 'An error occurred. Please try again.';
-        }
-    });
 </script>
 <script>
     document.getElementById('subscribeForm').addEventListener('submit', async function (e) {

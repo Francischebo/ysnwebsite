@@ -579,69 +579,34 @@
 <script>
     document.getElementById('subscribeForm').addEventListener('submit', async function (e) {
         e.preventDefault();
+        const email = document.getElementById('email').value.trim();
 
-        const email = document.getElementById('email').value;
+        // Basic email validation
+        if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
 
         try {
             const response = await fetch('/api/subscribe', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),
             });
-
             const result = await response.json();
 
-            if (response.ok) {
-                document.getElementById('subscribeMessage').textContent = result.message;
+            if (result.success) {
+                // Subscription was successful
+                alert(result.message || "Subscribed successfully!");
                 document.getElementById('subscribeForm').reset();
             } else {
-                document.getElementById('subscribeMessage').textContent = result.error;
+                // Application-level error (including "already subscribed")
+                alert(result.error || "User already subscribed.");
             }
         } catch (error) {
-            console.error('Error subscribing:', error);
-            document.getElementById('subscribeMessage').textContent = 'An error occurred. Please try again.';
+            alert('An error occurred. Please try again.');
+            document.getElementById('subscribeMessage').textContent = "";
         }
-    });
-</script>
-
-<script>
-    document.getElementById('subscribeForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-    
-        const email = document.getElementById('emailInput').value;
-        const messageDiv = document.getElementById('subscribeMessage');
-    
-        if (!email) {
-            messageDiv.textContent = "Please enter a valid email.";
-            messageDiv.style.color = "red";
-            return;
-        }
-    
-        fetch('/api/subscribe', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                messageDiv.textContent = "Subscription successful!";
-                messageDiv.style.color = "green";
-                document.getElementById('emailInput').value = '';
-            } else {
-                messageDiv.textContent = data.message || "Something went wrong.";
-                messageDiv.style.color = "red";
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            messageDiv.textContent = "Failed to connect to server.";
-            messageDiv.style.color = "red";
-        });
     });
 </script>
 <script>

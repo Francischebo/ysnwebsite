@@ -810,6 +810,65 @@
             background-color: #004d99;
             border-color: #004d99;
         }
+
+        /* Sample chapter cards for demonstration */
+        .chapter-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .chapter-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .chapter-name {
+            font-size: 1.4em;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .chapter-university {
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        
+        .chapter-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .chapter-meta span {
+            background: #f7fafc;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #4a5568;
+        }
+        
+        .summit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+        
+        .summit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
         
         /* Mobile Navigation */
         .hamburger {
@@ -1254,8 +1313,6 @@
                     <div class="summit-feature">Launch of the "Youth Voices Legal Journal"</div>
                     <div class="summit-feature">Year-end report</div>
                 </div>
-
-                <a href="#summit-modal" class="btn btn-primary" id="add-summit-btn">View Previous Summit Highlights</a>
             </div>
         </div>
     </section>
@@ -1277,9 +1334,6 @@
                         <li>Must commit to a one-year activity calendar</li>
                         <li>Formal application submitted to the National Secretariat</li>
                     </ul>
-                        <a href="/api/chapter-applications/64f1c2e4b2a1c3d4e5f6a7b8/download" class="btn btn-primary" target="_blank">
-                            Download Application Form
-                        </a>
                 </div>
 
                 <div class="join-benefits">
@@ -1318,59 +1372,540 @@
     </section>
 
     <!-- Start Chapter Modal -->
-    <div class="modal-overlay" id="st-chapter-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Start a New Chapter</h2>
-                <button class="modal-close" id="close-chapter-modal">&times;</button>
+     <div class="modal-overlay" id="st-chapter-modal" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+    ">
+        <div class="modal" style="
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        ">
+            <div class="modal-header" style="
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 24px 32px;
+                border-radius: 16px 16px 0 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            ">
+                <h2 style="
+                    margin: 0;
+                    font-size: 24px;
+                    font-weight: 600;
+                    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                ">Start a New Chapter</h2>
+                <button class="modal-close" id="close-chapter-modal" style="
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 28px;
+                    cursor: pointer;
+                    padding: 4px 8px;
+                    border-radius: 50%;
+                    transition: all 0.3s ease;
+                    width: 36px;
+                    height: 36px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                " onmouseover="this.style.backgroundColor='rgba(255, 255, 255, 0.2)'; this.style.transform='scale(1.1)'" onmouseout="this.style.backgroundColor='transparent'; this.style.transform='scale(1)'">&times;</button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="
+                padding: 32px;
+            ">
                 <form id="start-chapter" enctype="multipart/form-data">
-                    <!-- All form fields here -->
-                    <div class="form-group">
-                        <label>University Name</label>
-                        <input type="text" name="university" required>
+                    <div class="form-group" style="
+                        margin-bottom: 24px;
+                    ">
+                        <label style="
+                            display: block;
+                            font-weight: 600;
+                            margin-bottom: 8px;
+                            color: #2d3748;
+                            font-size: 14px;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        ">University Name</label>
+                        <input type="text" name="university" required style="
+                            width: 100%;
+                            padding: 12px 16px;
+                            border: 2px solid #e2e8f0;
+                            border-radius: 8px;
+                            font-size: 16px;
+                            transition: all 0.3s ease;
+                            background-color: #ffffff;
+                            box-sizing: border-box;
+                        " onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)'" onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
                     </div>
-                    <div class="form-group">
-                        <label>Location</label>
-                        <input type="text" name="location" required>
+                    <div class="form-group" style="
+                        margin-bottom: 24px;
+                    ">
+                        <label style="
+                            display: block;
+                            font-weight: 600;
+                            margin-bottom: 8px;
+                            color: #2d3748;
+                            font-size: 14px;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        ">Location</label>
+                        <input type="text" name="location" required style="
+                            width: 100%;
+                            padding: 12px 16px;
+                            border: 2px solid #e2e8f0;
+                            border-radius: 8px;
+                            font-size: 16px;
+                            transition: all 0.3s ease;
+                            background-color: #ffffff;
+                            box-sizing: border-box;
+                        " onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)'" onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
                     </div>
-                    <div class="form-group">
-                        <label>Year Established</label>
-                        <input type="number" name="establishedYear" min="2000" max="2025" required>
+                    <div class="form-group" style="
+                        margin-bottom: 24px;
+                    ">
+                        <label style="
+                            display: block;
+                            font-weight: 600;
+                            margin-bottom: 8px;
+                            color: #2d3748;
+                            font-size: 14px;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        ">Year Established</label>
+                        <input type="number" name="establishedYear" min="2000" max="2025" required style="
+                            width: 100%;
+                            padding: 12px 16px;
+                            border: 2px solid #e2e8f0;
+                            border-radius: 8px;
+                            font-size: 16px;
+                            transition: all 0.3s ease;
+                            background-color: #ffffff;
+                            box-sizing: border-box;
+                        " onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)'" onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
                     </div>
-                    <div class="form-group">
-                        <label>Number of Members</label>
-                        <input type="number" name="members" min="0" required>
+                    <div class="form-group" style="
+                        margin-bottom: 24px;
+                    ">
+                        <label style="
+                            display: block;
+                            font-weight: 600;
+                            margin-bottom: 8px;
+                            color: #2d3748;
+                            font-size: 14px;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        ">Number of Members</label>
+                        <input type="number" name="members" min="0" required style="
+                            width: 100%;
+                            padding: 12px 16px;
+                            border: 2px solid #e2e8f0;
+                            border-radius: 8px;
+                            font-size: 16px;
+                            transition: all 0.3s ease;
+                            background-color: #ffffff;
+                            box-sizing: border-box;
+                        " onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)'" onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
                     </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <input type="text" name="description" required>
+                    <div class="form-group" style="
+                        margin-bottom: 24px;
+                    ">
+                        <label style="
+                            display: block;
+                            font-weight: 600;
+                            margin-bottom: 8px;
+                            color: #2d3748;
+                            font-size: 14px;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        ">Description</label>
+                        <input type="text" name="description" required style="
+                            width: 100%;
+                            padding: 12px 16px;
+                            border: 2px solid #e2e8f0;
+                            border-radius: 8px;
+                            font-size: 16px;
+                            transition: all 0.3s ease;
+                            background-color: #ffffff;
+                            box-sizing: border-box;
+                        " onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)'" onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
                     </div>
-                    <div class="form-group">
-                        <label>Upload Application Letter (PDF)</label>
-                        <input type="file" name="cApplications" accept="application/pdf">
+                    <div class="form-group" style="
+                        margin-bottom: 32px;
+                    ">
+                        <label style="
+                            display: block;
+                            font-weight: 600;
+                            margin-bottom: 8px;
+                            color: #2d3748;
+                            font-size: 14px;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        ">Upload Application Letter (PDF)</label>
+                        <input type="file" name="cApplications" accept="application/pdf" style="
+                            width: 100%;
+                            padding: 12px 16px;
+                            border: 2px dashed #cbd5e0;
+                            border-radius: 8px;
+                            font-size: 16px;
+                            transition: all 0.3s ease;
+                            background-color: #f7fafc;
+                            box-sizing: border-box;
+                            cursor: pointer;
+                        " onfocus="this.style.borderColor='#667eea'; this.style.backgroundColor='#edf2f7'" onblur="this.style.borderColor='#cbd5e0'; this.style.backgroundColor='#f7fafc'">
                     </div>
-                    <button type="submit">Submit Application</button>
+                    <button type="submit" style="
+                        width: 100%;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        color: white;
+                        border: none;
+                        padding: 16px 24px;
+                        border-radius: 8px;
+                        font-size: 16px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+                    " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(102, 126, 234, 0.6)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)'">Submit Application</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Summit Highlights Modal -->
-    <div class="modal-overlay" id="summit-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Previous Summit Highlights</h2>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div id="summit-carousel" class="carousel">
-                    <!-- Summit Items will be injected here dynamically -->
+    <div class="container">
+        <!-- Your styled code starts here -->
+        <h2 style="
+            font-size: 2.5em;
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        ">Approved Chapters</h2>
+        
+        <div id="approved-chapters" style="
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        ">
+
+            <div class="chapter-card">
+                <div class="chapter-name">UoN Synergy Chapter</div>
+                <div class="chapter-university">University of Nairobi</div>
+                <div class="chapter-meta">
+                    <span>Est: 2021</span>
+                    <span>Members: 150+</span>
+                    <span>Location: Nairobi</span>
                 </div>
+                <p style="color: #4a5568; margin-bottom: 15px;">The flagship chapter with a strong focus on constitutional literacy and environmental law advocacy.</p>
+                <button class="summit-btn" onclick="openSummitModal()">View Summit Highlights</button>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary modal-close">Close</button>
+            
+            <div class="chapter-card">
+                <div class="chapter-name">KU Synergy Leaders</div>
+                <div class="chapter-university">Kenyatta University</div>
+                <div class="chapter-meta">
+                    <span>Est: 2022</span>
+                    <span>Members: 120+</span>
+                    <span>Location: Nairobi</span>
+                </div>
+                <p style="color: #4a5568; margin-bottom: 15px;">Known for their innovative approach to period dignity and menstrual health education.</p>
+                <button class="summit-btn" onclick="openSummitModal()">View Summit Highlights</button>
+            </div>
+            
+            <div class="chapter-card">
+                <div class="chapter-name">JKUAT Synergy Hub</div>
+                <div class="chapter-university">Jomo Kenyatta University of Agriculture and Technology</div>
+                <div class="chapter-meta">
+                    <span>Est: 2021</span>
+                    <span>Members: 110+</span>
+                    <span>Location: Kiambu</span>
+                </div>
+                <p style="color: #4a5568; margin-bottom: 15px;">Utilizes technology and innovation to address environmental challenges.</p>
+                <button class="summit-btn" onclick="openSummitModal()">View Summit Highlights</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="summit-modal" style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease-in-out;
+        ">
+            <div class="modal" style="
+                background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+                border-radius: 20px;
+                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+                max-width: 800px;
+                width: 90%;
+                max-height: 90vh;
+                overflow: hidden;
+                position: relative;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                transform: scale(0.9);
+                transition: all 0.3s ease;
+            ">
+                <div class="modal-header" style="
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    padding: 30px 40px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-radius: 20px 20px 0 0;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                ">
+                    <h2 style="
+                        margin: 0;
+                        font-size: 28px;
+                        font-weight: 600;
+                        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                    ">Previous Summit Highlights</h2>
+                    <button class="modal-close" style="
+                        background: none;
+                        border: none;
+                        color: white;
+                        font-size: 32px;
+                        cursor: pointer;
+                        padding: 8px 12px;
+                        border-radius: 50%;
+                        transition: all 0.3s ease;
+                        width: 44px;
+                        height: 44px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        line-height: 1;
+                    " onmouseover="this.style.backgroundColor='rgba(255, 255, 255, 0.2)'; this.style.transform='scale(1.1) rotate(90deg)'" onmouseout="this.style.backgroundColor='transparent'; this.style.transform='scale(1) rotate(0deg)'" onclick="closeSummitModal()">&times;</button>
+                </div>
+                
+                <div class="modal-body" style="
+                    padding: 40px;
+                    max-height: 60vh;
+                    overflow-y: auto;
+                ">
+                    <div id="summit-carousel" class="carousel" style="
+                        position: relative;
+                        background: white;
+                        border-radius: 12px;
+                        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+                        overflow: hidden;
+                    ">
+                        <!-- Sample summit items for demonstration -->
+                        <div style="
+                            padding: 30px;
+                            text-align: center;
+                            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+                        ">
+                            <h3 style="
+                                color: #2d3748;
+                                font-size: 1.8em;
+                                margin-bottom: 16px;
+                                font-weight: 600;
+                            ">2023 Annual Summit</h3>
+                            <p style="
+                                color: #4a5568;
+                                font-size: 1.1em;
+                                line-height: 1.8;
+                                margin-bottom: 20px;
+                            ">Over 500 participants from 19 university chapters gathered to discuss constitutional literacy, environmental justice, and mental health advocacy.</p>
+                            <div style="
+                                display: flex;
+                                justify-content: center;
+                                gap: 20px;
+                                flex-wrap: wrap;
+                                margin-top: 25px;
+                            ">
+                                <div style="
+                                    background: white;
+                                    padding: 20px;
+                                    border-radius: 12px;
+                                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                                    min-width: 120px;
+                                ">
+                                    <div style="
+                                        font-size: 2em;
+                                        font-weight: bold;
+                                        color: #667eea;
+                                        margin-bottom: 8px;
+                                    ">500+</div>
+                                    <div style="
+                                        color: #4a5568;
+                                        font-size: 0.9em;
+                                    ">Participants</div>
+                                </div>
+                                <div style="
+                                    background: white;
+                                    padding: 20px;
+                                    border-radius: 12px;
+                                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                                    min-width: 120px;
+                                ">
+                                    <div style="
+                                        font-size: 2em;
+                                        font-weight: bold;
+                                        color: #10b981;
+                                        margin-bottom: 8px;
+                                    ">19</div>
+                                    <div style="
+                                        color: #4a5568;
+                                        font-size: 0.9em;
+                                    ">Chapters</div>
+                                </div>
+                                <div style="
+                                    background: white;
+                                    padding: 20px;
+                                    border-radius: 12px;
+                                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                                    min-width: 120px;
+                                ">
+                                    <div style="
+                                        font-size: 2em;
+                                        font-weight: bold;
+                                        color: #f59e0b;
+                                        margin-bottom: 8px;
+                                    ">3</div>
+                                    <div style="
+                                        color: #4a5568;
+                                        font-size: 0.9em;
+                                    ">Days</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="
+                            padding: 30px;
+                            background: white;
+                            border-top: 1px solid #e2e8f0;
+                        ">
+                            <h4 style="
+                                color: #2d3748;
+                                font-size: 1.3em;
+                                margin-bottom: 20px;
+                                font-weight: 600;
+                            ">Key Achievements</h4>
+                            <div style="
+                                display: grid;
+                                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                                gap: 20px;
+                            ">
+                                <div style="
+                                    background: #f7fafc;
+                                    padding: 20px;
+                                    border-radius: 10px;
+                                    border-left: 4px solid #667eea;
+                                ">
+                                    <h5 style="
+                                        color: #2d3748;
+                                        margin-bottom: 8px;
+                                        font-weight: 600;
+                                    ">Legal Literacy Initiative</h5>
+                                    <p style="
+                                        color: #4a5568;
+                                        font-size: 0.9em;
+                                        margin: 0;
+                                        line-height: 1.6;
+                                    ">Launched comprehensive legal education programs reaching 10,000+ students across Kenya.</p>
+                                </div>
+                                <div style="
+                                    background: #f0fff4;
+                                    padding: 20px;
+                                    border-radius: 10px;
+                                    border-left: 4px solid #10b981;
+                                ">
+                                    <h5 style="
+                                        color: #2d3748;
+                                        margin-bottom: 8px;
+                                        font-weight: 600;
+                                    ">Environmental Action</h5>
+                                    <p style="
+                                        color: #4a5568;
+                                        font-size: 0.9em;
+                                        margin: 0;
+                                        line-height: 1.6;
+                                    ">Planted over 5,000 trees and established 15 campus sustainability programs.</p>
+                                </div>
+                                <div style="
+                                    background: #fffbeb;
+                                    padding: 20px;
+                                    border-radius: 10px;
+                                    border-left: 4px solid #f59e0b;
+                                ">
+                                    <h5 style="
+                                        color: #2d3748;
+                                        margin-bottom: 8px;
+                                        font-weight: 600;
+                                    ">Mental Health Support</h5>
+                                    <p style="
+                                        color: #4a5568;
+                                        font-size: 0.9em;
+                                        margin: 0;
+                                        line-height: 1.6;
+                                    ">Trained 200+ peer counselors and established mental health resource centers.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer" style="
+                    background: #f8f9fa;
+                    padding: 25px 40px;
+                    border-radius: 0 0 20px 20px;
+                    display: flex;
+                    justify-content: flex-end;
+                    border-top: 1px solid #e2e8f0;
+                ">
+                    <button class="btn btn-secondary modal-close" style="
+                        background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+                        color: white;
+                        border: none;
+                        padding: 14px 28px;
+                        border-radius: 10px;
+                        font-size: 16px;
+                        font-weight: 500;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                        box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+                    " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(107, 114, 128, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(107, 114, 128, 0.3)'" onclick="closeSummitModal()">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1476,11 +2011,117 @@
     </footer>
 
     <script>
+        // Modal functionality
+        function openSummitModal() {
+            const modal = document.getElementById('summit-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.querySelector('.modal').style.transform = 'scale(1)';
+            }, 10);
+        }
+
+        function closeSummitModal() {
+            const modal = document.getElementById('summit-modal');
+            modal.querySelector('.modal').style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('summit-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSummitModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeSummitModal();
+            }
+        });
+
+        // Add CSS animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            
+            @media (max-width: 768px) {
+                .modal {
+                    width: 95% !important;
+                    max-height: 95vh !important;
+                }
+                
+                .modal-header {
+                    padding: 20px !important;
+                }
+                
+                .modal-header h2 {
+                    font-size: 22px !important;
+                }
+                
+                .modal-body {
+                    padding: 20px !important;
+                }
+                
+                .modal-footer {
+                    padding: 20px !important;
+                }
+                
+                #approved-chapters {
+                    grid-template-columns: 1fr !important;
+                    padding: 0 !important;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+    <script>
         // Assuming `application` is defined and contains the chapter data
         if (application && application._id && application.cApplications) {
             document.getElementById('download-link').innerHTML =
                 `<a href="${application.cApplications}" class="btn btn-primary" target="_blank">Download Application Letter</a>`;
         }
+
+        async function loadApprovedChapters() {
+            try {
+                const res = await fetch(`${API_URL}/api/chapters`);
+                const chapters = await res.json();
+
+                const container = document.getElementById('approved-chapters');
+                container.innerHTML = '';
+
+                if (!chapters.length) {
+                    container.innerHTML = '<p>No chapters have been approved yet.</p>';
+                    return;
+                }
+
+                chapters.forEach(chap => {
+                    const div = document.createElement('div');
+                    div.style.marginBottom = '20px';
+                    div.innerHTML = `
+                        <h4>${chap.university}</h4>
+                        <p><strong>Location:</strong> ${chap.location}</p>
+                        <p><strong>Established:</strong> ${chap.establishedYear}</p>
+                        <p><strong>Members:</strong> ${chap.members}</p>
+                        <p>${chap.description}</p>
+                    `;
+                    container.appendChild(div);
+                });
+            } catch (err) {
+                console.error('Failed to load approved chapters:', err);
+            }
+        }
+
+        // Run when page loads
+        document.addEventListener("DOMContentLoaded", () => {
+            loadApprovedChapters();
+        });
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -1507,15 +2148,14 @@
         });
     </script>
     <script>
-        // Form submission logic
-        const API_URL = "http://localhost:3000"; // ← Placeholder URL. Replace with your live backend URL before deployment
+        // Form submission logic// ← Placeholder URL. Replace with your live backend URL before deployment
 
         document.getElementById('start-chapter').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const formData = new FormData(this);
 
-            const response = await fetch(`${API_URL}/api/chapters/submit`, {
+            const response = await fetch(`${process.env.API_URL}/api/chapters/submit`, {
                 method: 'POST',
                 body: formData
             });
@@ -1675,113 +2315,49 @@
     </script>
 
     <script>
-        document.getElementById("add-summit-btn").addEventListener("click", () => {
-            openModal('summit-modal');
-        });
 
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-        }
-        // Load testimonials on page load
-        window.onload = () => {
-            // ====== MODAL FOR SUMMIT HIGHLIGHTS ======
-            const summitModal = document.getElementById("summit-highlights-modal");
-            const viewSummitBtn = document.getElementById("view-summit-highlights");
-            const closeModalBtns = document.querySelectorAll(".modal-close");
-        
-            let pastSummits = [];
-        
-            async function loadSummitsFromAPI() {
-                try {
-                    const response = await fetch("/api/summits");
-                    pastSummits = await response.json();
-                } catch (err) {
-                    console.error("Failed to load summits:", err);
+        async function loadSummits() {
+            try {
+                const res = await fetch(`${process.env.API_URL}/api/summits`);
+                if (!res.ok) throw new Error("Failed to fetch summits");
+
+                const summits = await res.json();
+                const carousel = document.getElementById('summit-carousel');
+                carousel.innerHTML = '';
+
+                if (!summits.length) {
+                    carousel.innerHTML = "<p>No summits found.</p>";
+                    return;
                 }
-            }
-        
-            // Open modal
-            viewSummitBtn.addEventListener("click", function(e) {
-                e.preventDefault();
-                summitModal.style.display = "flex";
-                renderCarouselItems();
-                showSlide(currentSlide);
-            });
-        
-            // Close modals
-            closeModalBtns.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    summitModal.style.display = "none";
-                });
-            });
-        
-            // Close modal when clicking outside
-            summitModal.addEventListener("click", function(e) {
-                if (e.target === summitModal) {
-                    summitModal.style.display = "none";
-                }
-            });
-        
-            // ===== CAROUSEL FUNCTIONALITY =====
-            let currentSlide = 0;
-        
-            function renderCarouselItems() {
-                const carousel = document.getElementById("summit-carousel");
-                carousel.innerHTML = ""; // Clear existing
-        
-                pastSummits.forEach((summit, index) => {
-                    const item = document.createElement("div");
-                    item.className = "carousel-item";
-                    item.dataset.index = index;
+
+                summits.forEach(summit => {
+                    const item = document.createElement('div');
+                    item.className = 'summit-item';
                     item.innerHTML = `
-                        <img src="${summit.imageUrl}" alt="${summit.title}">
-                        <h3>${summit.title}</h3>
-                        <p><strong>Year:</strong> ${summit.year}</p>
+                        <img src="${summit.imageUrl}" alt="${summit.title}" />
+                        <h4>${summit.title}</h4>
                         <p><strong>Date:</strong> ${summit.date}</p>
                         <p><strong>Location:</strong> ${summit.location}</p>
-                        <p>${summit.description}</p>
+                        <p>${summit.description.substring(0, 150)}${summit.description.length > 150 ? '...' : ''}</p>
                     `;
                     carousel.appendChild(item);
                 });
-        
-                // Add navigation buttons
-                const nav = document.createElement("div");
-                nav.className = "carousel-nav";
-                nav.innerHTML = `
-                    <button id="prev-slide">← Previous</button>
-                    <button id="next-slide">Next →</button>
-                `;
-                carousel.appendChild(nav);
-        
-                // Attach event listeners
-                document.getElementById("prev-slide").addEventListener("click", () => {
-                    changeSlide(-1);
-                });
-                document.getElementById("next-slide").addEventListener("click", () => {
-                    changeSlide(1);
-                });
-            }
-        
-            function showSlide(index) {
-                const items = document.querySelectorAll(".carousel-item");
-                items.forEach((item, i) => {
-                    item.classList.remove("active");
-                });
-        
-                // Wrap around
-                currentSlide = (index + pastSummits.length) % pastSummits.length;
-                items[currentSlide].classList.add("active");
-            }
-        
-            function changeSlide(direction) {
-                showSlide(currentSlide + direction);
-            }
-        
-            window.onload = function () {
-                loadSummitsFromAPI();
-            };
-        };
 
+            } catch (err) {
+                console.error("Error loading summits:", err);
+                document.getElementById('summit-carousel').innerHTML =
+                    "<p>Failed to load summit highlights.</p>";
+            }
+        }
+
+        // Optionally: Load on page load
+        document.addEventListener("DOMContentLoaded", loadSummits);
+
+        // Optional: Trigger modal manually
+        document.querySelector('[data-open-modal="summit-modal"]').addEventListener('click', () => {
+            loadSummits(); // Ensure latest data is loaded
+            document.getElementById('summit-modal').style.display = 'block';
+        });
     </script>
 
     <script>

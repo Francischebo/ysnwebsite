@@ -688,6 +688,31 @@
                     </div>
                 </div>
             </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Contact Messages</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="table-container">
+                        <table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
+                            <thead>
+                                <tr>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Subject</th>
+                                    <th>Message</th>
+                                    <th>Subscribe</th>
+                                    <th>Sent At</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contact-messages-table">
+                                <!-- Messages will be injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <!-- Admin: Add Vacant Leadership Position -->
             <div class="admin-vacant-leadership">
                 <h2>Post a Vacant Leadership Position</h2>
@@ -834,23 +859,29 @@
                 </div>
             </div><br><br>
 
-            <div>
-                <h1>Pending Chapter Applications</h1>
-                <table border="1" id="chapter-list">
+            <div class="panel">
+                <div class="panel-header" id="chapter-list">
+                    <h2>Chapter Applications</h2>
+                </div>
+                <table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
                     <thead>
                         <tr>
                             <th>University</th>
                             <th>Location</th>
                             <th>Established Year</th>
                             <th>Members</th>
-                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Submitted At</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="chapter-list"></tbody>
+                    <tbody id="chapter-table-body">
+                        <!-- Rows injected here -->
+                    </tbody>
                 </table>
             </div><br>
 
+    
             <div id="articles-modal">
                 <div class="modal-header">
                     <h2 id="add-article">Add News Articles</h2>
@@ -1156,13 +1187,12 @@
         </main>
     </div>
     <script>
-        const ADMIN_BASE_URL = "http://localhost:3000";
-        const API_URL = '/api/programs';
-
-
         async function fetchMembers() {
+            console.log("Fetching members from /api/members");
             const res = await fetch('/api/members');
+            console.log("Response status from /api/members:", res.status);
             const applicants = await res.json();
+            console.log("Received members:", applicants);
             const tbody = document.getElementById('members-table-body');
             tbody.innerHTML = '';
             applicants.forEach(applicant => {
@@ -1196,7 +1226,7 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${sub.email}</td>
-                        <td>${new Date(sub.createdAt).toLocaleString()}</td>
+                        <td>${new Date(sub.subscribedAt).toLocaleString()}</td>
                     `;
                     tbody.appendChild(row);
                 });
@@ -1264,20 +1294,25 @@
             }
         }
 
+        async function deleteEvent(id) {
             if (!confirm("Are you sure you want to delete this event?")) return;
             try {
+                console.log(`Deleting event with ID: ${id}`);
                 const res = await fetch(`/api/events/${id}`, { method: "DELETE" });
+                console.log("Delete response status:", res.status);
                 const result = await res.json();
-                if (result.success) {
+                console.log("Delete response:", result);
+                if (res.ok) {
                     alert("Event deleted!");
                     fetchEvents();
                 } else {
-                    alert("Failed to delete event.");
+                    alert("Failed to delete event: " + (result.message || "Unknown error"));
                 }
             } catch (error) {
                 console.error("Error deleting event:", error);
+                alert("Error deleting event.");
             }
-        };
+        }
 
         window.editEvent = async function(id) {
             const res = await fetch(`/api/events/${id}`);
@@ -1299,7 +1334,7 @@
                 const res = await fetch('/api/testimonials', { method: 'POST', body: formData });
                 const result = await res.json();
                 if (result.success) {
-                    alert('Testimonial submitted!');
+                    alert('Testimonial submitted successfully!');
                     this.reset();
                     document.getElementById('testimonial-image-preview').style.display = 'none';
                     loadTestimonials();
@@ -1486,7 +1521,9 @@
                 const response = await fetch("/api/summits");
                 const summits = await response.json();
 
-                const tableBody = document.querySelector("summit-table-body");
+                console.log("Received summits:", summits); // Debugging
+
+                const tableBody = document.getElementById("summit-table-body");
                 tableBody.innerHTML = "";
 
                 if (!summits.length) {
@@ -1527,12 +1564,18 @@
                 alert("Delete functionality coming soon for summit ID: " + id);
             }
         }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadSummits();
+        });
+
         // --- PROGRAMS ---
+        const PROGRAM_URL = '/api/programs';
         document.getElementById('program-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const id = document.getElementById('program-id').value;
             const method = id ? 'PUT' : 'POST';
-            const url = id ? `${API_URL}/${id}` : API_URL;
+            const url = id ? `${PROGRAM_URL}/${id}` : PROGRAM_URL;
             const programData = {
                 name: document.getElementById('program-name').value,
                 category: document.getElementById('program-category').value,
@@ -1548,7 +1591,7 @@
         });
 
         async function fetchPrograms() {
-            const res = await fetch(API_URL);
+            const res = await fetch(PROGRAM_URL);
             const programs = await res.json();
             const tbody = document.getElementById('programs-table-body');
             tbody.innerHTML = '';
@@ -1583,48 +1626,83 @@
 
         async function deleteProgram(id) {
             if (!confirm("Are you sure you want to delete this program?")) return;
-            await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            await fetch(`${PROGRAM_URL}/${id}`, { method: 'DELETE' });
             fetchPrograms();
         }
 
-        // --- CHAPTERS ---
-        async function loadChapters() {
-            const res = await fetch(`/api/chapters/pending`);
-            const chapters = await res.json();
-            const tbody = document.getElementById('chapter-list');
-            tbody.innerHTML = '';
-            chapters.forEach(chap => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${chap.university}</td>
-                    <td>${chap.location}</td>
-                    <td>${chap.establishedYear}</td>
-                    <td>${chap.members}</td>
-                    <td>${chap.description}</td>
-                    <td>
-                        <button onclick="updateChapterStatus('${chap._id}', 'approved')">Approve</button>
-                        <button onclick="updateChapterStatus('${chap._id}', 'rejected')">Reject</button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
+        async function loadChapterApplications() {
+            try {
+                const res = await fetch(`${process.env.API_URL}/api/admin/chapter-applications`);
+
+                if (!res.ok) {
+                    const errText = await res.text();
+                    console.error("Admin fetch failed:", errText);
+                    alert("Failed to load chapter applications.");
+                    return;
+                }
+
+                const chapters = await res.json();
+                console.log("Fetched chapters:", chapters);
+
+                const tbody = document.getElementById('chapter-table-body');
+                tbody.innerHTML = '';
+
+                if (!chapters.length) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td colspan="7">No chapter applications found.</td>`;
+                    tbody.appendChild(row);
+                    return;
+                }
+
+                chapters.forEach(chap => {
+                    const formattedDate = formatDate(chap.createdAt);
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${chap.university || '-'}</td>
+                        <td>${chap.location || '-'}</td>
+                        <td>${chap.establishedYear || '-'}</td>
+                        <td>${chap.members || '-'}</td>
+                        <td>${chap.status || 'Pending'}</td>
+                        <td>${formattedDate}</td>
+                        <td>
+                            <button onclick="approveChapter('${chap._id}')">Approve</button>
+                            <button onclick="rejectChapter('${chap._id}')">Reject</button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+            } catch (err) {
+                console.error("Error loading chapters:", err);
+                alert("Error loading chapter applications.");
+            }
         }
 
-        async function updateChapterStatus(id, status) {
-            await fetch(`/api/chapters/update-status`, {
-                method: 'POST',
+
+        async function approveChapter(id) {
+            const res = await fetch(`${process.env.API_URL}/api/admin/chapter-applications/${id}/approve`, {
+                method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, status })
+                credentials: 'include' // important if using session auth
             });
-            alert(`${status.charAt(0).toUpperCase() + status.slice(1)}!`);
-            loadChapters();
+            if (res.ok) loadChapterApplications();
+        }
+
+        async function rejectChapter(id) {
+            const res = await fetch(`${process.env.API_URL}/api/admin/chapter-applications/${id}/reject`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include'
+            });
+            if (res.ok) loadChapterApplications();
         }
 
         // --- INIT ---
         document.addEventListener('DOMContentLoaded', () => {
+            loadChapterApplications();
             fetchEvents();
             loadTestimonials();
-            loadStories();
             fetchArticles();
             fetchPrograms();
             loadChapters();
@@ -1692,7 +1770,7 @@
                     const row = document.createElement('tr');
 
                     // Format date nicely
-                    const formattedDate = new Date(resource.createdAt).toLocaleDateString();
+                    const formattedDate = new Date(parseInt(resource.createdAt)).toLocaleDateString();
 
                     row.innerHTML = `
                         <td>${resource.title || '-'}</td>
@@ -1781,7 +1859,7 @@
             const statusP = document.getElementById('status');
             statusP.textContent = 'Uploading...';
             try {
-                const response = await fetch('/api/admin/blogs', {
+                const response = await fetch('/api/blogs', {
                     method: 'POST',
                     body: formData
                 });
@@ -1801,11 +1879,14 @@
 
         async function fetchBlogs() {
             try {
+                console.log("Fetching blogs from /api/admin/blogs");
                 const response = await fetch('/api/admin/blogs');
+                console.log("Response status from /api/admin/blogs:", response.status);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const blogs = await response.json();
+                console.log("Received blogs:", blogs);
                 const tableBody = document.getElementById('blogs-table-body');
                 tableBody.innerHTML = '';
 
@@ -1841,34 +1922,102 @@
         async function approveBlog(id) {
             if (!confirm('Approve this blog?')) return;
             try {
-                const res = await fetch(`/api/admin/stories/${id}/approve`, { method: 'PATCH' });
+                const url = `/api/admin/blogs/${id}/approve`;
+                console.log(`Approving blog with URL: ${url}`);
+                const res = await fetch(url, { method: 'PATCH' });
+                console.log("Approve response status:", res.status);
                 if (res.ok) {
                     fetchBlogs();
                 } else {
-                    alert('Failed to approve blog');
+                    const result = await res.json();
+                    alert('Failed to approve blog: ' + (result.message || "Unknown error"));
                 }
             } catch (err) {
                 alert('Error approving blog');
+                console.error(err);
             }
         }
 
         async function rejectBlog(id) {
             if (!confirm('Reject this blog?')) return;
             try {
-                const res = await fetch(`/api/admin/stories/${id}/reject`, { method: 'PATCH' });
+                const url = `/api/admin/blogs/${id}/reject`;
+                console.log(`Rejecting blog with URL: ${url}`);
+                const res = await fetch(url, { method: 'PATCH' });
+                console.log("Reject response status:", res.status);
                 if (res.ok) {
                     fetchBlogs();
                 } else {
-                    alert('Failed to reject blog');
+                    const result = await res.json();
+                    alert('Failed to reject blog: ' + (result.message || "Unknown error"));
                 }
             } catch (err) {
                 alert('Error rejecting blog');
+                console.error(err);
             }
         }
 
         // Load blogs on page load
         document.addEventListener('DOMContentLoaded', fetchBlogs);
 
+    </script>
+    <script>
+        async function loadContactMessages() {
+            try {
+                const response = await fetch('/api/contact');
+                if (!response.ok) throw new Error('Failed to fetch messages');
+
+                const messages = await response.json();
+
+                const tableBody = document.getElementById('contact-messages-table');
+                tableBody.innerHTML = '';
+
+                if (messages.length === 0) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td colspan="6" style="text-align:center;">No messages found.</td>`;
+                    tableBody.appendChild(row);
+                    return;
+                }
+
+                messages.forEach(msg => {
+                    const formattedDate = formatDate(msg.createdAt);
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${msg.fullName}</td>
+                        <td>${msg.email}</td>
+                        <td>${msg.subject}</td>
+                        <td>${truncateText(msg.message, 50)}</td>
+                        <td>${msg.newsletter ? '✅ Yes' : '❌ No'}</td>
+                        <td>${formattedDate}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+
+            } catch (err) {
+                console.error('Error loading messages:', err);
+                document.getElementById('contact-messages-table').innerHTML =
+                    `<tr><td colspan="6" style="color:red;">Error loading messages.</td></tr>`;
+            }
+        }
+
+        // Helper: Format date safely
+        function formatDate(dateString) {
+            if (!dateString) return "N/A";
+
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return "Invalid Date";
+
+            return date.toLocaleString(); // e.g., "4/5/2025, 12:34 PM"
+        }
+
+        // Helper: Truncate long message text
+        function truncateText(text, maxLength) {
+            return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+        }
+
+        // Load messages when the page loads
+        document.addEventListener("DOMContentLoaded", loadContactMessages);
     </script>
 </body>
 

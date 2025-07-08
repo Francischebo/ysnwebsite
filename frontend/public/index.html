@@ -453,127 +453,21 @@
         }
         /* Footer */
         
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 4rem 0 2rem;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-        
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-        
-        .footer-logo img {
-            height: 40px;
-        }
-        
-        .footer-logo h2 {
-            font-size: 1.25rem;
-        }
-        
-        .footer-about p {
-            opacity: 0.8;
-            margin-bottom: 1.5rem;
-        }
-        
-        .social-links {
-            display: block;
-            gap: 1rem;
-        }
-        
-        .social-icon {
-            display: block;
-            align-items: center;
-            justify-content: left;
-            padding: 5px;
-            width: 55%;
-            height: 5%;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 5%;
-            transition: background-color 0.3s ease;
-        }
-        
+        /* Hover effects for interactive elements */
         .social-icon:hover {
-            background-color: var(--primary);
+            background-color: #2980b9 !important;
         }
-        
-        .footer-links h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-links ul {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-        
-        .footer-links a {
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-        }
-        
+
         .footer-links a:hover {
-            opacity: 1;
-            color: var(--primary);
+            color: #3498db !important;
         }
-        
-        .footer-subscribe h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-subscribe p {
-            opacity: 0.8;
-            margin-bottom: 1.5rem;
-        }
-        
-        .subscribe-form {
-            display: flex;
-            max-width: 300px;
-        }
-        
-        .subscribe-input {
-            flex-grow: 1;
-            padding: 0.75rem 1rem;
-            border: none;
-            border-radius: 0.375rem 0 0 0.375rem;
-            outline: none;
-            font-size: 0.875rem;
-        }
-        
-        .subscribe-btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 0 0.375rem 0.375rem 0;
-            padding: 0 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
+
         .subscribe-btn:hover {
-            background-color: #e05f00;
+            background-color: #2980b9 !important;
         }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 0.6;
-            font-size: 0.875rem;
+
+        .login-container button:hover {
+            background-color: #c0392b !important;
         }
         /* Header and Navigation */
         header {
@@ -1030,78 +924,69 @@
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="container ">
-            <div class="footer-content ">
-                <div class="footer-about ">
-                    <div class="footer-logo ">
-                        <img src="assets/images/ysn-logo.jpg " alt="YSN Logo ">
-                        <h2>Youth Synergy Network</h2>
+    <footer style="background-color: #2c3e50; color: #ecf0f1; padding: 40px 0 20px; font-family: Arial, sans-serif;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <div class="footer-content" style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between;">
+                <div class="footer-about" style="flex: 1; min-width: 250px; max-width: 300px;">
+                    <div class="footer-logo" style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <img src="assets/images/ysn-logo.jpg" alt="YSN Logo" style="width: 50px; height: 50px; margin-right: 15px; border-radius: 50%;">
+                        <h2 style="margin: 0; font-size: 1.5rem; color: #3498db;">Youth Synergy Network</h2>
                     </div>
-                    <p>Empowering youth to become leaders in legal literacy, climate action, mental health awareness, and community service.</p>
-                    <h3>Social Media Links</h3>
-                    <div class="social-links ">
-                        <a href="https://www.facebook.com/profile.php?id=61575320623640" class="social-icon ">Facebook</a>
-                        <a href="https://x.com/YouthN49907?t=LglVEql7hVOFXLyZCiQuYA&s=09" class="social-icon ">X Platform</a>
-                        <a href="https://www.linkedin.com/in/youth-synergy-network-51b538362?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon ">LinkedIn</a>
-                        <a href="https://www.tiktok.com/@youth.synergy.net" class="social-icon ">Tiktok</a>
-                        <a href="https://www.instagram.com/youth_synergynework?igsh=Mmx1eHM4NGdycjFu" class="social-icon ">Instagram</a>
+                    <p style="margin-bottom: 20px; line-height: 1.6; color: #bdc3c7;">Empowering youth to become leaders in legal literacy, climate action, mental health awareness, and community service.</p>
+                    <h3 style="margin-bottom: 15px; font-size: 1.2rem; color: #3498db;">Social Media Links</h3>
+                    <div class="social-links" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        <a href="https://www.facebook.com/profile.php?id=61575320623640" class="social-icon" style="background-color: #3498db; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 0.9rem; transition: background-color 0.3s;">Facebook</a>
+                        <a href="https://x.com/YouthN49907?t=LglVEql7hVOFXLyZCiQuYA&s=09" class="social-icon" style="background-color: #3498db; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 0.9rem; transition: background-color 0.3s;">X Platform</a>
+                        <a href="https://www.linkedin.com/in/youth-synergy-network-51b538362?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon" style="background-color: #3498db; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 0.9rem; transition: background-color 0.3s;">LinkedIn</a>
+                        <a href="https://www.tiktok.com/@youth.synergy.net" class="social-icon" style="background-color: #3498db; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 0.9rem; transition: background-color 0.3s;">Tiktok</a>
+                        <a href="https://www.instagram.com/youth_synergynework?igsh=Mmx1eHM4NGdycjFu" class="social-icon" style="background-color: #3498db; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 0.9rem; transition: background-color 0.3s;">Instagram</a>
                     </div>
                 </div>
 
-                <div class="footer-links ">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="index.html ">Home</a></li>
-                        <li><a href="about.html ">About Us</a></li>
-                        <li><a href="programs.html ">Programs</a></li>
-                        <li>
-                            <a href="program-details.html ">Impacts</a>
-                        </li>
-                        <li><a href="leadership.html ">Leadership</a></li>
-                        <li><a href="chapters.html ">University Chapters</a></li>
+                <div class="footer-links" style="flex: 1; min-width: 150px;">
+                    <h3 style="margin-bottom: 15px; font-size: 1.2rem; color: #3498db;">Quick Links</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 8px;"><a href="index.html" style="color: #bdc3c7; text-decoration: none; transition: color 0.3s;">Home</a></li>
+                        <li style="margin-bottom: 8px;"><a href="about.html" style="color: #bdc3c7; text-decoration: none; transition: color 0.3s;">About Us</a></li>
+                        <li style="margin-bottom: 8px;"><a href="programs.html" style="color: #bdc3c7; text-decoration: none; transition: color 0.3s;">Programs</a></li>
+                        <li style="margin-bottom: 8px;"><a href="program-details.html" style="color: #bdc3c7; text-decoration: none; transition: color 0.3s;">Impacts</a></li>
+                        <li style="margin-bottom: 8px;"><a href="leadership.html" style="color: #bdc3c7; text-decoration: none; transition: color 0.3s;">Leadership</a></li>
+                        <li style="margin-bottom: 8px;"><a href="chapters.html" style="color: #bdc3c7; text-decoration: none; transition: color 0.3s;">University Chapters</a></li>
                     </ul>
                 </div>
 
-                <div class="footer-links ">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="events.html ">Events</a></li>
-                        <li><a href="resources.html ">Resources</a></li>
-                        <li><a href="media.html ">Media Center</a></li>
-                        <li><a href="blog.html ">Blog</a></li>
-                        <li><a href="contact.html ">Contact Us</a></li>
+                <div class="footer-links" style="flex: 1; min-width: 150px;">
+                    <h3 style="margin-bottom: 15px; font-size: 1.2rem; color: #3498db;">Quick Links</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 8px;"><a href="events.html" style="color: #bdc3c7; text-decoration: none; transition: color 0.3s;">Events</a></li>
+                        <li style="margin-bottom: 8px;"><a href="resources.html" style="color: #bdc3c7; text-decoration: none; transition: color 0.3s;">Resources</a></li>
+                        <li style="margin-bottom: 8px;"><a href="media.html" style="color: #bdc3c7; text-decoration: none; transition: color 0.3s;">Media Center</a></li>
+                        <li style="margin-bottom: 8px;"><a href="blog.html" style="color: #bdc3c7; text-decoration: none; transition: color 0.3s;">Blog</a></li>
+                        <li style="margin-bottom: 8px;"><a href="contact.html" style="color: #bdc3c7; text-decoration: none; transition: color 0.3s;">Contact Us</a></li>
                     </ul>
                 </div>
 
-
-                <div class="footer-subscribe ">
-                    <h3>Stay Updated</h3>
-                    <p>Subscribe to our newsletter for updates on our programs and impact stories.</p>
-                    <form id="subscribeForm" class="subscribe-form">
-                        <input type="email" id="email" name="email" class="subscribe-input" placeholder="Your email address" required><br><br>
-                        <button type="submit" class="subscribe-btn">Subscribe</button>
+                <div class="footer-subscribe" style="flex: 1; min-width: 250px;">
+                    <h3 style="margin-bottom: 15px; font-size: 1.2rem; color: #3498db;">Stay Updated</h3>
+                    <p style="margin-bottom: 20px; line-height: 1.6; color: #bdc3c7;">Subscribe to our newsletter for updates on our programs and impact stories.</p>
+                    <form id="subscribeForm" class="subscribe-form" style="margin-bottom: 20px;">
+                        <input type="email" id="email" name="email" class="subscribe-input" placeholder="Your email address" required style="width: 100%; padding: 12px; border: 1px solid #34495e; border-radius: 5px; background-color: #34495e; color: #ecf0f1; margin-bottom: 10px; font-size: 0.9rem;">
+                        <button type="submit" class="subscribe-btn" style="width: 100%; padding: 12px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s;">Subscribe</button>
                     </form>
-                    <p id="subscribeMessage"></p>
-                </div>
-
-                <div class="login-container">
-                    <h2>Admin Login</h2>
-                    <form id="loginForm">
-                        <input type="text" name="username" placeholder="Username" required>
-                        <input type="password" name="password" placeholder="Password" required>
-                        <button type="submit">Login</button>
-                    </form>
-                    <p id="status"></p>
+                    <p id="subscribeMessage" style="margin-bottom: 20px; color: #27ae60;"></p>
+                    <div class="login-container">
+                        <button onclick="location.href='/admin/login.html'" style="padding: 10px 20px; background-color: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9rem; transition: background-color 0.3s;">Admin Login</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="footer-bottom ">
-                <p>&copy; 2025 Youth Synergy Network. All Rights Reserved.</p>
-                <p>Developer: Francis(<i><a href="mailto:mtechspacesolutions@gmail.com">Mobet Tech Space Solutions. Click to email them.</a></i>)</p>
+            <div class="footer-bottom" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #34495e; text-align: center;">
+                <p style="margin: 0 0 10px 0; color: #bdc3c7; font-size: 0.9rem;">&copy; 2025 Youth Synergy Network. All Rights Reserved.</p>
+                <p style="margin: 0; color: #bdc3c7; font-size: 0.8rem;">Developer: Francis(<i><a href="mailto:mtechspacesolutions@gmail.com" style="color: #3498db; text-decoration: none;">Mobet Tech Space Solutions. Click to email them.</a></i>)</p>
             </div>
         </div>
     </footer>
+
     <script>
         // Toggle mobile navigation
         const hamburger = document.querySelector('.hamburger');
@@ -1109,7 +994,7 @@
         
         hamburger.addEventListener('click', () => {
             nav.classList.toggle('active');
-            hamburger.textContent = nav.classList.contains('active') ? '✕' : '☰';
+            hamburger.textContent = nav.classList.contains('active') ? '✕' : '☰'
         });
         
         // Close mobile menu when clicking outside
@@ -1190,24 +1075,6 @@
                 alert('An error occurred while adding the article.');
             }
         });
-    </script>
-    
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-        
-            const res = await fetch('/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-        
-            if (res.redirected) window.location.href = res.url;
-            else document.getElementById('status').textContent = await res.text();
-        });
-        
     </script>
     
 </body>
