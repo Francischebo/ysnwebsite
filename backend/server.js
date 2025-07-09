@@ -47,11 +47,6 @@ const programRoutes = require("./routes/admin/programRoutes");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const http = require("http").createServer(app);
-const io = require("socket.io")(http, {
-    cors: {
-        origin: "*"
-    }
-});
 
 // Middleware
 app.use(express.json());
