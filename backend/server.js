@@ -48,6 +48,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const http = require("http").createServer(app);
 
+const connectDB = require('./config/db');
+
+// Connect to DB
+connectDB();
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
