@@ -18,6 +18,9 @@
         "build": "npm run build",
         "dev": "nodemon backend/server.js"
     },
+    "engines": {
+      "node": ">=18.18.0 <19.0.0"
+    },
     "keywords": [],
     "author": "",
     "license": "ISC",
