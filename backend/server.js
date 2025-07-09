@@ -2,15 +2,15 @@ const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const fs = require("fs");
-const path = require("path");
 const multer = require('multer');
 const router = express.Router();
 const helmet = require("helmet");
 const morgan = require("morgan");
 const axios = require("axios");
 const bcrypt = require("bcryptjs");
-require('dotenv').config({ path: path.join(__dirname, './.env') });
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({ path: './.env.development' });
 }
