@@ -45,7 +45,7 @@ const programRoutes = require("./routes/admin/programRoutes");
 
 // Initialize Express
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 const http = require("http").createServer(app);
 
 const connectDB = require('./config/db');
@@ -1519,11 +1519,9 @@ app.post("/callback", (req, res) => {
     res.status(200).json({ received: true });
 });
 
-
-
 // ---------------------------
 connectDB().then(() => {
     http.listen(PORT, () => {
-        console.log(`✅ Server running at http://localhost:${PORT}`);
+        console.log(`✅ Server running at Port:${PORT}`);
     });
 });
