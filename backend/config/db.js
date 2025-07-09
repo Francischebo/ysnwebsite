@@ -2,7 +2,9 @@
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
-  const dbURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mydb';
+  const dbURI = process.env.MONGODB_URI;
+
+//  || 'mongodb://localhost:27017/ysn-website'
   
   try {
     await mongoose.connect(dbURI, {
