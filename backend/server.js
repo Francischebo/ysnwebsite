@@ -11,6 +11,9 @@ const morgan = require("morgan");
 const axios = require("axios");
 const bcrypt = require("bcryptjs");
 require('dotenv').config({ path: path.join(__dirname, './.env') });
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({ path: './.env.development' });
+}
 const Resource = require("./models/Resource");
 const Category = require("./models/Category");
 const Payment = require("./models/paymentModel");
@@ -35,9 +38,6 @@ const Summit = require("./models/Summit");
 const Testimonial = require("./models/Testimonial");
 
 
-
-// Routes
-const connectDB = require("./config/db");
 const joinRoutes = require("./routes/joinRoute");
 const subscribeRoute = require("./routes/subscribeRoute");
 const eventRoutes = require("./routes/eventRoutes");
