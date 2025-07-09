@@ -1,20 +1,18 @@
-// config/db.js
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
   const dbURI = process.env.MONGODB_URI;
 
-//  || 'mongodb://localhost:27017/ysn-website'
-  
+  if (!dbURI) {
+    throw new Error('MONGODB_URI is not defined');
+  }
+
   try {
-    await mongoose.connect(dbURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(dbURI);
     console.log('MongoDB connected successfully');
   } catch (err) {
-    console.error('MongoDB connection error:', err);
-    process.exit(1); // Exit if DB fails to connect
+    console.error('MongoDB connection error:', err.message);
+    process.exit(1);
   }
 };
 
