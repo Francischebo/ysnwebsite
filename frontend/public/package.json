@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "build": "echo Building frontend...",
-        "start": "serve -l 3002 frontend/public"
+        "start": "serve -l 10000 frontend/public"
     },
     "keywords": [],
     "author": "",
