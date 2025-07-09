@@ -100,25 +100,6 @@ ensureDirExists("./uploads/resume");
 ensureDirExists("./uploads/resources");
 ensureDirExists("./uploads/chapterApplications");
 
-// ---------------------------
-// 3. Socket.IO Events
-// ---------------------------
-io.on("connection", (socket) => {
-    console.log("User connected:", socket.id);
-
-    socket.on("new_message", (data) => {
-        io.emit("new_message", data);
-    });
-
-    socket.on("user_typing", (data) => {
-        io.emit("user_typing", data);
-    });
-
-    socket.on("coordinator_reply", (data) => {
-        io.emit("coordinator_reply", data);
-    });
-});
-
 
 // filepath: c:\Users\JOYLIM\Desktop\join us\join-us\server.js (or your multer config file)
 const storage = multer.diskStorage({
