@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.html",
     "scripts": {
-        "build": "echo Building admin...",
+        "build": "cp -r admin/* dist/",
         "start": "serve -l 10000 admin"
     },
     "keywords": [],
