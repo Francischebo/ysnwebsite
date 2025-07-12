@@ -1681,7 +1681,7 @@
 
 
         async function approveChapter(id) {
-            const res = await fetch(`${process.env.API_URL}/api/admin/chapter-applications/${id}/approve`, {
+            const res = await fetch(`${https://ysnwebsite.onrender.com}/api/admin/chapter-applications/${id}/approve`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include' // important if using session auth
@@ -1690,7 +1690,7 @@
         }
 
         async function rejectChapter(id) {
-            const res = await fetch(`${process.env.API_URL}/api/admin/chapter-applications/${id}/reject`, {
+            const res = await fetch(`${https://ysnwebsite.onrender.com}/api/admin/chapter-applications/${id}/reject`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'
